@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredientes · Individuel Genève</title>
+    <meta name="description" content="Glosario de activos: niacinamida, ácido hialurónico, vitamina C, retinal, ceramidas, péptidos. Qué hacen y cómo combinarlos.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/ingredientes/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel">
+        const IngredientsPage = () => {
+            const catalog = useCatalog();
+
+            // Scroll to #id once the list has rendered.
+            useEffect(() => {
+                if (catalog.status === 'ready' && location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start' });
+            }, [catalog.status]);
+
+            const productsWith = (id) => catalog.products.filter(p => p.ingredient_ids.includes(id));
+
+            return (
+                <>
+                    <PageHero eyebrow="Glosario" title="Ingredientes" script="activos"
+                        intro="Lo que hace cada activo, con qué combinarlo y cuándo tener precaución. Textos divulgativos: ante cualquier duda, consulta a tu dermatólogo." />
+                    <section className="max-w-5xl mx-auto px-4 md:px-8 pb-16">
+                        <nav className="flex flex-wrap justify-center gap-2 mb-16" aria-label="Índice">
+                            {catalog.ingredients.map(i => <a key={i.id} href={`#${i.id}`} className="px-4 py-2 rounded-full border border-ink-line text-sm hover:border-blush-400">{i.name}</a>)}
+                        </nav>
+                        <div className="divide-y divide-ink-line">
+                            {catalog.ingredients.map(i => (
+                                <article key={i.id} id={i.id} className="py-14 grid md:grid-cols-3 gap-8 scroll-mt-32 reveal">
+                                    <div>
+                                        <p className="label text-ink-400">{i.family}</p>
+                                        <h2 className="text-4xl mt-2">{i.name}</h2>
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <p className="text-lg text-ink-500 leading-relaxed">{i.what}</p>
+                                        <ul className="flex flex-wrap gap-2 mt-6">
+                                            {i.benefits.map(b => <li key={b} className="px-4 py-1.5 rounded-full bg-blush-100 text-sm">{b}</li>)}
+                                        </ul>
+                                        {i.caution && <p className="mt-6 text-sm text-blush-500 border-l-2 border-blush-300 pl-4">{i.caution}</p>}
+                                        {i.pairs_with.length > 0 && (
+                                            <p className="mt-6 text-sm text-ink-500"><span className="label text-ink-400 mr-2">Combina con</span>
+                                                {i.pairs_with.map(id => catalog.ingredient[id]).filter(Boolean).map((x, n) => (
+                                                    <span key={x.id}>{n > 0 && ' · '}<a href={`#${x.id}`} className="underline underline-offset-4 hover:text-ink">{x.name}</a></span>
+                                                ))}
+                                            </p>
+                                        )}
+                                        {productsWith(i.id).length > 0 && (
+                                            <div className="mt-6 flex flex-wrap gap-3">
+                                                {productsWith(i.id).map(p => (
+                                                    <a key={p.id} href={`/pages/tienda/${p.slug}/`} className="flex items-center gap-3 pr-5 rounded-full bg-blush-50 hover:bg-blush-100">
+                                                        <span className="w-10 h-10 rounded-full bg-white"><Bottle product={p} className="w-full h-full" /></span>
+                                                        <span className="text-sm">{p.name}</span>
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    </section>
+                </>
+            );
+        };
+
+        renderPage(IngredientsPage);
+    </script>
+</body>
+</html>

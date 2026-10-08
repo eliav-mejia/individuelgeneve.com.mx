@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Individuel Genève · v1.0.0</title>
+<style>
+  :root { --ink:#2f2f33; --soft:#6e6e74; --blush:#f4dfe2; --line:#ebe5e6; }
+  body { font: 300 15px/1.65 'Jost', system-ui, sans-serif; color: var(--ink); max-width: 760px; margin: 48px auto; padding: 0 20px; background: #fff; }
+  h1, h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; }
+  h1 { font-size: 40px; margin: 0; } h2 { font-size: 26px; margin-top: 40px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .meta { color: var(--soft); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; } td, th { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: left; vertical-align: top; }
+  code { background: var(--blush); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+</style>
+</head>
+<body>
+<p class="meta">Documento de versión · 7 de octubre de 2026</p>
+<h1>Individuel Genève 1.0.0</h1>
+<p>Primera versión del sitio: una tienda minimalista de cuidado de la piel con activos esenciales, un glosario de
+ingredientes y la reserva de tratamientos faciales. Estado: <strong>staging</strong>.</p>
+
+<h2>1. Alcance</h2>
+<table>
+<tr><th>Área</th><th>Incluye</th></tr>
+<tr><td>Tienda</td><td>8 productos en 4 pasos (limpiar, tratar, hidratar, proteger), filtros, fichas con fórmula completa, bolsa y pedido.</td></tr>
+<tr><td>Ingredientes</td><td>Glosario de 10 activos: qué hacen, con qué combinarlos y precauciones, enlazado con los productos.</td></tr>
+<tr><td>Tratamientos</td><td>4 protocolos en cabina con reserva en línea por día y hora.</td></tr>
+<tr><td>Cuenta</td><td>Registro, inicio de sesión, citas (con cancelación) y pedidos.</td></tr>
+<tr><td>Legal</td><td>Términos y condiciones y aviso de privacidad para México, pendientes de revisión legal.</td></tr>
+</table>
+
+<h2>2. Enfoque</h2>
+<p>Se reutiliza la arquitectura de lameyer.net: páginas estáticas, componentes compartidos y una capa de datos única por
+dominio (<code>auth</code>, <code>db</code>, <code>agenda</code>). En esta versión los datos son archivos JSON públicos y
+el navegador; en la siguiente, una base de datos gestionada fuera del repositorio con control de acceso por fila.</p>
+
+<h2>3. Pendiente</h2>
+<p>Base de datos y cuentas reales (1.1), pago en línea (1.2) y repositorio con build y panel de administración (2.0).</p>
+</body>
+</html>

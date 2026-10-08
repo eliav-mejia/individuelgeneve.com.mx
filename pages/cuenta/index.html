@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi cuenta · Individuel Genève</title>
+    <meta name="description" content="Tus pedidos y citas en Individuel Genève.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/cuenta/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel" src="/js/reservas.jsx"></script>
+    <script type="text/babel">
+        // Behind a required login (ACCESS_RULES in /js/acceso.jsx). At launch, Supabase RLS returns only this user's rows.
+        const STATUS_CLS = { confirmada: 'bg-blush-100', pendiente: 'bg-blush-100', cancelada: 'bg-ink-line text-ink-400', completada: 'bg-white border border-ink-line' };
+
+        const AccountPage = () => {
+            const user = useUser();
+            const [tab, setTab] = useState('citas');
+            const [citas, setCitas] = useState([]);
+            const [orders, setOrders] = useState([]);
+
+            const load = useCallback(() => {
+                if (!user) return;
+                agenda.mine(user.email).then(setCitas);
+                db.ordersFor(user.email).then(setOrders);
+            }, [user && user.email]);
+
+            useEffect(() => {
+                load();
+                window.addEventListener('ig-citas', load);
+                return () => window.removeEventListener('ig-citas', load);
+            }, [load]);
+
+            if (!user) return <div className="min-h-[60vh]" />;
+
+            const today = isoDate(new Date());
+            const upcoming = citas.filter(c => c.date >= today && c.status !== 'cancelada');
+            const past = citas.filter(c => !(c.date >= today && c.status !== 'cancelada'));
+            const cancel = (c) => { if (confirm(`¿Cancelar ${c.treatment_name} del ${longDate(c.date)}?`)) agenda.cancel(c.id, user.email); };
+
+            const tabBtn = (id, label) => (
+                <button role="tab" aria-selected={tab === id} onClick={() => setTab(id)}
+                    className={`label pb-3 -mb-px border-b ${tab === id ? 'border-ink text-ink' : 'border-transparent text-ink-400'}`}>{label}</button>
+            );
+
+            const Appointment = ({ c, canCancel }) => (
+                <li className="py-6 flex flex-wrap gap-4 items-center justify-between">
+                    <div>
+                        <p className="font-serif text-2xl">{c.treatment_name}</p>
+                        <p className="text-sm text-ink-500 first-letter:uppercase">{longDate(c.date)} · {c.time} h · {c.duration_min} min</p>
+                        <p className="text-xs text-ink-400 mt-1">{c.id}</p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <span className={`label px-3 py-1.5 rounded-full ${STATUS_CLS[c.status] || ''}`}>{c.status}</span>
+                        {canCancel && <button className="label text-ink-400 hover:text-ink" onClick={() => cancel(c)}>Cancelar</button>}
+                    </div>
+                </li>
+            );
+
+            return (
+                <>
+                    <PageHero eyebrow={user.email} title="Hola," script={user.name.split(' ')[0]} />
+                    <section className="max-w-4xl mx-auto px-4 md:px-8 pb-16">
+                        <div className="flex gap-8 border-b border-ink-line" role="tablist">
+                            {tabBtn('citas', `Citas (${upcoming.length})`)}
+                            {tabBtn('pedidos', `Pedidos (${orders.length})`)}
+                            {tabBtn('perfil', 'Perfil')}
+                        </div>
+
+                        {tab === 'citas' && (
+                            <div className="pt-8 animate-fade-in">
+                                {upcoming.length === 0
+                                    ? <div className="text-center py-10"><p className="text-ink-500">No tienes citas próximas.</p><a href="/pages/tratamientos/#reservar" className="btn btn-dark mt-6">Reservar cita</a></div>
+                                    : <ul className="divide-y divide-ink-line">{upcoming.map(c => <Appointment key={c.id} c={c} canCancel />)}</ul>}
+                                {past.length > 0 && <>
+                                    <p className="label text-ink-400 mt-12 mb-2">Historial</p>
+                                    <ul className="divide-y divide-ink-line opacity-80">{past.map(c => <Appointment key={c.id} c={c} />)}</ul>
+                                </>}
+                            </div>
+                        )}
+
+                        {tab === 'pedidos' && (
+                            <div className="pt-8 animate-fade-in">
+                                {orders.length === 0
+                                    ? <div className="text-center py-10"><p className="text-ink-500">Aún no tienes pedidos.</p><a href="/pages/tienda/" className="btn btn-dark mt-6">Ir a la tienda</a></div>
+                                    : <ul className="space-y-4">{orders.map(o => (
+                                        <li key={o.id} className="rounded-2xl border border-ink-line p-6">
+                                            <div className="flex flex-wrap justify-between gap-2">
+                                                <p className="font-serif text-2xl">{o.id}</p>
+                                                <span className={`label px-3 py-1.5 rounded-full ${STATUS_CLS[o.status] || ''}`}>{o.status}</span>
+                                            </div>
+                                            <p className="text-sm text-ink-400">{new Date(o.created_at).toLocaleDateString('es-MX', { dateStyle: 'long' })}</p>
+                                            <ul className="text-sm text-ink-500 mt-4 space-y-1">{o.lines.map(l => <li key={l.id}>{l.qty} × {l.name}</li>)}</ul>
+                                            <p className="font-serif text-xl mt-4">{formatMXN(o.total)}</p>
+                                        </li>
+                                    ))}</ul>}
+                            </div>
+                        )}
+
+                        {tab === 'perfil' && (
+                            <div className="pt-8 animate-fade-in space-y-4">
+                                <p><span className="label text-ink-400 mr-3">Nombre</span>{user.name}</p>
+                                <p><span className="label text-ink-400 mr-3">Email</span>{user.email}</p>
+                                <p className="text-sm text-ink-400">{TXT.staging}</p>
+                                <button className="btn btn-light mt-4" onClick={() => { auth.logout(); location.href = '/'; }}>{TXT.logout}</button>
+                            </div>
+                        )}
+                    </section>
+                </>
+            );
+        };
+
+        renderPage(AccountPage);
+    </script>
+</body>
+</html>

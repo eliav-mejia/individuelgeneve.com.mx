@@ -1,0 +1,11 @@
+{
+  "_schema": "categories: id, label, step, description, sort_order",
+  "_note": "Base de datos simulada (staging). Ver public/db/README.md. Pública: sin datos privados.",
+  "updated_at": "2026-10-07",
+  "categories": [
+    { "id": "limpiar",  "label": "Limpiar",  "step": "01", "description": "Retira impurezas sin alterar la barrera de la piel.", "sort_order": 1 },
+    { "id": "tratar",   "label": "Tratar",   "step": "02", "description": "Sérums con un activo principal en la concentración que funciona.", "sort_order": 2 },
+    { "id": "hidratar", "label": "Hidratar", "step": "03", "description": "Agua y lípidos para una barrera firme y una piel cómoda.", "sort_order": 3 },
+    { "id": "proteger", "label": "Proteger", "step": "04", "description": "Filtro mineral diario: el paso antiedad más eficaz.", "sort_order": 4 }
+  ]
+}

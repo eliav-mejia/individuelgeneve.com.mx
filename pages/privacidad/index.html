@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso de privacidad · Individuel Genève</title>
+    <meta name="description" content="Aviso de privacidad integral conforme a la LFPDPPP.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/privacidad/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+
+    <script type="text/babel">
+        // Values in [corchetes] are placeholders, highlighted on the page until filled in. Pending legal review.
+        const Mark = ({ children }) => {
+            const parts = String(children).split(/(\[[^\]]+\])/g);
+            return parts.map((p, i) => p.startsWith("[") ? <mark key={i} className="bg-blush-200 px-1 rounded">{p}</mark> : p);
+        };
+        const LegalPage = ({ eyebrow, title, script, updated, sections }) => (
+            <>
+                <PageHero eyebrow={eyebrow} title={title} script={script} intro={`Última actualización: ${updated}`} />
+                <section className="max-w-6xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-4 gap-12">
+                    <nav className="hidden md:block md:sticky md:top-32 self-start text-sm space-y-3" aria-label="Índice">
+                        {sections.map(s => <a key={s.id} href={`#${s.id}`} className="block text-ink-400 hover:text-ink">{s.title}</a>)}
+                    </nav>
+                    <div className="md:col-span-3 space-y-14">
+                        {sections.map(s => (
+                            <article key={s.id} id={s.id} className="scroll-mt-32">
+                                <h2 className="text-3xl mb-4">{s.title}</h2>
+                                <div className="space-y-4 text-ink-500 leading-relaxed">{s.body.map((p, i) => <p key={i}><Mark>{p}</Mark></p>)}</div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            </>
+        );
+        const SECTIONS = [
+            { id: 'responsable', title: 'Responsable', body: [
+                `[Razón social] («${BRAND.name}»), con domicilio en ${BRAND.address}, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).`,
+            ] },
+            { id: 'datos', title: 'Datos que recabamos', body: [
+                'Identificación y contacto: nombre, email, teléfono y dirección de envío.',
+                'Datos de tus citas: tratamiento, fecha y las observaciones que nos indiques. Si nos compartes información de salud (alergias, embarazo, medicación), se considera dato sensible y solo la usamos para tu seguridad durante el tratamiento, con tu consentimiento expreso.',
+                'No almacenamos datos de tarjeta: los pagos los procesa la pasarela de pago.',
+            ] },
+            { id: 'finalidades', title: 'Finalidades', body: [
+                'Primarias: gestionar tu cuenta, tus pedidos, envíos y citas, y atender tus solicitudes.',
+                'Secundarias (puedes oponerte): enviarte novedades y recomendaciones. Si no deseas recibirlas, escríbenos a ' + BRAND.email + '.',
+            ] },
+            { id: 'transferencias', title: 'Encargados y transferencias', body: [
+                'Usamos proveedores que tratan datos por nuestra cuenta: alojamiento de base de datos [Supabase], pasarela de pago [Stripe / Mercado Pago] y paquetería [proveedor]. No vendemos tus datos.',
+            ] },
+            { id: 'arco', title: 'Derechos ARCO', body: [
+                'Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos, así como revocar tu consentimiento, enviando tu solicitud a ' + BRAND.email + ' con tu nombre, una identificación y la descripción de tu solicitud. Responderemos en un máximo de 20 días hábiles.',
+            ] },
+            { id: 'cookies', title: 'Cookies y almacenamiento local', body: [
+                'Usamos almacenamiento local del navegador, estrictamente necesario, para tu bolsa, tu sesión y tu elección de cookies. Las cookies de medición solo se activan si eliges «Aceptar todas».',
+            ] },
+            { id: 'cambios', title: 'Cambios a este aviso', body: [
+                'Publicaremos cualquier cambio en esta página, con su fecha de actualización.',
+            ] },
+        ];
+
+        renderPage(() => <LegalPage eyebrow="Legal · México" title="Aviso de" script="privacidad" updated="7 de octubre de 2026" sections={SECTIONS} />);
+    </script>
+</body>
+</html>

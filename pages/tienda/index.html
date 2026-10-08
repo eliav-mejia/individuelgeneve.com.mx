@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda · Individuel Genève</title>
+    <meta name="description" content="Sérums, cremas, limpiador y protector solar con un activo principal en la concentración que funciona. Envío a todo México.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tienda/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel">
+        const SORTS = [
+            { id: 'ritual', label: 'Orden del ritual' },
+            { id: 'price-asc', label: 'Precio: menor a mayor' },
+            { id: 'price-desc', label: 'Precio: mayor a menor' },
+        ];
+        const ROUTINES = [{ id: 'all', label: 'Mañana y noche' }, { id: 'am', label: 'Mañana' }, { id: 'pm', label: 'Noche' }];
+
+        const ShopPage = () => {
+            const catalog = useCatalog();
+            const params = new URLSearchParams(window.location.search);
+            const [cat, setCat] = useState(params.get('cat') || 'all');
+            const [routine, setRoutine] = useState('all');
+            const [sort, setSort] = useState('ritual');
+
+            // Keep ?cat= in the URL so a filtered view can be shared.
+            useEffect(() => {
+                const url = new URL(window.location);
+                cat === 'all' ? url.searchParams.delete('cat') : url.searchParams.set('cat', cat);
+                history.replaceState(null, '', url);
+            }, [cat]);
+
+            const order = Object.fromEntries(catalog.categories.map(c => [c.id, c.sort_order]));
+            const products = catalog.products
+                .filter(p => cat === 'all' || p.category_id === cat)
+                .filter(p => routine === 'all' || p.routine === routine || p.routine === 'am-pm')
+                .sort((a, b) => sort === 'price-asc' ? a.price_mxn - b.price_mxn
+                    : sort === 'price-desc' ? b.price_mxn - a.price_mxn
+                    : order[a.category_id] - order[b.category_id] || a.id.localeCompare(b.id));
+            const current = catalog.category[cat];
+
+            const chip = (active) => `shrink-0 px-5 py-2.5 rounded-full label transition-colors border ${active ? 'bg-ink text-white border-ink' : 'border-ink-line text-ink-500 hover:border-blush-400'}`;
+
+            return (
+                <>
+                    <PageHero eyebrow="La colección" title="Activos" script="esenciales"
+                        intro={current ? current.description : 'Ocho fórmulas, un activo principal en cada una. Combínalas en cuatro pasos.'} />
+                    <section className="max-w-7xl mx-auto px-4 md:px-8 pb-16">
+                        <div className="flex flex-col lg:flex-row gap-4 lg:items-center justify-between mb-14 border-b border-ink-line pb-6">
+                            <div className="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Paso del ritual">
+                                <button className={chip(cat === 'all')} aria-pressed={cat === 'all'} onClick={() => setCat('all')}>Todo</button>
+                                {catalog.categories.map(c => (
+                                    <button key={c.id} className={chip(cat === c.id)} aria-pressed={cat === c.id} onClick={() => setCat(c.id)}>{c.step} · {c.label}</button>
+                                ))}
+                            </div>
+                            <div className="flex gap-3">
+                                <select className="field !py-2.5 !rounded-full !w-auto text-sm" value={routine} onChange={e => setRoutine(e.target.value)} aria-label="Momento del día">
+                                    {ROUTINES.map(r => <option key={r.id} value={r.id}>{r.label}</option>)}
+                                </select>
+                                <select className="field !py-2.5 !rounded-full !w-auto text-sm" value={sort} onChange={e => setSort(e.target.value)} aria-label="Ordenar">
+                                    {SORTS.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
+                                </select>
+                            </div>
+                        </div>
+
+                        {catalog.status === 'loading' && <ProductGridSkeleton n={8} />}
+                        {catalog.status === 'error' && <LoadError />}
+                        {catalog.status === 'ready' && products.length === 0 && <p className="text-center text-ink-400 py-16">No hay productos con estos filtros.</p>}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-14">
+                            {products.map(p => <ProductCard key={p.id} product={p} category={catalog.category[p.category_id]} />)}
+                        </div>
+                    </section>
+
+                    <section className="max-w-4xl mx-auto px-4 md:px-8 py-16 text-center">
+                        <p className="font-script text-4xl text-blush-500">¿No sabes por dónde empezar?</p>
+                        <p className="text-ink-500 mt-4">Reserva un diagnóstico de piel de 30 minutos: te proponemos una rutina y el importe se bonifica en tu compra.</p>
+                        <a href="/pages/tratamientos/?tratamiento=diagnostico#reservar" className="btn btn-light mt-8">Reservar diagnóstico</a>
+                    </section>
+                </>
+            );
+        };
+
+        renderPage(ShopPage);
+    </script>
+</body>
+</html>

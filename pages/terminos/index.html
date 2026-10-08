@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y condiciones · Individuel Genève</title>
+    <meta name="description" content="Términos de compra, envíos, devoluciones y política de citas de Individuel Genève (México).">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/terminos/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+
+    <script type="text/babel">
+        // Values in [corchetes] are placeholders, highlighted on the page until filled in. Pending legal review.
+        const Mark = ({ children }) => {
+            const parts = String(children).split(/(\[[^\]]+\])/g);
+            return parts.map((p, i) => p.startsWith("[") ? <mark key={i} className="bg-blush-200 px-1 rounded">{p}</mark> : p);
+        };
+        const LegalPage = ({ eyebrow, title, script, updated, sections }) => (
+            <>
+                <PageHero eyebrow={eyebrow} title={title} script={script} intro={`Última actualización: ${updated}`} />
+                <section className="max-w-6xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-4 gap-12">
+                    <nav className="hidden md:block md:sticky md:top-32 self-start text-sm space-y-3" aria-label="Índice">
+                        {sections.map(s => <a key={s.id} href={`#${s.id}`} className="block text-ink-400 hover:text-ink">{s.title}</a>)}
+                    </nav>
+                    <div className="md:col-span-3 space-y-14">
+                        {sections.map(s => (
+                            <article key={s.id} id={s.id} className="scroll-mt-32">
+                                <h2 className="text-3xl mb-4">{s.title}</h2>
+                                <div className="space-y-4 text-ink-500 leading-relaxed">{s.body.map((p, i) => <p key={i}><Mark>{p}</Mark></p>)}</div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            </>
+        );
+        // Keep these ids: product pages, the bag and the booking form link to #precios, #envios, #devoluciones and #citas.
+        const SECTIONS = [
+            { id: 'vendedor', title: 'Quiénes somos', body: [
+                `${BRAND.name} es una marca operada por [Razón social], RFC [RFC], con domicilio en ${BRAND.address}. Contacto: ${BRAND.email}.`,
+                'Estos términos se rigen por la Ley Federal de Protección al Consumidor (LFPC) y la NOM-151-SCFI aplicable al comercio electrónico.',
+            ] },
+            { id: 'precios', title: 'Precios y pago', body: [
+                'Todos los precios están en pesos mexicanos (MXN) e incluyen IVA. El precio aplicable es el que aparece al confirmar el pedido.',
+                'Durante la etapa de lanzamiento confirmamos cada pedido y su forma de pago por WhatsApp. Nunca te pediremos datos de tarjeta por mensaje.',
+            ] },
+            { id: 'envios', title: 'Envíos', body: [
+                `Enviamos a toda la República Mexicana. Envío estándar ${formatMXN(SHIPPING_MXN)}; gratis en pedidos desde ${formatMXN(FREE_SHIPPING_MXN)}.`,
+                'Plazo estimado: [2 a 5] días hábiles tras la confirmación del pago. Recibirás tu número de guía por correo o WhatsApp.',
+            ] },
+            { id: 'devoluciones', title: 'Devoluciones', body: [
+                'Puedes devolver productos cerrados y sin usar en un plazo de [30] días naturales desde la entrega. Por higiene, no aceptamos devoluciones de productos abiertos salvo defecto o reacción documentada.',
+                'Si un producto llega dañado o con defecto, escríbenos en las primeras 72 horas con una foto y lo reponemos sin costo.',
+                'Tienes derecho a revocar tu consentimiento de compra dentro de los 5 días hábiles siguientes a la entrega (art. 56 LFPC).',
+            ] },
+            { id: 'citas', title: 'Citas y cancelaciones', body: [
+                'Puedes cancelar o cambiar tu cita sin costo hasta 24 horas antes desde Mi cuenta o por WhatsApp.',
+                'Cancelaciones con menos de 24 horas o inasistencias: [política pendiente de definir, p. ej. anticipo no reembolsable].',
+                'Antes del tratamiento te preguntaremos por alergias, embarazo, tratamientos médicos recientes y medicación. Nuestros tratamientos son cosméticos y no sustituyen la consulta médica.',
+            ] },
+            { id: 'uso', title: 'Uso de los productos', body: [
+                'Los productos son cosméticos de uso externo. Haz una prueba en una zona pequeña antes del primer uso y suspende si aparece irritación.',
+                'La información de la sección Ingredientes es divulgativa y no constituye consejo médico.',
+            ] },
+            { id: 'cuenta', title: 'Tu cuenta', body: [
+                'Eres responsable de la confidencialidad de tu contraseña. Puedes solicitar la eliminación de tu cuenta escribiendo a ' + BRAND.email + '.',
+            ] },
+        ];
+
+        renderPage(() => <LegalPage eyebrow="Legal · México" title="Términos y" script="condiciones" updated="7 de octubre de 2026" sections={SECTIONS} />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tratamientos faciales · Individuel Genève</title>
+    <meta name="description" content="Faciales no invasivos de hidratación y rejuvenecimiento en Ciudad de México. Reserva tu cita en línea.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tratamientos/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+    <script type="text/babel" src="/js/reservas.jsx"></script>
+    <script type="text/babel">
+        const TreatmentsPage = () => {
+            const { treatments, schedule } = useAgenda();
+            const [picked, setPicked] = useState(null);
+            const book = (id) => { setPicked(id); document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' }); };
+
+            return (
+                <>
+                    <PageHero eyebrow="En cabina · Ciudad de México" title="Tratamientos" script="faciales"
+                        intro="Protocolos no invasivos de hidratación y rejuvenecimiento, con los mismos activos de nuestras fórmulas y una especialista que te acompaña.">
+                        <a href="#reservar" className="btn btn-dark mt-10">Reservar cita</a>
+                    </PageHero>
+
+                    <section className="max-w-6xl mx-auto px-4 md:px-8 py-16 space-y-6">
+                        {treatments.map((t, n) => (
+                            <article key={t.id} className="reveal grid md:grid-cols-12 gap-8 items-center rounded-[2rem] p-8 md:p-12 bg-blush-50">
+                                <p className="md:col-span-1 font-serif text-5xl text-blush-300">{String(n + 1).padStart(2, '0')}</p>
+                                <div className="md:col-span-7">
+                                    <p className="label text-ink-400">{t.duration_min} min · {t.ideal_for}</p>
+                                    <h2 className="text-4xl mt-2">{t.name}</h2>
+                                    <p className="text-ink-500 mt-4 leading-relaxed">{t.description}</p>
+                                    <ul className="flex flex-wrap gap-2 mt-6">{t.includes.map(x => <li key={x} className="px-4 py-1.5 rounded-full bg-white text-sm">{x}</li>)}</ul>
+                                </div>
+                                <div className="md:col-span-4 md:text-right">
+                                    <p className="font-serif text-4xl">{formatMXN(t.price_mxn)}</p>
+                                    <button className="btn btn-dark mt-6" onClick={() => book(t.id)}>Reservar</button>
+                                </div>
+                            </article>
+                        ))}
+                    </section>
+
+                    <section id="reservar" className="max-w-5xl mx-auto px-4 md:px-8 py-20 scroll-mt-28">
+                        <SectionTitle kicker={schedule ? `${BRAND.hours}` : 'Agenda'} script="cita">Reserva tu</SectionTitle>
+                        <BookingWizard key={picked || 'none'} initialTreatment={picked} />
+                        <p className="text-center text-sm text-ink-400 mt-10">{BRAND.address}</p>
+                    </section>
+                </>
+            );
+        };
+
+        renderPage(TreatmentsPage);
+    </script>
+</body>
+</html>

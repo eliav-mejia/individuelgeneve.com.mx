@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individuel Genève · Cuidado de la piel con activos esenciales</title>
+    <meta name="description" content="Fórmulas minimalistas con un activo principal en la concentración que funciona: niacinamida, ácido hialurónico, vitamina C, retinal y ceramidas. Tienda y tratamientos faciales en Ciudad de México.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/">
+    <meta property="og:title" content="Individuel Genève">
+    <meta property="og:description" content="Cuidado de la piel con activos esenciales.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel" src="/js/reservas.jsx"></script>
+    <script type="text/babel">
+        const PRINCIPLES = [
+            { n: 'I', title: 'Pocos ingredientes', text: 'Cada fórmula gira en torno a un activo principal. Lo demás está ahí para que funcione, no para el marketing.' },
+            { n: 'II', title: 'Concentración honesta', text: 'Escribimos el porcentaje en la etiqueta: la dosis que la evidencia respalda, ni más ni menos.' },
+            { n: 'III', title: 'Fórmula a la vista', text: 'Lista INCI completa en cada producto, sin perfume añadido y sin pruebas en animales.' },
+        ];
+
+        const Hero = () => (
+            <section className="wash overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 pt-14 pb-20 md:pt-24 md:pb-32 grid md:grid-cols-2 gap-12 items-center">
+                    <div className="animate-rise-in text-center md:text-left">
+                        <p className="label text-ink-400 mb-8">Ciudad de México · Desde Ginebra</p>
+                        <h1 className="text-6xl md:text-8xl leading-[0.95]">
+                            Menos,<br />pero <span className="font-script text-blush-500 text-[1.15em]">mejor</span>
+                        </h1>
+                        <p className="mt-8 text-lg text-ink-500 max-w-md mx-auto md:mx-0 leading-relaxed">
+                            Fórmulas minimalistas con un activo principal en la concentración que funciona. Hidratación y rejuvenecimiento, sin ruido.
+                        </p>
+                        <div className="flex flex-wrap gap-3 mt-10 justify-center md:justify-start">
+                            <a href="/pages/tienda/" className="btn btn-dark">Descubrir la colección</a>
+                            <a href="/pages/tratamientos/#reservar" className="btn btn-light">Reservar un facial</a>
+                        </div>
+                    </div>
+                    <HeroBottles />
+                </div>
+            </section>
+        );
+
+        // Three featured bottles arranged like a still life.
+        const HeroBottles = () => {
+            const catalog = useCatalog();
+            const picks = catalog.products.filter(p => p.featured).slice(0, 3);
+            return (
+                <div className="relative aspect-square max-w-lg mx-auto w-full animate-fade-in">
+                    <div className="absolute inset-[8%] rounded-full bg-blush-200/70" />
+                    <div className="absolute inset-[22%] rounded-full border border-white" />
+                    {picks.length === 3 && <>
+                        <a href={`/pages/tienda/${picks[0].slug}/`} className="absolute left-[2%] bottom-[10%] w-[40%] hover:-translate-y-1 transition-transform"><Bottle product={picks[0]} /></a>
+                        <a href={`/pages/tienda/${picks[1].slug}/`} className="absolute left-[30%] bottom-[16%] w-[44%] z-10 hover:-translate-y-1 transition-transform"><Bottle product={picks[1]} /></a>
+                        <a href={`/pages/tienda/${picks[2].slug}/`} className="absolute right-[2%] bottom-[10%] w-[40%] hover:-translate-y-1 transition-transform"><Bottle product={picks[2]} /></a>
+                    </>}
+                    <p className="absolute top-[6%] right-[4%] font-script text-3xl text-ink/70 rotate-[-6deg]">activos esenciales</p>
+                </div>
+            );
+        };
+
+        const Principles = () => (
+            <section className="max-w-6xl mx-auto px-4 md:px-8 py-24 md:py-32">
+                <SectionTitle kicker="Nuestra filosofía" script="esencial">Lo</SectionTitle>
+                <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+                    {PRINCIPLES.map(p => (
+                        <div key={p.n} className="text-center reveal">
+                            <p className="font-serif italic text-blush-500 text-2xl">{p.n}</p>
+                            <h3 className="text-3xl mt-3">{p.title}</h3>
+                            <p className="text-ink-500 mt-4 leading-relaxed">{p.text}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        );
+
+        const Ritual = () => {
+            const catalog = useCatalog();
+            return (
+                <section className="bg-blush-50 py-24 md:py-32">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8">
+                        <SectionTitle kicker="El ritual" script="pasos">Cuatro</SectionTitle>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {catalog.categories.map(c => (
+                                <a key={c.id} href={`/pages/tienda/?cat=${c.id}`} className="reveal group bg-white rounded-3xl p-8 hover:shadow-[0_20px_50px_-30px_rgba(47,47,51,.35)] transition-shadow">
+                                    <p className="font-serif text-5xl text-blush-300">{c.step}</p>
+                                    <h3 className="text-3xl mt-6">{c.label}</h3>
+                                    <p className="text-ink-500 text-sm mt-3 leading-relaxed">{c.description}</p>
+                                    <p className="label text-ink-400 mt-8 group-hover:text-ink">Ver productos →</p>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Featured = () => {
+            const catalog = useCatalog();
+            return (
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
+                    <SectionTitle kicker="Los esenciales" script="favoritos">Nuestros</SectionTitle>
+                    {catalog.status === 'loading' && <ProductGridSkeleton />}
+                    {catalog.status === 'error' && <LoadError />}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                        {catalog.products.filter(p => p.featured).map(p => <ProductCard key={p.id} product={p} category={catalog.category[p.category_id]} />)}
+                    </div>
+                    <div className="text-center mt-16"><a href="/pages/tienda/" className="btn btn-light">Ver toda la tienda</a></div>
+                </section>
+            );
+        };
+
+        const Ingredients = () => {
+            const catalog = useCatalog();
+            return (
+                <section className="bg-ink text-white py-24 md:py-28 overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center">
+                        <div className="reveal">
+                            <p className="label text-blush-300 mb-6">Glosario de activos</p>
+                            <h2 className="text-5xl md:text-6xl leading-tight">Sabes lo que <span className="font-script text-blush-300">aplicas</span></h2>
+                            <p className="text-white/70 mt-6 max-w-md leading-relaxed">Qué hace cada activo, con qué combinarlo y cuándo tener precaución. Sin promesas imposibles.</p>
+                            <a href="/pages/ingredientes/" className="btn btn-blush mt-10">Explorar ingredientes</a>
+                        </div>
+                        <ul className="flex flex-wrap gap-3 reveal">
+                            {catalog.ingredients.map(i => (
+                                <li key={i.id}><a href={`/pages/ingredientes/#${i.id}`} className="inline-block px-5 py-2.5 rounded-full border border-white/20 font-serif text-xl hover:bg-white hover:text-ink transition-colors">{i.name}</a></li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
+            );
+        };
+
+        const Treatments = () => {
+            const { treatments } = useAgenda();
+            return (
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
+                    <SectionTitle kicker="En cabina" script="tratamientos">Nuestros</SectionTitle>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {treatments.map(t => (
+                            <a key={t.id} href={`/pages/tratamientos/?tratamiento=${t.id}#reservar`} className="reveal border border-ink-line rounded-3xl p-8 hover:border-blush-400 transition-colors flex flex-col">
+                                <p className="label text-ink-400">{t.duration_min} min</p>
+                                <h3 className="text-3xl mt-4">{t.name}</h3>
+                                <p className="text-sm text-ink-500 mt-3 flex-1">{t.short}</p>
+                                <p className="font-serif text-2xl mt-8">{formatMXN(t.price_mxn)}</p>
+                            </a>
+                        ))}
+                    </div>
+                    <div className="text-center mt-16"><a href="/pages/tratamientos/#reservar" className="btn btn-dark">Reservar cita</a></div>
+                </section>
+            );
+        };
+
+        const Quote = () => (
+            <section className="bg-blush-100 py-24">
+                <div className="max-w-3xl mx-auto px-4 text-center reveal">
+                    <p className="font-script text-5xl md:text-6xl text-ink leading-snug">“La piel no necesita más productos, necesita los correctos.”</p>
+                    <p className="label text-ink-400 mt-8">Individuel Genève</p>
+                </div>
+            </section>
+        );
+
+        const Home = () => (
+            <>
+                <Hero />
+                <Principles />
+                <Ritual />
+                <Featured />
+                <Ingredients />
+                <Treatments />
+                <Quote />
+            </>
+        );
+
+        renderPage(Home);
+    </script>
+</body>
+</html>

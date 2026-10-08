@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página no encontrada · Individuel Genève</title>
+    <meta name="description" content="Página no encontrada.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/404.html">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/acceso.jsx"></script>
+
+    <script type="text/babel">
+        // Old URL → new URL. Add an entry whenever a page or product slug changes.
+        const MOVED = {};
+        const target = MOVED[location.pathname];
+        if (target) location.replace(target + location.search + location.hash);
+
+        renderPage(() => (
+            <PageHero eyebrow="404" title="Esta página" script="no existe"
+                intro="Puede que el enlace haya cambiado. Te dejamos lo esencial:">
+                <div className="flex flex-wrap justify-center gap-3 mt-10">
+                    <a href="/" className="btn btn-dark">Inicio</a>
+                    <a href="/pages/tienda/" className="btn btn-light">Tienda</a>
+                    <a href="/pages/tratamientos/" className="btn btn-light">Tratamientos</a>
+                </div>
+            </PageHero>
+        ));
+    </script>
+</body>
+</html>

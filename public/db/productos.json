@@ -1,0 +1,87 @@
+{
+  "_schema": "products: id, slug, sku, category_id, name, hero_ingredient, concentration, size_ml, price_mxn, stock, active, featured, bottle, tint, short, description, how_to_use, routine, skin_types, ingredient_ids, inci",
+  "_note": "Base de datos simulada (staging). Precios, stock e INCI son de ejemplo: revisar antes del lanzamiento.",
+  "updated_at": "2026-10-07",
+  "products": [
+    {
+      "id": "ig-001", "slug": "gel-limpiador-aminoacidos", "sku": "IG-LIM-150", "category_id": "limpiar",
+      "name": "Gel limpiador", "hero_ingredient": "Aminoácidos", "concentration": "pH 5.5", "size_ml": 150,
+      "price_mxn": 450, "stock": 24, "active": true, "featured": false, "bottle": "pump", "tint": "#faeef0",
+      "short": "Limpieza suave de pH fisiológico para mañana y noche.",
+      "description": "Gel de tensioactivos derivados de aminoácidos que limpia sin dejar la piel tirante. Prepara la piel para los activos sin alterar su barrera.",
+      "how_to_use": "Masajea una porción sobre la piel húmeda durante 30 segundos y aclara con agua tibia.",
+      "routine": "am-pm", "skin_types": ["Todas", "Sensible"], "ingredient_ids": ["pantenol"],
+      "inci": "Aqua, Sodium Cocoyl Glycinate, Glycerin, Coco-Betaine, Panthenol, Sodium Chloride, Citric Acid, Sodium Benzoate"
+    },
+    {
+      "id": "ig-002", "slug": "serum-niacinamida-10", "sku": "IG-NIA-30", "category_id": "tratar",
+      "name": "Sérum Niacinamida", "hero_ingredient": "Niacinamida 10% + Zinc 1%", "concentration": "10%", "size_ml": 30,
+      "price_mxn": 590, "stock": 18, "active": true, "featured": true, "bottle": "dropper", "tint": "#f4dfe2",
+      "short": "Poros visiblemente más finos y tono uniforme.",
+      "description": "Niacinamida al 10% con PCA de zinc al 1% para regular el brillo, afinar la textura y unificar el tono. Fórmula acuosa, ligera, sin perfume.",
+      "how_to_use": "Aplica 3 gotas sobre la piel limpia, mañana y noche, antes de la crema.",
+      "routine": "am-pm", "skin_types": ["Mixta", "Grasa", "Con imperfecciones"], "ingredient_ids": ["niacinamida", "zinc"],
+      "inci": "Aqua, Niacinamide, Zinc PCA, Pentylene Glycol, Tamarindus Indica Seed Gum, Xanthan Gum, Phenoxyethanol, Ethylhexylglycerin"
+    },
+    {
+      "id": "ig-003", "slug": "serum-acido-hialuronico-2", "sku": "IG-HYA-30", "category_id": "tratar",
+      "name": "Sérum Ácido Hialurónico", "hero_ingredient": "Ácido hialurónico 2% + B5", "concentration": "2%", "size_ml": 30,
+      "price_mxn": 620, "stock": 30, "active": true, "featured": true, "bottle": "dropper", "tint": "#fdf8f8",
+      "short": "Hidratación en tres pesos moleculares.",
+      "description": "Tres pesos moleculares de ácido hialurónico que hidratan en superficie y en las capas altas de la piel, con pantenol para calmar. Efecto relleno inmediato.",
+      "how_to_use": "Aplica sobre la piel aún húmeda, mañana y noche, y sella con la crema.",
+      "routine": "am-pm", "skin_types": ["Todas", "Deshidratada"], "ingredient_ids": ["acido-hialuronico", "pantenol"],
+      "inci": "Aqua, Sodium Hyaluronate, Hydrolyzed Sodium Hyaluronate, Sodium Hyaluronate Crosspolymer, Panthenol, Pentylene Glycol, Phenoxyethanol"
+    },
+    {
+      "id": "ig-004", "slug": "serum-vitamina-c-15", "sku": "IG-VTC-30", "category_id": "tratar",
+      "name": "Sérum Vitamina C", "hero_ingredient": "Ácido ascórbico etilado 15%", "concentration": "15%", "size_ml": 30,
+      "price_mxn": 780, "stock": 2, "active": true, "featured": true, "bottle": "dropper", "tint": "#f3e3d6",
+      "short": "Luminosidad y defensa antioxidante por la mañana.",
+      "description": "Derivado estable de vitamina C al 15% con vitamina E y ácido ferúlico. Aporta luminosidad, atenúa manchas y refuerza la protección frente al daño oxidativo.",
+      "how_to_use": "Por la mañana, 3 gotas sobre la piel limpia. Termina siempre con protector solar.",
+      "routine": "am", "skin_types": ["Todas", "Opaca", "Con manchas"], "ingredient_ids": ["vitamina-c"],
+      "inci": "Aqua, 3-O-Ethyl Ascorbic Acid, Propanediol, Tocopherol, Ferulic Acid, Hydroxyethylcellulose, Sodium Metabisulfite, Phenoxyethanol"
+    },
+    {
+      "id": "ig-005", "slug": "emulsion-retinal-005", "sku": "IG-RTL-30", "category_id": "tratar",
+      "name": "Emulsión Retinal", "hero_ingredient": "Retinal 0.05%", "concentration": "0.05%", "size_ml": 30,
+      "price_mxn": 890, "stock": 9, "active": true, "featured": true, "bottle": "pump", "tint": "#ebc9ce",
+      "short": "Renovación nocturna: líneas finas y textura.",
+      "description": "Retinaldehído encapsulado, un paso más cerca del ácido retinoico que el retinol, en una emulsión con ceramidas que reduce la irritación.",
+      "how_to_use": "Por la noche, 2 o 3 noches por semana al principio. Una porción del tamaño de un guisante. No usar en embarazo o lactancia.",
+      "routine": "pm", "skin_types": ["Normal", "Mixta", "Madura"], "ingredient_ids": ["retinal", "ceramidas"],
+      "inci": "Aqua, Caprylic/Capric Triglyceride, Glycerin, Retinal, Ceramide NP, Cholesterol, Squalane, Cetearyl Alcohol, Tocopherol, Phenoxyethanol"
+    },
+    {
+      "id": "ig-006", "slug": "crema-ceramidas-3", "sku": "IG-CER-50", "category_id": "hidratar",
+      "name": "Crema Ceramidas", "hero_ingredient": "Ceramidas 3% + escualano", "concentration": "3%", "size_ml": 50,
+      "price_mxn": 690, "stock": 15, "active": true, "featured": false, "bottle": "jar", "tint": "#fdf8f8",
+      "short": "Repara la barrera y calma la tirantez.",
+      "description": "Ceramidas, colesterol y ácidos grasos en la proporción de la piel, con escualano vegetal. Textura de crema ligera que se absorbe sin brillo.",
+      "how_to_use": "Último paso de la noche, o antes del protector por la mañana.",
+      "routine": "am-pm", "skin_types": ["Seca", "Sensible", "Todas"], "ingredient_ids": ["ceramidas", "escualano"],
+      "inci": "Aqua, Squalane, Glycerin, Ceramide NP, Ceramide AP, Ceramide EOP, Cholesterol, Phytosphingosine, Cetearyl Alcohol, Phenoxyethanol"
+    },
+    {
+      "id": "ig-007", "slug": "bruma-peptidos", "sku": "IG-PEP-100", "category_id": "hidratar",
+      "name": "Bruma Péptidos", "hero_ingredient": "Complejo de péptidos 5%", "concentration": "5%", "size_ml": 100,
+      "price_mxn": 540, "stock": 0, "active": true, "featured": false, "bottle": "mist", "tint": "#f4dfe2",
+      "short": "Firmeza e hidratación en cualquier momento del día.",
+      "description": "Bruma fina con péptidos de señal y glicerina. Refresca, hidrata y prepara la piel para absorber mejor los sérums.",
+      "how_to_use": "Pulveriza a 20 cm del rostro antes de los sérums o sobre el maquillaje.",
+      "routine": "am-pm", "skin_types": ["Todas", "Madura"], "ingredient_ids": ["peptidos"],
+      "inci": "Aqua, Glycerin, Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7, Acetyl Hexapeptide-8, Pentylene Glycol, Phenoxyethanol"
+    },
+    {
+      "id": "ig-008", "slug": "protector-mineral-fps50", "sku": "IG-SPF-50", "category_id": "proteger",
+      "name": "Protector Mineral", "hero_ingredient": "Óxido de zinc FPS 50", "concentration": "FPS 50", "size_ml": 50,
+      "price_mxn": 650, "stock": 21, "active": true, "featured": false, "bottle": "tube", "tint": "#faeef0",
+      "short": "Filtro mineral de amplio espectro, sin rastro blanco.",
+      "description": "Óxido de zinc con un ligero tono rosado que se funde en la piel. Protección UVA/UVB amplia, apta para piel sensible.",
+      "how_to_use": "Último paso de la mañana. Reaplica cada 2 horas al aire libre.",
+      "routine": "am", "skin_types": ["Todas", "Sensible"], "ingredient_ids": ["oxido-zinc"],
+      "inci": "Aqua, Zinc Oxide, Caprylic/Capric Triglyceride, Coco-Caprylate, Glycerin, Polyglyceryl-4 Isostearate, Iron Oxides, Tocopherol"
+    }
+  ]
+}

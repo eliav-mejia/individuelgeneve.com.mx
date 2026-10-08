@@ -1,0 +1,34 @@
+{
+  "_schema": "schedule + treatments: id, name, duration_min, price_mxn, short, description, includes, ideal_for, active, sort_order",
+  "_note": "Agenda y tratamientos de cabina (staging). Ver public/db/README.md.",
+  "updated_at": "2026-10-07",
+  "schedule": {
+    "timezone": "America/Mexico_City",
+    "days": [1, 2, 3, 4, 5, 6],
+    "open": "10:00",
+    "close": "19:00",
+    "slot_min": 30,
+    "booking_window_days": 30,
+    "min_notice_hours": 12,
+    "cabins": 1,
+    "closed_dates": ["2026-11-16", "2026-12-25", "2027-01-01"]
+  },
+  "treatments": [
+    { "id": "diagnostico", "name": "Diagnóstico de piel", "duration_min": 30, "price_mxn": 350, "active": true, "sort_order": 1,
+      "short": "Analizamos tu piel y diseñamos tu rutina.",
+      "description": "Una especialista revisa hidratación, sebo, sensibilidad y manchas, y te propone una rutina de 3 o 4 pasos. El importe se bonifica en tu primera compra.",
+      "includes": ["Análisis de piel", "Rutina personalizada por escrito", "Bonificación en tienda"], "ideal_for": "Si empiezas o quieres simplificar tu rutina" },
+    { "id": "facial-esencial", "name": "Facial esencial", "duration_min": 45, "price_mxn": 950, "active": true, "sort_order": 2,
+      "short": "Limpieza profunda, exfoliación suave y mascarilla.",
+      "description": "El reinicio mensual de la piel: doble limpieza, exfoliación enzimática, extracción suave si es necesaria y mascarilla calmante.",
+      "includes": ["Doble limpieza", "Exfoliación enzimática", "Mascarilla", "Protección final"], "ideal_for": "Mantenimiento mensual" },
+    { "id": "hidratacion-profunda", "name": "Hidratación profunda", "duration_min": 60, "price_mxn": 1450, "active": true, "sort_order": 3,
+      "short": "Ácido hialurónico y tecnología no invasiva.",
+      "description": "Infusión de ácido hialurónico y péptidos asistida con tecnología no invasiva, seguida de masaje facial y mascarilla de ceramidas. Piel jugosa desde la primera sesión.",
+      "includes": ["Limpieza", "Infusión de activos", "Masaje facial", "Mascarilla de ceramidas"], "ideal_for": "Piel deshidratada, opaca o antes de un evento" },
+    { "id": "rejuvenecimiento", "name": "Rejuvenecimiento", "duration_min": 75, "price_mxn": 2200, "active": true, "sort_order": 4,
+      "short": "Firmeza y líneas finas, sin agujas.",
+      "description": "Protocolo antiedad con péptidos, vitamina C y tecnología no invasiva para estimular la firmeza. Recomendado en ciclos de 4 a 6 sesiones.",
+      "includes": ["Diagnóstico breve", "Peeling suave", "Infusión de péptidos", "Tecnología de firmeza", "Masaje lifting"], "ideal_for": "Piel madura o con pérdida de firmeza" }
+  ]
+}
