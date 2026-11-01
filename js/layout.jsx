@@ -39,8 +39,8 @@ const BRAND = {
     email: 'atencion@individuelgeneve.mx',          // [verificar] la web original escribe «atención@» (con acento, no válido)
     emailPrivacy: 'info@individuelgeneve.mx',
     emailJobs: 'reclutamiento@individuelgeneve.mx',
-    phone: '+52 56 6366 9453',
-    whatsapp: '525663669453',                        // solo dígitos, formato internacional (wa.me)
+    phone: '+52 1 55 2307 6185',
+    whatsapp: '5215523076185',                       // WhatsApp de atención (2026-11-01). Solo dígitos, formato internacional (wa.me)
     address: 'Av. Tamaulipas 150, piso 15, torre B, Condesa, Ciudad de México, CP 06140',
     instagram: 'https://www.instagram.com/individuelgeneve.mx',
     hours: 'Lun – vie 8:00 – 20:00 · Sáb y dom 10:00 – 16:00',
