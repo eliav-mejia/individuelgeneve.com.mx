@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologías · Individuel Genève</title>
+    <meta name="description" content="Aparatología no invasiva de primer nivel: SonNext (ultrasonido no térmico), Ballancer Gold (drenaje linfático) y Tecnología MIT.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tecnologias/">
+    <meta property="og:title" content="Tecnologías · Individuel Genève">
+    <meta property="og:description" content="Aparatología no invasiva de primer nivel: SonNext (ultrasonido no térmico), Ballancer Gold (drenaje linfático) y Tecnología MIT.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/tecnologias/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const TECH = [
+            { href: '/pages/tecnologias/sonnext/', name: 'SonNext', kicker: 'Ultrasonido no térmico', text: 'Lifting y reducción con ultrasonido terapéutico, sin los efectos del calor.', img: '/img/sonnext/04.webp' },
+            { href: '/pages/tecnologias/ballancer/', name: 'Ballancer Gold', kicker: 'Tecnología patentada', text: 'Drenaje linfático, reducción de celulitis y moldeado corporal con Smart Technology™.', img: '/img/servicios/13.webp' },
+            { href: '/pages/tecnologias/mit/', name: 'Tecnología MIT', kicker: 'FDA Approved', text: 'Cuatro tecnologías convencionales en un dispositivo seguro y portátil, con diez cápsulas patentadas.', img: '/img/mit/01.webp' },
+        ];
+        renderPage(() => (
+            <>
+                <PageHero eyebrow="FDA-Approved · ISO 9001 · Patent exclusive" title="Aparatología de" script="primer nivel"
+                    intro="Tecnologías no invasivas para tratamientos faciales y corporales a base de fórmulas cosméticas y mesoterapia virtual." />
+                <section className="max-w-7xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-3 gap-6">
+                    {TECH.map(t => (
+                        <a key={t.href} href={t.href} className="reveal group rounded-3xl overflow-hidden border border-ink-line hover:border-blush-400 transition-colors">
+                            <div className="aspect-[4/3] overflow-hidden bg-white"><Img src={t.img} alt="" className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" /></div>
+                            <div className="p-8">
+                                <p className="label text-ink-400">{t.kicker}</p>
+                                <h2 className="text-4xl mt-2">{t.name}</h2>
+                                <p className="text-ink-500 mt-3">{t.text}</p>
+                                <p className="label text-ink-400 mt-6 group-hover:text-ink">Conocer más →</p>
+                            </div>
+                        </a>
+                    ))}
+                </section>
+                <WhatsAppCTA />
+            </>
+        ));
+    </script>
+</body>
+</html>

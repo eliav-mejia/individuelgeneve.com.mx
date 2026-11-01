@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de seguridad · Individuel Genève</title>
+    <meta name="description" content="Registro de clientes y especialistas, limpieza de equipos, fórmulas en cápsulas selladas de un solo uso y monitoreo en tiempo real de los servicios a domicilio.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/protocolo-de-seguridad/">
+    <meta property="og:title" content="Protocolo de seguridad · Individuel Genève">
+    <meta property="og:description" content="Registro de clientes y especialistas, limpieza de equipos, fórmulas en cápsulas selladas de un solo uso y monitoreo en tiempo real de los servicios a domicilio.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/protocolo-de-seguridad/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const HYGIENE = [['Equipos', 'Los equipos tecnológicos reciben su limpieza antes y después de cada servicio para evitar cualquier tipo de contaminación.'], ['Fórmulas', 'Las fórmulas que utilizamos llegan a México en cápsulas selladas y esterilizadas para un único uso.'], ['Medidas COVID', 'Confirmamos que nuestras especialistas no presentan ningún síntoma asociado al COVID-19 ni a ninguna otra enfermedad contagiosa, y que no han estado en contacto con ninguna persona que presente dichos síntomas.']];
+        const MONITOR = [['Identifica a tu especialista', 'Todas nuestras especialistas pueden ser identificadas con su credencial para que nuestros clientes verifiquen la información correspondiente antes de dar acceso al domicilio.'], ['Viajamos en Uber', 'Usamos las plataformas de transporte privado para mantener una comunicación directa con las especialistas al llegar y salir del domicilio.'], ['Supervisores', 'En algunos casos, las especialistas son acompañadas por un supervisor de la empresa.']];
+        const Cards = ({ items }) => <div className="grid md:grid-cols-3 gap-6">{items.map(([t, x]) => <div key={t} className="reveal rounded-3xl bg-blush-50 p-8"><h3 className="text-2xl">{t}</h3><p className="text-sm text-ink-500 mt-3 leading-relaxed">{x}</p></div>)}</div>;
+        renderPage(() => (
+            <>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 pt-16 md:pt-24 pb-10 grid md:grid-cols-2 gap-12 items-center">
+                    <div className="animate-rise-in">
+                        <p className="label text-ink-400 mb-6">Protocolo de seguridad</p>
+                        <h1 className="text-5xl md:text-6xl">Tu seguridad es <span className="font-script text-blush-500">primero</span></h1>
+                        <p className="mt-8 text-lg text-ink-500 leading-relaxed">Todos los clientes y especialistas deben registrarse con su documentación oficial antes de solicitar o atender un servicio. Nuestro protocolo nos permite cuidar a nuestras especialistas en tiempo real cuando viajan a domicilio: avisamos el tiempo de llegada y monitoreamos las placas del vehículo en el que viajan.</p>
+                    </div>
+                    <Img src="/img/protocolo/01.webp" alt="" className="w-full rounded-3xl" loading="eager" />
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16"><SectionTitle script="higiene">Medidas de</SectionTitle><Cards items={HYGIENE} /></section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16"><SectionTitle script="tiempo real">Monitoreamos en</SectionTitle><Cards items={MONITOR} /></section>
+            </>
+        ));
+    </script>
+</body>
+</html>

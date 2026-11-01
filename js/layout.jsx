@@ -1,33 +1,73 @@
-// Shared by EVERY page: brand config, header, footer, accounts (staging), bag, cookie notice, PageHero, renderPage().
+// Shared by EVERY page: brand config, header, footer, accounts (staging), cookie notice, PageHero, renderPage().
 // Load order on each page: tailwind.config.js → layout.jsx → acceso.jsx → (tienda.jsx | reservas.jsx) → page script.
 
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
+// --- BASE PATH ---
+// The site is served at the domain root (individuelgeneve.com.mx) or under a sub-path in staging
+// (eliav-mejia.github.io/individuelgeneve.com.mx/). Code and data write root paths ('/pages/…', '/img/…', '/public/db/…');
+// BASE is prepended here, in one place: every href/src rendered by React and every fetch('/…'). BASE is '' on the real domain.
+// HTML <head> tags use paths relative to the page (../../js/…) for the same reason.
+const BASE = (() => {
+    const s = document.querySelector('script[src$="js/layout.jsx"]');
+    return s ? new URL(s.src).pathname.replace(/\/js\/layout\.jsx$/, '') : '';
+})();
+const withBase = (u) => (BASE && typeof u === 'string' && u[0] === '/' && u[1] !== '/' && !u.startsWith(BASE + '/') ? BASE + u : u);
+// Current path without BASE: use it instead of location.pathname when comparing against site paths.
+const PATH = window.location.pathname.slice(BASE.length) || '/';
+
+if (BASE) {
+    const createElement = React.createElement;
+    React.createElement = function (type, props, ...children) {
+        if (props && (typeof props.href === 'string' || typeof props.src === 'string')) {
+            props = { ...props };
+            if (typeof props.href === 'string') props.href = withBase(props.href);
+            if (typeof props.src === 'string') props.src = withBase(props.src);
+        }
+        return createElement.call(this, type, props, ...children);
+    };
+    const nativeFetch = window.fetch.bind(window);
+    window.fetch = (input, init) => nativeFetch(withBase(input), init);
+}
+
 // --- BRAND ---
+// Source: individuelgeneve.com.mx (Squarespace), read 2026-11-01.
 const BRAND = {
     name: 'Individuel Genève',
-    tagline: 'Cuidado de la piel con activos esenciales',
-    email: 'hola@individuelgeneve.com.mx',
-    phone: '+52 55 0000 0000',                       // [verificar] número de atención
-    whatsapp: '5200000000000',                       // [verificar] solo dígitos, formato internacional
-    address: 'Av. Tamaulipas 150, piso 15, Torre B, Ciudad de México, CP 06140',   // [verificar]
-    instagram: 'https://www.instagram.com/individuelgeneve.mx/',
-    hours: 'Lunes a sábado · 10:00 – 19:00',
+    tagline: 'Expertos en hidratación & rejuvenecimiento',
+    operator: 'BELLEZA PRO MX S.A. de C.V.',
+    email: 'atencion@individuelgeneve.mx',          // [verificar] la web original escribe «atención@» (con acento, no válido)
+    emailPrivacy: 'info@individuelgeneve.mx',
+    emailJobs: 'reclutamiento@individuelgeneve.mx',
+    phone: '+52 56 6366 9453',
+    whatsapp: '525663669453',                        // solo dígitos, formato internacional (wa.me)
+    address: 'Av. Tamaulipas 150, piso 15, torre B, Condesa, Ciudad de México, CP 06140',
+    instagram: 'https://www.instagram.com/individuelgeneve.mx',
+    hours: 'Lun – vie 8:00 – 20:00 · Sáb y dom 10:00 – 16:00',
+    mapUrl: 'https://maps.google.com/?q=Av.+Tamaulipas+150,+Condesa,+Ciudad+de+M%C3%A9xico',
 };
 
-// Shipping (MXN): flat rate, free from the threshold. Shown in the top banner, the bag and the terms.
-const SHIPPING_MXN = 149;
-const FREE_SHIPPING_MXN = 1200;
-
-const NAV_LINKS = [
-    { href: '/pages/tienda/', label: 'Tienda' },
-    { href: '/pages/ingredientes/', label: 'Ingredientes' },
-    { href: '/pages/tratamientos/', label: 'Tratamientos' },
+// Opening hours by day (the same values drive the booking agenda in public/db/tratamientos.json).
+const OPENING_HOURS = [
+    ['Lunes', '8:00 – 20:00'], ['Martes', '8:00 – 20:00'], ['Miércoles', '8:00 – 20:00'], ['Jueves', '8:00 – 20:00'],
+    ['Viernes', '8:00 – 20:00'], ['Sábado', '10:00 – 16:00'], ['Domingo', '10:00 – 16:00'],
 ];
 
-const isActive = (href) => window.location.pathname.startsWith(href.replace(/\/$/, ''));
+const waLink = (text = 'Hola, quiero agendar una cita en Individuel Genève.') => `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(text)}`;
+
+const NAV_LINKS = [
+    { href: '/pages/tratamientos/', label: 'Menú de servicios' },
+    { href: '/pages/tienda/', label: 'Boutique' },
+    { href: '/pages/tecnologias/', label: 'Tecnologías' },
+    { href: '/pages/blog/', label: 'Blog' },
+    { href: '/pages/contacto/', label: 'Contacto' },
+];
+
+const isActive = (href) => PATH.startsWith(href.replace(/\/$/, ''));
 
 const formatMXN = (n) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
+// Prices the client has not published yet are null.
+const formatPrice = (n, fallback = 'Precio a consultar') => (n == null ? fallback : formatMXN(n));
 
 // --- LOCAL STORAGE (every key starts with "ig-") ---
 const store = {
@@ -63,7 +103,7 @@ const TXT = {
     working: 'Un momento...',
     staging: 'Versión de prueba: tu cuenta se guarda solo en este navegador.',
     cookiesTitle: 'Cookies',
-    cookiesText: 'Usamos cookies necesarias para tu bolsa y tu sesión. Con tu permiso, también para medir y mejorar el sitio.',
+    cookiesText: 'Usamos cookies necesarias para tu sesión. Con tu permiso, también para medir y mejorar el sitio.',
     cookiesAccept: 'Aceptar todas', cookiesReject: 'Solo necesarias', cookiesMore: 'Aviso de privacidad',
 };
 
@@ -113,19 +153,6 @@ const useUser = () => useStoreEvent('ig-auth', ['ig-session', 'ig-users'], auth.
 // Any page can ask for the login pop-up: openAuth('login' | 'signup').
 const openAuth = (mode = 'login') => window.dispatchEvent(new CustomEvent('ig-open-auth', { detail: mode }));
 
-// --- BAG (cart) ---
-// { [productId]: quantity } in 'ig-bolsa', synced between tabs. Prices and stock always come from the catalogue
-// (js/tienda.jsx), never from here, so an edited localStorage cannot change a price.
-const bag = {
-    read: () => store.read('ig-bolsa', {}),
-    save: (items) => { try { store.write('ig-bolsa', items); } catch (e) {} window.dispatchEvent(new Event('ig-bolsa')); },
-    add: (id, qty = 1) => { const items = bag.read(); items[id] = (items[id] || 0) + qty; bag.save(items); },
-    set: (id, qty) => { const items = bag.read(); if (qty > 0) items[id] = qty; else delete items[id]; bag.save(items); },
-    clear: () => bag.save({}),
-};
-
-const useBag = () => useStoreEvent('ig-bolsa', ['ig-bolsa'], bag.read);
-
 // --- ICONS (1.4px line, matches the light type) ---
 const Icon = ({ d, className = 'w-5 h-5' }) => (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -133,17 +160,18 @@ const Icon = ({ d, className = 'w-5 h-5' }) => (
     </svg>
 );
 const IconUser = (p) => <Icon {...p} d={<><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>} />;
-const IconBag = (p) => <Icon {...p} d={<><path d="M5 8h14l-1 12H6L5 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></>} />;
 const IconMenu = (p) => <Icon {...p} d={<path d="M4 8h16M4 16h16" />} />;
 const IconClose = (p) => <Icon {...p} d={<path d="M6 6l12 12M18 6L6 18" />} />;
 const IconArrow = (p) => <Icon {...p} d={<path d="M5 12h14M13 6l6 6-6 6" />} />;
 const IconCheck = (p) => <Icon {...p} d={<path d="M5 12.5l4.5 4.5L19 7" />} />;
 
 // --- LOGO ---
-const Logo = ({ light = false, size = 'text-4xl' }) => (
-    <a href="/" className={`inline-flex flex-col items-center leading-none ${light ? 'text-white' : 'text-ink'}`} aria-label={`${BRAND.name}, inicio`}>
-        <span className={`font-script ${size}`}>Individuel</span>
-        <span className="label !text-[0.55rem] !tracking-[0.5em] -mt-1 pl-[0.5em]">Genève</span>
+// The client's logo (img/logo.webp, ink #2f2f33; img/logo-blanco.webp for dark backgrounds), from the original site.
+// Source: IndividuelOperadoPorBELLEZAPROMX.png (transparent PNG, 2500 × 1166), trimmed and resized to 900 px.
+const Logo = ({ light = false, className = 'h-14' }) => (
+    <a href="/" className="inline-block shrink-0" aria-label={`${BRAND.name}, inicio`}>
+        <img src={light ? '/img/logo-blanco.webp' : '/img/logo.webp'} alt={`${BRAND.name} · Operado por BELLEZA PRO MX`}
+             width="900" height="408" className={`w-auto ${className}`} />
     </a>
 );
 
@@ -253,8 +281,6 @@ const useReveal = () => {
 // --- LAYOUT ---
 const Layout = ({ children }) => {
     const user = useUser();
-    const items = useBag();
-    const count = Object.values(items).reduce((a, b) => a + b, 0);
     const [menuOpen, setMenuOpen] = useState(false);
     const [authMode, setAuthMode] = useState(null);
     const [scrolled, setScrolled] = useState(false);
@@ -280,28 +306,25 @@ const Layout = ({ children }) => {
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] bg-white px-4 py-2 rounded">Saltar al contenido</a>
 
             <div className="bg-ink text-white text-center py-2.5 px-4">
-                <p className="label !text-[0.62rem]">Envío gratis desde {formatMXN(FREE_SHIPPING_MXN)} · Fórmulas esenciales, sin perfume añadido</p>
+                <p className="label !text-[0.62rem]">{BRAND.tagline} · <a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-blush-300">Agenda por WhatsApp</a></p>
             </div>
 
             <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-shadow ${scrolled ? 'shadow-[0_1px_0_#ebe5e6]' : ''}`}>
-                <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 md:h-24 grid grid-cols-3 items-center">
-                    <nav className="hidden md:flex items-center gap-8" aria-label="Principal">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 md:h-24 flex items-center justify-between gap-6">
+                    <button className="xl:hidden" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
+
+                    <div className="xl:order-first"><Logo className="h-14 md:h-[4.5rem]" /></div>
+
+                    <nav className="hidden xl:flex items-center gap-7" aria-label="Principal">
                         {NAV_LINKS.map(l => (
                             <a key={l.href} href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}
-                               className={`label transition-colors ${isActive(l.href) ? 'text-ink border-b border-blush-400 pb-1' : 'text-ink-400 hover:text-ink'}`}>{l.label}</a>
+                               className={`label whitespace-nowrap transition-colors ${isActive(l.href) ? 'text-ink border-b border-blush-400 pb-1' : 'text-ink-400 hover:text-ink'}`}>{l.label}</a>
                         ))}
                     </nav>
-                    <button className="md:hidden justify-self-start" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
 
-                    <div className="justify-self-center"><Logo size="text-3xl md:text-4xl" /></div>
-
-                    <div className="justify-self-end flex items-center gap-5 md:gap-7">
+                    <div className="flex items-center gap-5 md:gap-7">
                         <a href="/pages/tratamientos/#reservar" className="hidden lg:inline-flex btn btn-blush !py-3 !px-5">Reservar cita</a>
                         {accountButton}
-                        <a href="/pages/bolsa/" className="relative hover:text-blush-500" aria-label={`Bolsa, ${count} productos`}>
-                            <IconBag />
-                            {count > 0 && <span className="absolute -top-2 -right-2.5 min-w-[1.15rem] h-[1.15rem] px-1 rounded-full bg-blush-300 text-ink text-[0.65rem] font-medium flex items-center justify-center">{count}</span>}
-                        </a>
                     </div>
                 </div>
             </header>
@@ -309,10 +332,10 @@ const Layout = ({ children }) => {
             {menuOpen && (
                 <div className="fixed inset-0 z-[70] bg-white animate-fade-in flex flex-col" role="dialog" aria-modal="true" aria-label="Menú">
                     <div className="h-20 px-4 flex items-center justify-between">
-                        <Logo size="text-3xl" />
+                        <Logo className="h-14" />
                         <button onClick={() => setMenuOpen(false)} aria-label={TXT.close}><IconClose className="w-6 h-6" /></button>
                     </div>
-                    <nav className="flex-1 flex flex-col items-center justify-center gap-8">
+                    <nav className="flex-1 flex flex-col items-center justify-center gap-7 overflow-y-auto py-8">
                         {NAV_LINKS.map(l => <a key={l.href} href={l.href} className="font-serif text-4xl">{l.label}</a>)}
                         <a href="/pages/tratamientos/#reservar" className="btn btn-blush mt-4">Reservar cita</a>
                         {user
@@ -333,31 +356,43 @@ const Layout = ({ children }) => {
     );
 };
 
+// Same columns as the original footer.
 const FOOTER_COLUMNS = [
-    { title: 'Tienda', links: [
-        { href: '/pages/tienda/', label: 'Todos los productos' },
-        { href: '/pages/tienda/?cat=tratar', label: 'Sérums' },
-        { href: '/pages/tienda/?cat=hidratar', label: 'Hidratación' },
-        { href: '/pages/tienda/?cat=proteger', label: 'Protección solar' },
+    { title: 'Nosotros', links: [
+        { href: '/pages/blog/', label: 'Artículos' },
+        { href: '/pages/nosotros/', label: 'BELLEZA PRO MX' },
+        { href: '/pages/bolsa-de-trabajo/', label: 'Bolsa de trabajo' },
+        { href: '/pages/especialistas/', label: 'Especialistas' },
+        { href: '/pages/partners/', label: 'Partners' },
     ] },
-    { title: 'La casa', links: [
-        { href: '/pages/ingredientes/', label: 'Ingredientes' },
-        { href: '/pages/tratamientos/', label: 'Tratamientos en cabina' },
-        { href: '/pages/cuenta/', label: 'Mi cuenta' },
-    ] },
-    { title: 'Legal', links: [
+    { title: 'Nuestras políticas', links: [
         { href: '/pages/terminos/', label: 'Términos y condiciones' },
-        { href: '/pages/privacidad/', label: 'Aviso de privacidad' },
+        { href: '/pages/privacidad/', label: 'Políticas de privacidad' },
+        { href: '/pages/protocolo-de-seguridad/', label: 'Protocolo de seguridad' },
+        { href: '/pages/devoluciones/', label: 'Políticas de devolución' },
+    ] },
+    { title: 'Fórmulas', links: [
+        { href: '/pages/tienda/', label: 'Advance Pro' },
+        { href: '/pages/capsulas/', label: 'Cápsulas' },
+        { href: '/pages/ingredientes/', label: 'Ingredientes' },
+    ] },
+    { title: 'Tecnologías', links: [
+        { href: '/pages/tecnologias/ballancer/', label: 'Ballancer Gold' },
+        { href: '/pages/tecnologias/mit/', label: 'Tecnología MIT' },
+        { href: '/pages/tecnologias/sonnext/', label: 'SonNext' },
     ] },
 ];
 
 const Footer = () => (
     <footer className="bg-ink text-white/80 mt-24">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 grid gap-12 md:grid-cols-5">
-            <div className="md:col-span-2">
-                <Logo light size="text-5xl" />
-                <p className="mt-6 text-sm max-w-xs leading-relaxed">{BRAND.tagline}. Pocos ingredientes, en la concentración que funciona, explicados con claridad.</p>
-                <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="label inline-block mt-6 text-blush-300 hover:text-white">Instagram ↗</a>
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 grid gap-12 sm:grid-cols-2 lg:grid-cols-6">
+            <div className="sm:col-span-2">
+                <Logo light className="h-24" />
+                <p className="mt-6 text-sm max-w-xs leading-relaxed">{BRAND.tagline}. Tratamientos faciales y corporales no invasivos y fórmulas cosméticas de grado profesional.</p>
+                <div className="flex gap-6 mt-6">
+                    <a href={waLink()} target="_blank" rel="noopener noreferrer" className="label text-blush-300 hover:text-white">WhatsApp ↗</a>
+                    <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="label text-blush-300 hover:text-white">Instagram ↗</a>
+                </div>
             </div>
             {FOOTER_COLUMNS.map(col => (
                 <div key={col.title}>
@@ -370,7 +405,7 @@ const Footer = () => (
         </div>
         <div className="border-t border-white/10">
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row gap-2 justify-between text-xs text-white/60">
-                <p>{BRAND.address} · {BRAND.hours}</p>
+                <p>Operado por {BRAND.operator} · {BRAND.address}</p>
                 <p>© {new Date().getFullYear()} {BRAND.name} · <a href={`mailto:${BRAND.email}`} className="hover:text-white">{BRAND.email}</a></p>
             </div>
         </div>
@@ -396,6 +431,89 @@ const SectionTitle = ({ kicker, script, children, align = 'center' }) => (
         {kicker && <p className="label text-ink-400 mb-4">{kicker}</p>}
         <h2 className="text-4xl md:text-5xl leading-tight">{children} {script && <span className="font-script text-blush-500">{script}</span>}</h2>
     </div>
+);
+
+// --- PUBLIC DATA (static JSON in /public/db; see public/db/README.md) ---
+const DB_BASE = '/public/db';
+const jsonCache = {};
+const loadJson = (name) => jsonCache[name] || (jsonCache[name] =
+    fetch(`${DB_BASE}/${name}.json`, { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`${name}: ${r.status}`); return r.json(); }));
+
+// { status: 'loading' | 'ready' | 'error', data }
+const useJson = (name) => {
+    const [state, setState] = useState({ status: 'loading', data: null });
+    useEffect(() => {
+        let alive = true;
+        loadJson(name).then(data => alive && setState({ status: 'ready', data }))
+            .catch(err => { console.error(`[datos] ${name}:`, err); alive && setState({ status: 'error', data: null }); });
+        return () => { alive = false; };
+    }, [name]);
+    return state;
+};
+
+const Img = ({ src, alt = '', className = '', ...rest }) => (
+    <img src={src} alt={alt} loading="lazy" decoding="async" className={className} {...rest} />
+);
+
+// Rich text from the migrated posts: [{ t: 'h' | 'p' | 'li' | 'quote' | 'img', v }]. Consecutive li become one list.
+const Blocks = ({ blocks, className = '' }) => {
+    const out = [];
+    blocks.forEach((b, i) => {
+        if (b.t === 'li') {
+            const last = out[out.length - 1];
+            if (last && last.list) last.items.push(b); else out.push({ list: true, key: i, items: [b] });
+        } else out.push({ ...b, key: i });
+    });
+    return (
+        <div className={`space-y-5 text-ink-500 leading-relaxed ${className}`}>
+            {out.map(b => b.list
+                ? <ul key={b.key} className="list-disc pl-6 space-y-2">{b.items.map((x, j) => <li key={j}>{x.v}</li>)}</ul>
+                : b.t === 'h' ? <h2 key={b.key} className="text-3xl text-ink !mt-10">{b.v}</h2>
+                : b.t === 'quote' ? <blockquote key={b.key} className="font-serif text-2xl text-ink border-l-2 border-blush-300 pl-6">{b.v}</blockquote>
+                : b.t === 'img' ? <Img key={b.key} src={b.v} className="w-full rounded-3xl !my-10" />
+                : <p key={b.key} className="whitespace-pre-line">{b.v}</p>)}
+        </div>
+    );
+};
+
+// Call to action used at the end of most pages.
+const WhatsAppCTA = ({ title = '¿Necesitas ayuda?', text = 'Agenda una valoración para platicar opciones de tratamiento.', message }) => (
+    <section className="max-w-4xl mx-auto px-4 md:px-8 py-20 text-center reveal">
+        <p className="font-script text-5xl text-blush-500">{title}</p>
+        <p className="text-ink-500 mt-4 max-w-xl mx-auto">{text}</p>
+        <div className="flex flex-wrap justify-center gap-3 mt-8">
+            <a href={waLink(message)} target="_blank" rel="noopener noreferrer" className="btn btn-dark">WhatsApp</a>
+            <a href="/pages/tratamientos/?tratamiento=valoracion#reservar" className="btn btn-light">Agendar valoración</a>
+        </div>
+    </section>
+);
+
+// Legal pages (terms, privacy, returns). sections: [{ id, title, body: [string | string[] (list)] }].
+// Text in [brackets] is a pending value, highlighted until filled in.
+const Mark = ({ children }) => String(children).split(/(\[[^\]]+\])/g)
+    .map((p, i) => p.startsWith('[') ? <mark key={i} className="bg-blush-200 px-1 rounded">{p}</mark> : p);
+
+const LegalPage = ({ eyebrow, title, script, intro, sections }) => (
+    <>
+        <PageHero eyebrow={eyebrow} title={title} script={script} intro={intro} />
+        <section className="max-w-6xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-4 gap-12">
+            <nav className="hidden md:block md:sticky md:top-32 self-start text-sm space-y-3" aria-label="Índice">
+                {sections.map(s => <a key={s.id} href={`#${s.id}`} className="block text-ink-400 hover:text-ink">{s.title}</a>)}
+            </nav>
+            <div className="md:col-span-3 space-y-14">
+                {sections.map(s => (
+                    <article key={s.id} id={s.id} className="scroll-mt-32">
+                        <h2 className="text-3xl mb-4">{s.title}</h2>
+                        <div className="space-y-4 text-ink-500 leading-relaxed">
+                            {s.body.map((p, i) => Array.isArray(p)
+                                ? <ul key={i} className="list-disc pl-6 space-y-2">{p.map((x, j) => <li key={j}><Mark>{x}</Mark></li>)}</ul>
+                                : <p key={i}><Mark>{p}</Mark></p>)}
+                        </div>
+                    </article>
+                ))}
+            </div>
+        </section>
+    </>
 );
 
 const renderPage = (Page) => {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especialistas · Individuel Genève</title>
+    <meta name="description" content="Conoce al equipo: especialistas capacitadas en cosmetología y aparatología que te atienden de forma personalizada en Ciudad de México.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/especialistas/">
+    <meta property="og:title" content="Especialistas · Individuel Genève">
+    <meta property="og:description" content="Conoce al equipo: especialistas capacitadas en cosmetología y aparatología que te atienden de forma personalizada en Ciudad de México.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/especialistas/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const TEAM = [
+            ['02', 'Sharon Lokier', 5, 'Lomas'], ['03', 'Natasha Zaak', 4, 'Polanco'], ['04', 'Belanie Galindo', 5, 'Ciudad de México'],
+            ['05', 'Alex Mejia', 5, 'Ciudad de México'], ['06', 'Renata Rojas', 4, 'Pedregal'], ['07', 'Meli', 4, 'Ciudad de México'], ['08', 'Sisley', 4, 'Condesa'],
+        ];
+        renderPage(() => (
+            <>
+                <section className="relative bg-ink text-white overflow-hidden">
+                    <Img src="/img/especialistas/01.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" loading="eager" />
+                    <div className="relative max-w-4xl mx-auto px-4 md:px-8 py-28 md:py-36 text-center">
+                        <h1 className="text-5xl md:text-7xl">Conoce al <span className="font-script text-blush-200">equipo</span></h1>
+                        <p className="mt-8 text-lg text-white/85 max-w-2xl mx-auto">Nuestras especialistas nos ayudan a garantizar un servicio de 5 estrellas. Todas pasaron por capacitación en cosmetología y conocen la mejor aparatología para los servicios de belleza en México. Te atenderán de forma personalizada.</p>
+                    </div>
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+                    {TEAM.map(([n, name, stars, zone]) => (
+                        <figure key={name} className="reveal text-center">
+                            <Img src={`/img/especialistas/${n}.webp`} alt={name} className="w-full aspect-[3/4] object-cover rounded-3xl" />
+                            <figcaption className="mt-4">
+                                <p className="font-serif text-2xl">{name}</p>
+                                <p className="text-blush-500 tracking-widest" aria-label={`${stars} de 5 estrellas`}>{'★'.repeat(stars)}{'☆'.repeat(5 - stars)}</p>
+                                <p className="label text-ink-400 mt-1">{zone}</p>
+                            </figcaption>
+                        </figure>
+                    ))}
+                </section>
+                <WhatsAppCTA />
+            </>
+        ));
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnología SonNext · Ultrasonido no térmico · Individuel Genève</title>
+    <meta name="description" content="SonNext se basa únicamente en el efecto no térmico del ultrasonido terapéutico: transmisión acústica, cavitación y cambio estructural, sin daño por calor.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tecnologias/sonnext/">
+    <meta property="og:title" content="Tecnología SonNext · Ultrasonido no térmico · Individuel Genève">
+    <meta property="og:description" content="SonNext se basa únicamente en el efecto no térmico del ultrasonido terapéutico: transmisión acústica, cavitación y cambio estructural, sin daño por calor.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/tecnologias/sonnext/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const EFFECTS = [
+            { title: 'Transmisión acústica', img: '/img/sonnext/01.webp', text: 'La transmisión acústica se define como las fuerzas físicas de las ondas sonoras, generadas por las áreas de alta y baja presión, que proporciona una fuerza impulsora capaz de desplazar iones y moléculas pequeñas. Esta presión mecánica aplicada por la onda produce un movimiento unidireccional del fluido a lo largo y alrededor de las membranas celulares.' },
+            { title: 'Cavitación', img: '/img/sonnext/02.webp', text: 'La cavitación se define como las fuerzas físicas de las ondas sonoras sobre los gases microambientales dentro de un fluido. A medida que las ondas de sonido se propagan a través del medio, la compresión y el enrarecimiento característicos hacen que las burbujas de gas microscópicas en el líquido tisular se contraigan y expandan.' },
+            { title: 'Cambio estructural', img: '/img/sonnext/03.webp', text: 'Por medio del ultrasonido terapéutico se pueden modular las vías de transducción de señales que conducen a la regulación génica o la modulación de la traducción del ARN a un producto proteico, o ambos.' },
+        ];
+        const INTRO = [
+            'Los efectos de los ultrasonidos terapéuticos en el tejido vivo se pueden agrupar en dos categorías principales: térmicos y no térmicos. La tecnología SonNext se basa únicamente en el efecto no térmico del ultrasonido terapéutico, llevándolo varios pasos más allá para evitar cualquier problema relacionado con el calor.',
+            'El ultrasonido no enfocado es capaz de producir efectos terapéuticos térmicos. Estudios in vitro recientes muestran que el haz de ultrasonido disipado aumenta la temperatura del tejido a una velocidad de 0,16 °C/min (1 W/cm², 1 MHz), hasta 42 °C. La frecuencia de 3 MHz aumenta la temperatura del tejido a un ritmo más rápido que la frecuencia de 1 MHz (Ashton, Chan). Sin embargo, a medida que aumenta la temperatura, el flujo normal de sangre al área disipa el calor, lo que limita el aumento de la temperatura. El ultrasonido enfocado de alta intensidad (HIFU) es capaz de alcanzar los 70 °C y más, donde la destrucción del tejido es inevitable.',
+            'El ultrasonido terapéutico produce una combinación de transmisión acústica y efectos de cavitación. Los primeros estudios que investigaron estos efectos en las células mostraron un retraso en el crecimiento de las células in vitro, aumentos en la síntesis de proteínas y alteraciones de la membrana. Combinados, estos resultados pueden sugerir que el ultrasonido primero «daña» la célula, lo que provoca un retraso en el crecimiento, y luego inicia una respuesta de recuperación celular caracterizada por un aumento en la producción de proteínas.',
+        ];
+        const STRUCTURAL = [
+            'La tensión de cizallamiento del ultrasonido altera las propiedades de la membrana celular (adhesión celular, permeabilidad de la membrana, flujo de calcio y proliferación), activando vías de transducción de señales que conducen a la regulación génica. La exposición al ultrasonido provoca un aumento del calcio intracelular en los fibroblastos y los efectos mecánicos interrumpen la función normal de la membrana, lo que permite la fuga de calcio hacia la célula. Después de la exposición, las células expulsan rápidamente el calcio y vuelven a un estado homeostático.',
+            'Las células emplean el calcio como cofactor en la regulación de la actividad de las enzimas, muchas de las cuales están asociadas con vías de transducción de señales. La activación de las vías sensibles al calcio (proteína quinasa C y AMP cíclico) por lo general da como resultado la activación de genes. La energía mecánica dentro de la onda de ultrasonido y la fuerza de corte de la onda se combinan para producir propiedades mecánicas que perturban la membrana celular y las estructuras moleculares dentro de la célula.',
+        ];
+        renderPage(() => (
+            <>
+                <PageHero eyebrow="Ultrasonido no térmico" title="Tecnología" script="SonNext" />
+                <section className="max-w-3xl mx-auto px-4 md:px-8 pb-10 space-y-5 text-lg text-ink-500 leading-relaxed">{INTRO.map((p, i) => <p key={i}>{p}</p>)}</section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 grid md:grid-cols-3 gap-6">
+                    {EFFECTS.map(e => (
+                        <article key={e.title} className="reveal rounded-3xl bg-blush-50 overflow-hidden">
+                            <Img src={e.img} alt={e.title} className="w-full aspect-[4/3] object-cover" />
+                            <div className="p-8"><h2 className="text-3xl">{e.title}</h2><p className="text-ink-500 mt-3 text-sm leading-relaxed">{e.text}</p></div>
+                        </article>
+                    ))}
+                </section>
+                <section className="max-w-3xl mx-auto px-4 md:px-8 py-10 space-y-5 text-ink-500 leading-relaxed">{STRUCTURAL.map((p, i) => <p key={i}>{p}</p>)}</section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+                    <SectionTitle kicker="Documentación" script="certificaciones">Estudios y</SectionTitle>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {['04', '05', '06', '07'].map(n => <Img key={n} src={`/img/sonnext/${n}.webp`} alt="Documento de certificación SonNext" className="w-full rounded-2xl border border-ink-line reveal" />)}
+                    </div>
+                </section>
+                <WhatsAppCTA message="Hola, quiero información del tratamiento antiedad SonNext." />
+            </>
+        ));
+    </script>
+</body>
+</html>

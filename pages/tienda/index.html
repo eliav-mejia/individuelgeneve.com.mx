@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda · Individuel Genève</title>
-    <meta name="description" content="Sérums, cremas, limpiador y protector solar con un activo principal en la concentración que funciona. Envío a todo México.">
+    <title>Boutique Advance Pro · Individuel Genève</title>
+    <meta name="description" content="Fórmulas cosméticas Advance Pro de Individuel Genève: ácido hialurónico, péptidos, cóctel vitamínico, lociones purificantes y cuidado para pieles sensibles.">
     <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tienda/">
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Boutique Advance Pro · Individuel Genève">
+    <meta property="og:description" content="Fórmulas cosméticas Advance Pro de Individuel Genève: ácido hialurónico, péptidos, cóctel vitamínico, lociones purificantes y cuidado para pieles sensibles.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/tienda/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#f4dfe2">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/js/tailwind.config.js"></script>
+    <script src="../../js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="../../css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -24,23 +29,24 @@
 
     <div id="root"></div>
 
-    <script type="text/babel" src="/js/layout.jsx"></script>
-    <script type="text/babel" src="/js/acceso.jsx"></script>
-    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel" src="../../js/tienda.jsx"></script>
     <script type="text/babel">
         const SORTS = [
-            { id: 'ritual', label: 'Orden del ritual' },
+            { id: 'destacados', label: 'Destacados' },
+            { id: 'nombre', label: 'Nombre: A – Z' },
             { id: 'price-asc', label: 'Precio: menor a mayor' },
             { id: 'price-desc', label: 'Precio: mayor a menor' },
         ];
-        const ROUTINES = [{ id: 'all', label: 'Mañana y noche' }, { id: 'am', label: 'Mañana' }, { id: 'pm', label: 'Noche' }];
+        // Unpriced products (null) go last in price sorts.
+        const byPrice = (dir) => (a, b) => (a.price_mxn == null) - (b.price_mxn == null) || dir * ((a.price_mxn || 0) - (b.price_mxn || 0));
 
         const ShopPage = () => {
             const catalog = useCatalog();
             const params = new URLSearchParams(window.location.search);
             const [cat, setCat] = useState(params.get('cat') || 'all');
-            const [routine, setRoutine] = useState('all');
-            const [sort, setSort] = useState('ritual');
+            const [sort, setSort] = useState('destacados');
 
             // Keep ?cat= in the URL so a filtered view can be shared.
             useEffect(() => {
@@ -49,52 +55,44 @@
                 history.replaceState(null, '', url);
             }, [cat]);
 
-            const order = Object.fromEntries(catalog.categories.map(c => [c.id, c.sort_order]));
+            const used = new Set(catalog.products.flatMap(p => p.category_ids));
+            const categories = catalog.categories.filter(c => used.has(c.id));
             const products = catalog.products
-                .filter(p => cat === 'all' || p.category_id === cat)
-                .filter(p => routine === 'all' || p.routine === routine || p.routine === 'am-pm')
-                .sort((a, b) => sort === 'price-asc' ? a.price_mxn - b.price_mxn
-                    : sort === 'price-desc' ? b.price_mxn - a.price_mxn
-                    : order[a.category_id] - order[b.category_id] || a.id.localeCompare(b.id));
+                .filter(p => cat === 'all' || p.category_ids.includes(cat))
+                .sort(sort === 'nombre' ? (a, b) => a.name.localeCompare(b.name, 'es')
+                    : sort === 'price-asc' ? byPrice(1) : sort === 'price-desc' ? byPrice(-1)
+                    : (a, b) => b.featured - a.featured || a.id.localeCompare(b.id));
             const current = catalog.category[cat];
 
             const chip = (active) => `shrink-0 px-5 py-2.5 rounded-full label transition-colors border ${active ? 'bg-ink text-white border-ink' : 'border-ink-line text-ink-500 hover:border-blush-400'}`;
 
             return (
                 <>
-                    <PageHero eyebrow="La colección" title="Activos" script="esenciales"
-                        intro={current ? current.description : 'Ocho fórmulas, un activo principal en cada una. Combínalas en cuatro pasos.'} />
+                    <PageHero eyebrow="Boutique · Advance Pro" title="Fórmulas" script="profesionales"
+                        intro={current ? current.description : 'La línea Advance Pro: las mismas fórmulas que usamos en cabina, para continuar tu tratamiento en casa.'} />
                     <section className="max-w-7xl mx-auto px-4 md:px-8 pb-16">
                         <div className="flex flex-col lg:flex-row gap-4 lg:items-center justify-between mb-14 border-b border-ink-line pb-6">
-                            <div className="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Paso del ritual">
+                            <div className="flex gap-2 overflow-x-auto lg:overflow-visible lg:flex-wrap no-scrollbar" role="group" aria-label="Categoría">
                                 <button className={chip(cat === 'all')} aria-pressed={cat === 'all'} onClick={() => setCat('all')}>Todo</button>
-                                {catalog.categories.map(c => (
-                                    <button key={c.id} className={chip(cat === c.id)} aria-pressed={cat === c.id} onClick={() => setCat(c.id)}>{c.step} · {c.label}</button>
+                                {categories.map(c => (
+                                    <button key={c.id} className={chip(cat === c.id)} aria-pressed={cat === c.id} onClick={() => setCat(c.id)}>{c.label}</button>
                                 ))}
                             </div>
-                            <div className="flex gap-3">
-                                <select className="field !py-2.5 !rounded-full !w-auto text-sm" value={routine} onChange={e => setRoutine(e.target.value)} aria-label="Momento del día">
-                                    {ROUTINES.map(r => <option key={r.id} value={r.id}>{r.label}</option>)}
-                                </select>
-                                <select className="field !py-2.5 !rounded-full !w-auto text-sm" value={sort} onChange={e => setSort(e.target.value)} aria-label="Ordenar">
-                                    {SORTS.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
-                                </select>
-                            </div>
+                            <select className="field !py-2.5 !rounded-full !w-auto text-sm" value={sort} onChange={e => setSort(e.target.value)} aria-label="Ordenar">
+                                {SORTS.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
+                            </select>
                         </div>
 
                         {catalog.status === 'loading' && <ProductGridSkeleton n={8} />}
                         {catalog.status === 'error' && <LoadError />}
-                        {catalog.status === 'ready' && products.length === 0 && <p className="text-center text-ink-400 py-16">No hay productos con estos filtros.</p>}
+                        {catalog.status === 'ready' && products.length === 0 && <p className="text-center text-ink-400 py-16">No hay productos en esta categoría.</p>}
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-14">
-                            {products.map(p => <ProductCard key={p.id} product={p} category={catalog.category[p.category_id]} />)}
+                            {products.map(p => <ProductCard key={p.id} product={p} category={primaryCategory(catalog, p)} />)}
                         </div>
                     </section>
 
-                    <section className="max-w-4xl mx-auto px-4 md:px-8 py-16 text-center">
-                        <p className="font-script text-4xl text-blush-500">¿No sabes por dónde empezar?</p>
-                        <p className="text-ink-500 mt-4">Reserva un diagnóstico de piel de 30 minutos: te proponemos una rutina y el importe se bonifica en tu compra.</p>
-                        <a href="/pages/tratamientos/?tratamiento=diagnostico#reservar" className="btn btn-light mt-8">Reservar diagnóstico</a>
-                    </section>
+                    <WhatsAppCTA title="¿No sabes por dónde empezar?" text="Agenda un dermo-análisis: conocemos la condición de tu piel y te recomendamos las fórmulas para tu tratamiento."
+                        message="Hola, quiero una recomendación de productos Advance Pro para mi piel." />
                 </>
             );
         };

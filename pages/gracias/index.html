@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por tu compra · Individuel Genève</title>
+    <meta name="description" content="Confirmación de compra en Individuel Genève.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/gracias/">
+    <meta property="og:title" content="Gracias por tu compra · Individuel Genève">
+    <meta property="og:description" content="Confirmación de compra en Individuel Genève.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/gracias/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        // Stripe Payment Links redirect here after a successful payment (Payment Link → After payment → "Don't show
+        // confirmation page" → https://individuelgeneve.com.mx/pages/gracias/). Stripe emails the receipt.
+        renderPage(() => (
+            <PageHero eyebrow="Pago recibido" title="Gracias por tu" script="compra"
+                intro="Recibirás tu recibo por correo electrónico. Te escribimos para coordinar el envío; si tienes cualquier duda, contáctanos por WhatsApp.">
+                <div className="flex flex-wrap justify-center gap-3 mt-10">
+                    <a href="/pages/tienda/" className="btn btn-dark">Seguir comprando</a>
+                    <a href={waLink('Hola, acabo de hacer una compra en la boutique.')} target="_blank" rel="noopener noreferrer" className="btn btn-light">WhatsApp</a>
+                </div>
+            </PageHero>
+        ));
+    </script>
+</body>
+</html>

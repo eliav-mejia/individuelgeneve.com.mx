@@ -6,35 +6,41 @@ Los nombres de campo coinciden con las columnas de `supabase/migrations/0001_esq
 
 | Archivo | «Tabla» | Lo usa |
 |---|---|---|
-| `categorias.json` | `categories` | pasos del ritual: filtros de la tienda, inicio |
-| `productos.json` | `products` | tienda, fichas, bolsa, inicio, ingredientes |
-| `ingredientes.json` | `ingredients` | glosario, pestaña «Activos» de cada ficha, productos relacionados |
-| `tratamientos.json` | `schedule` + `treatments` | tratamientos, reservas, inicio |
+| `categorias.json` | `categories` | filtros de la boutique (las 6 categorías de Squarespace) |
+| `productos.json` | `products` | boutique, fichas, inicio, ingredientes |
+| `ingredientes.json` | `ingredients` | glosario, pestaña «Activos» de cada ficha |
+| `tratamientos.json` | `schedule` + `groups` + `treatments` | menú de servicios, reservas, inicio |
+| `blog.json` | `posts` | blog y páginas `/pages/blog/<slug>/` |
+| `capsulas.json` | `capsules` | `/pages/capsulas/` |
 
 Cada archivo lleva `_schema`, `_note` y `updated_at`: actualiza `updated_at` al editar.
+Origen (2026-11-01): `productos.json` y `categorias.json` desde el export de Squarespace `products_Nov-01_10-41-27AM.csv`;
+el resto desde las páginas de individuelgeneve.com.mx. Las imágenes se descargaron a `/img/` en WebP.
 
 ## products
 
 | Campo | Notas |
 |---|---|
-| `id` | permanente (`ig-001`…); la bolsa lo guarda. Los dos últimos dígitos forman el «N°» |
+| `id` | permanente (`ig-001`…) |
 | `slug` | URL `/pages/tienda/<slug>/`; minúsculas unidas por `-` |
-| `sku` | se muestra en el pedido |
-| `category_id` | uno de `categories.id` |
-| `name`, `hero_ingredient`, `concentration`, `size_ml` | etiqueta del frasco y ficha |
-| `price_mxn` | MXN con IVA |
-| `stock` | `0` Agotado · `1` Última unidad · `2–3` Solo quedan N · más = Disponible. La bolsa nunca supera el stock |
-| `active` | `false` oculta el producto en todo el sitio |
-| `featured` | aparece en «Nuestros favoritos» y en el bodegón del inicio (los 3 primeros) |
-| `bottle` | `dropper` · `pump` · `jar` · `tube` · `mist` (ilustración SVG) |
-| `tint` | color del frasco (`#hex`), mejor dentro de la paleta rosa / blanco |
-| `routine` | `am` · `pm` · `am-pm` |
+| `sku` | SKU de Squarespace; se muestra en el pedido |
+| `line` | línea de producto (`Advance Pro`) |
+| `name`, `size` | nombre y contenido (`30ml`) |
+| `price_mxn` | MXN con IVA, solo para mostrar (el cobro usa el precio del Payment Link: deben coincidir). **`null` = «Precio a consultar»**. El export trae todos los precios en 0 |
+| `stripe_url` | Payment Link de Stripe (`https://buy.stripe.com/…`) → botón «Comprar ahora». `null` = «Pedir por WhatsApp». Otras URLs se ignoran |
+| `stock` | `0` Agotado (sin botón de compra) · `1` Última unidad · `2–3` Solo quedan N · más = Disponible. Stripe no lo descuenta: actualízalo a mano (o limita el número de pagos en el Payment Link) |
+| `active` | `false` oculta el producto en todo el sitio (Sonica: `Visible = No` en Squarespace) |
+| `featured` | aparece en «Fórmulas Advance Pro» del inicio |
+| `category_ids` | uno o varios `categories.id`; el primero es la categoría principal |
+| `description`, `actives` | textos de la ficha (`actives` = los activos entre paréntesis del texto original) |
 | `ingredient_ids` | ids de `ingredientes.json` |
-| `inci` | lista completa de ingredientes (pestaña «Fórmula completa») |
+| `images` | `[foto de producto, ficha informativa]` en `/img/productos/` |
+| `old_url` | URL en Squarespace; redirigida en `404.html` |
 
 ## schedule (tratamientos.json)
 
-`days` (0 = domingo), `open` / `close` (HH:MM), `slot_min` (cada cuánto empieza un horario), `booking_window_days`,
+`days` (0 = domingo), `open` / `close` (HH:MM) — lo único que lee hoy `js/reservas.jsx`; `hours_by_day` guarda el horario real
+por día (sáb y dom 10:00–16:00) para cuando se adapte el asistente —, `slot_min` (cada cuánto empieza un horario), `booking_window_days`,
 `min_notice_hours`, `cabins` (citas simultáneas) y `closed_dates` (`YYYY-MM-DD`).
 
 ## Añadir un producto
@@ -42,3 +48,8 @@ Cada archivo lleva `_schema`, `_note` y `updated_at`: actualiza `updated_at` al 
 1. Copia un objeto en `productos.json` con `id`, `slug` y `sku` nuevos.
 2. `python tools/generar-paginas-producto.py` (crea `pages/tienda/<slug>/`).
 3. Commit y push. Cambios de precio, stock o textos no necesitan regenerar.
+
+## Añadir un artículo del blog
+
+Añade un objeto a `blog.json` (`slug`, `title`, `date`, `author`, `excerpt`, `cover`, `blocks`) y ejecuta el mismo script:
+también crea `pages/blog/<slug>/`. `blocks` es una lista de `{ "t": "h" | "p" | "li" | "quote" | "img", "v": "…" }`.

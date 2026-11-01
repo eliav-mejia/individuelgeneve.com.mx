@@ -1,0 +1,246 @@
+{
+ "_schema": "capsules: slug, line, title, excerpt, cover, blocks, old_url",
+ "_note": "Cápsulas de tratamiento migradas de /capsulas-de-tratamiento el 2026-11-01.",
+ "capsules": [
+  {
+   "slug": "almendras-dulces",
+   "title": "Almendras dulces",
+   "date": "2019-05-28",
+   "author": "Individuel Geneve México",
+   "excerpt": "Esta cápsula, te ayudará a tonificar y lograr la piel joven con la que has soñado, es realmente una experiencia maravillosa.",
+   "cover": "/img/capsulas/almendras-dulces/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/almendras-dulces/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "¡limpieza como ningún otra!"
+    },
+    {
+     "t": "p",
+     "v": "Un exfoliante natural, la cápsula Peel Exfoliator combina aceite de almendras dulces con partículas exfoliantes. Enriquecida con vitamina E y A, esta fórmula contiene una acción de doble peeling de celulosa para eliminar las células muertas de la piel, aumentar la circulación sanguínea y promover la renovación celular. Esta cápsula, te ayudará a tonificar y lograr la piel joven lista para recibir los nutrientes y fórmulas activas de los otros tratamientos."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/exfoliacion",
+   "line": "Línea Natural"
+  },
+  {
+   "slug": "karite",
+   "title": "Karité",
+   "date": "2019-05-28",
+   "author": "Individuel Geneve México",
+   "excerpt": "Devuelve a tu piel su brillo juvenil, la cápsula Rejuvenation redefine la suavidad.",
+   "cover": "/img/capsulas/karite/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/karite/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "Jóven otra vez"
+    },
+    {
+     "t": "p",
+     "v": "La manteca de karité penetra profundamente en la piel rejuveneciendo las células dañadas, restaurando la elasticidad y el tono. El aceite de karité se ha utilizado durante siglos debido a su capacidad insuperable para proteger y regenerar la piel. Devuelve a tu piel su brillo juvenil, la cápsula Rejuvenation redefine la suavidad."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/rejuvenecimiento",
+   "line": "Línea Natural"
+  },
+  {
+   "slug": "leche-calmante",
+   "title": "Leche calmante",
+   "date": "2019-05-28",
+   "author": "Individuel Geneve México",
+   "excerpt": "Los aspectos calmantes y suaves del aceite de caléndula reducen la inflamación y la irritación, e incluso pueden ayudar a curar heridas.",
+   "cover": "/img/capsulas/leche-calmante/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/leche-calmante/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "calma la irritación"
+    },
+    {
+     "t": "p",
+     "v": "El aceite de caléndula tiene propiedades antisépticas, antifúngicas, antiinflamatorias y antibacterianas, cualidades que lo hacen excelente en el tratamiento de infecciones de la piel. El favorito de las pieles secas o agrietadas. Los aspectos calmantes y suaves del aceite de caléndula reducen la inflamación y la irritación, e incluso pueden ayudar a curar heridas."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/blog-post-title-three-t3y7h",
+   "line": "Línea Natural"
+  },
+  {
+   "slug": "jojoba",
+   "title": "Jojoba",
+   "date": "2019-05-28",
+   "author": "Individuel Geneve México",
+   "excerpt": "Los componentes naturales de la cápsula ayudan a crear una barrera de humedad que contiene los nutrientes esenciales que necesita tu piel.",
+   "cover": "/img/capsulas/jojoba/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/jojoba/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "Siempre jóven"
+    },
+    {
+     "t": "p",
+     "v": "Basado en un componente de aceite de jojoba puro, nuestra cápsula antienvejecimiento WISHPro hará que su piel se vea y se sienta mucho más joven, incluso si tiene piel sensible o propensa al acné. Los componentes naturales de la cápsula ayudan a crear una barrera de humedad que contiene los nutrientes esenciales que necesita tu piel."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/blog-post-title-four-fg34s",
+   "line": "Línea Natural"
+  },
+  {
+   "slug": "argilerine",
+   "title": "Argilerine",
+   "date": "2022-12-13",
+   "author": "Individuel Geneve México",
+   "excerpt": "Mediante el uso regular de la cápsula Synoia BTX, las arrugas se pueden reducir sin dolor al limitar las contracciones de los músculos faciales, ¡manteniendo así su rostro sin edad!",
+   "cover": "/img/capsulas/argilerine/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/argilerine/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "¡Un suero mágico!"
+    },
+    {
+     "t": "p",
+     "v": "Las cápsulas de BTX contienen Argireline® C-Peptide Solution, este péptido está especialmente diseñado como un tratamiento tópico que imita los efectos de Botox® en la piel pero sin los efectos secundarios negativos. Mediante el uso regular de la cápsula Synoia BTX, las arrugas se pueden reducir sin dolor al limitar las contracciones de los músculos faciales, ¡manteniendo así su rostro sin edad!"
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/colageno-59scs-zt32t",
+   "line": "Línea de infusiones"
+  },
+  {
+   "slug": "acido-hialuronico",
+   "title": "Ácido Hialurónico",
+   "date": "2022-12-13",
+   "author": "Individuel Geneve México",
+   "excerpt": "Estimula la síntesis de colágeno y elastina en la piel. Además de aumentar la inmunidad general, la cápsula también ofrece una serie de beneficios antiinflamatorios para la piel.",
+   "cover": "/img/capsulas/acido-hialuronico/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/acido-hialuronico/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "Tu expresión al natural"
+    },
+    {
+     "t": "p",
+     "v": "La cápsula hialurónica que contiene Cristalhyal es una de las cremas hidratantes más eficaces del mercado actual. Actuando como una \"esponja molecular\", aumenta la capacidad de la piel para retener agua, manteniéndola hidratada, nutrida y saludable. Estimula la síntesis de colágeno y elastina en la piel. Además de aumentar la inmunidad general, la cápsula también ofrece una serie de beneficios antiinflamatorios para la piel."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/colageno-59scs",
+   "line": "Línea de infusiones"
+  },
+  {
+   "slug": "colageno",
+   "title": "Colágeno",
+   "date": "2022-12-13",
+   "author": "Individuel Geneve México",
+   "excerpt": "Protegen la piel de la radiación dañina, al mismo tiempo que trabajan para respaldar el sistema inmunológico de la piel y combatir los radicales libres para inhibir el envejecimiento de la piel y la degradación celular.",
+   "cover": "/img/capsulas/colageno/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/colageno/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "¡Cubierta contra todo!"
+    },
+    {
+     "t": "p",
+     "v": "Mari Coll, derivado de peces de aguas profundas, es un colágeno puro que contrarresta los efectos de los agentes irritantes y agresivos para la piel. Nuestras cápsulas de infusión de colágeno protegen la piel de la radiación dañina, al mismo tiempo que trabajan para respaldar el sistema inmunológico de la piel y combatir los radicales libres para inhibir el envejecimiento de la piel y la degradación celular."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/colageno",
+   "line": "Línea de infusiones"
+  },
+  {
+   "slug": "b-white-sea-shine",
+   "title": "B-white & Sea shine",
+   "date": "2022-12-13",
+   "author": "Individuel Geneve México",
+   "excerpt": "Los agentes exfoliantes eliminan las células muertas de la piel para que la piel se vea más suave, brillante y clara.",
+   "cover": "/img/capsulas/b-white-sea-shine/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/b-white-sea-shine/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "¡TONO UNIFICADO!"
+    },
+    {
+     "t": "p",
+     "v": "Esta poderosa cápsula fusiona dos ingredientes blanqueadores activos para iluminar y unificar el tono de la piel: la nueva solución B-White y Sea Shine, un ingrediente natural extraído de dos algas marinas marrones. Los agentes exfoliantes eliminan las células muertas de la piel para que la piel se vea más suave, brillante y clara."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/colageno-59scs-zt32t-8n4sz-276cn-dwfgt",
+   "line": "Línea APL"
+  },
+  {
+   "slug": "cristalhyal-primalhyal-300",
+   "title": "CristalHyal & PrimalhYAL 300",
+   "date": "2022-12-13",
+   "author": "Individuel Geneve México",
+   "excerpt": "Dale a tu piel un tratamiento reparador de acción rápida que estimula el sistema inmunológico y el sistema celular.",
+   "cover": "/img/capsulas/cristalhyal-primalhyal-300/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/cristalhyal-primalhyal-300/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "Piel renovada"
+    },
+    {
+     "t": "p",
+     "v": "Combinando los ingredientes activos Cristalhyal y PrimalHyal 300, la cápsula Repairing ayuda a proteger y reparar tu piel. Además, PrimalHyal 300, un ácido hialurónico, promueve el proceso de cicatrización de heridas.\n\nDale a tu piel un tratamiento reparador de acción rápida que estimula el sistema inmunológico y el sistema celular."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/colageno-59scs-zt32t-8n4sz-276cn",
+   "line": "Línea APL"
+  },
+  {
+   "slug": "mg6p",
+   "title": "Mg6p",
+   "date": "2022-12-13",
+   "author": "Individuel Geneve México",
+   "excerpt": "La cápsula contiene una fórmula de fuente de energía segura y preactivada (MG6P) combinada con aminoácidos esenciales y cobre.",
+   "cover": "/img/capsulas/mg6p/portada.webp",
+   "blocks": [
+    {
+     "t": "img",
+     "v": "/img/capsulas/mg6p/01.webp"
+    },
+    {
+     "t": "h",
+     "v": "Devuelve la vitalidad"
+    },
+    {
+     "t": "p",
+     "v": "Este relleno \"sin agujas\" proporciona a las células de su piel una fuente pura de bioenergía. Nuestra cápsula Neo Energy produce menos arrugas y una piel más firme en 15 días al revitalizar las células envejecidas para producir colágeno y elastina. La cápsula contiene una fórmula de fuente de energía segura y preactivada (MG6P) combinada con aminoácidos esenciales y cobre."
+    }
+   ],
+   "old_url": "/blog-capsulas-de-tratamiento/colageno-59scs-zt32t-8n4sz",
+   "line": "Línea APL"
+  }
+ ]
+}

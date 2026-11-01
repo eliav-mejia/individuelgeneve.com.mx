@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto · Individuel Genève</title>
+    <meta name="description" content="Agenda tu cita por WhatsApp. Av. Tamaulipas 150, Condesa, Ciudad de México. Lunes a viernes 8:00 a 20:00, sábado y domingo 10:00 a 16:00.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/contacto/">
+    <meta property="og:title" content="Contacto · Individuel Genève">
+    <meta property="og:description" content="Agenda tu cita por WhatsApp. Av. Tamaulipas 150, Condesa, Ciudad de México. Lunes a viernes 8:00 a 20:00, sábado y domingo 10:00 a 16:00.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/contacto/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const ContactPage = () => (
+            <>
+                <PageHero eyebrow="Contacto" title="Agenda tu" script="cita" intro="Agenda tu cita vía WhatsApp en nuestros horarios de atención." />
+                <section className="max-w-5xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-2 gap-8">
+                    <div className="rounded-3xl bg-blush-50 p-8 md:p-10">
+                        <p className="label text-ink-400 mb-6">Horario de atención</p>
+                        <dl className="divide-y divide-blush-200">
+                            {OPENING_HOURS.map(([d, h]) => (
+                                <div key={d} className="flex justify-between py-3"><dt>{d}</dt><dd className="text-ink-500">{h}</dd></div>
+                            ))}
+                        </dl>
+                    </div>
+                    <div className="rounded-3xl border border-ink-line p-8 md:p-10 flex flex-col">
+                        <p className="label text-ink-400">WhatsApp</p>
+                        <a href={waLink()} target="_blank" rel="noopener noreferrer" className="font-serif text-3xl mt-2 hover:text-blush-500">{BRAND.phone}</a>
+                        <p className="label text-ink-400 mt-8">Dirección</p>
+                        <a href={BRAND.mapUrl} target="_blank" rel="noopener noreferrer" className="text-lg mt-2 hover:text-blush-500">{BRAND.address}</a>
+                        <p className="label text-ink-400 mt-8">Correo</p>
+                        <a href={`mailto:${BRAND.email}`} className="text-lg mt-2 hover:text-blush-500">{BRAND.email}</a>
+                        <div className="flex flex-wrap gap-3 mt-auto pt-10">
+                            <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn btn-dark">WhatsApp</a>
+                            <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="btn btn-light">Instagram</a>
+                        </div>
+                    </div>
+                </section>
+            </>
+        );
+
+        renderPage(ContactPage);
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Políticas de devolución · Individuel Genève</title>
+    <meta name="description" content="Reembolsos y cambios dentro de los primeros 7 días naturales después de tu compra: elegibilidad, bienes exentos y envío de devoluciones.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/devoluciones/">
+    <meta property="og:title" content="Políticas de devolución · Individuel Genève">
+    <meta property="og:description" content="Reembolsos y cambios dentro de los primeros 7 días naturales después de tu compra: elegibilidad, bienes exentos y envío de devoluciones.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/devoluciones/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        // Text from individuelgeneve.com.mx/politicas-de-devolucion (2026-11-01). The original names bellezapro.mx and contacto@bellezapro.mx. [verificar]
+        const RETURNS_EMAIL = 'contacto@bellezapro.mx';
+        const SECTIONS = [
+            { id: 'plazo', title: 'Plazo', body: ['Ofrecemos reembolso o cambio dentro de los primeros 7 días naturales después de tu compra. Pasado ese plazo no se podrá hacer válido el reembolso ni el cambio.'] },
+            { id: 'elegibilidad', title: 'Elegibilidad para reembolsos y cambios', body: [[
+                'Tu artículo debe estar sin usar y en las mismas condiciones en que lo recibiste.', 'El artículo debe estar en su embalaje original.',
+                'Para completar tu devolución requerimos un recibo o comprobante de compra.', 'Solo se reembolsan artículos de precio regular; los artículos vendidos con promociones de temporada no aplican.',
+                'Si el artículo fue marcado como regalo y se te envió directamente, recibirás un crédito de regalo por el valor de tu devolución.']] },
+            { id: 'cambios', title: 'Cambios', body: [`Solo reemplazamos artículos que llegan defectuosos o dañados. Si necesitas cambiarlo por el mismo artículo, escríbenos a ${RETURNS_EMAIL} con fotografías y el motivo. Cuando aprobemos el caso podrás enviar tu artículo a: ${BRAND.address}.`] },
+            { id: 'exentos', title: 'Bienes exentos', body: ['Los siguientes bienes están exentos de reembolso:', ['Tarjetas de regalo.', 'Tratamientos faciales o corporales (consulta la garantía sobre tratamientos en Términos y condiciones).']] },
+            { id: 'reembolsos', title: 'Reembolsos', body: ['Una vez que recibamos e inspeccionemos tu devolución te enviaremos un correo para notificarte que la recibimos, y te avisaremos si tu reembolso fue aprobado o rechazado. Si es aprobado, se aplicará un crédito a tu cuenta para que puedas adquirir de nuevo el artículo.',
+                `Si aún no has recibido tu reembolso, revisa de nuevo tu correo electrónico. Si sigue sin llegar, escríbenos a ${RETURNS_EMAIL}.`] },
+            { id: 'envio', title: 'Envío de devoluciones', body: [`Por favor, no devuelvas el producto al fabricante. Envíalo a: ${BRAND.address}.`,
+                'Eres responsable de pagar tus propios costos de envío para devolver el artículo. El tiempo que tarde tu producto cambiado en llegar puede variar según dónde vivas. No podemos garantizar la recepción del artículo devuelto: es responsabilidad del cliente verificar que efectivamente se ha devuelto.'] },
+        ];
+        renderPage(() => <LegalPage eyebrow="Nuestras políticas" title="Políticas de" script="devolución" intro="¡Gracias por comprar con nosotros!" sections={SECTIONS} />);
+    </script>
+</body>
+</html>

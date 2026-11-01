@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolsa de trabajo · Individuel Genève</title>
+    <meta name="description" content="Forma parte de un grupo de estetistas y profesionistas comprometidos con la belleza y el bienestar. Vacantes de Skin specialist y Brand Advocate.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/bolsa-de-trabajo/">
+    <meta property="og:title" content="Bolsa de trabajo · Individuel Genève">
+    <meta property="og:description" content="Forma parte de un grupo de estetistas y profesionistas comprometidos con la belleza y el bienestar. Vacantes de Skin specialist y Brand Advocate.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/bolsa-de-trabajo/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        // Vacancies as published on the original site (2026-11-01). Update `open` and `requirements` here.
+        const JOBS = [
+            { title: 'Brand Ambassador', open: false },
+            { title: 'Skin specialist', open: true, requirements: ['Edad mínima 35 años', '3 años de experiencia en ventas'] },
+            { title: 'Esthetician', open: false },
+            { title: 'Brand Advocate', open: true, requirements: ['Edad mínima 35 años'] },
+            { title: 'Influencers', open: false },
+        ];
+        renderPage(() => (
+            <>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 pt-16 md:pt-24 pb-10 grid md:grid-cols-2 gap-12 items-center">
+                    <div className="animate-rise-in">
+                        <h1 className="text-6xl md:text-7xl">Bolsa de <span className="font-script text-blush-500">trabajo</span></h1>
+                        <p className="mt-8 text-lg text-ink-500 leading-relaxed">Expande tus oportunidades y forma parte de un grupo de estetistas y profesionistas comprometidos con la belleza y el bienestar en los más altos estándares a nivel internacional.</p>
+                    </div>
+                    <Img src="/img/bolsa-de-trabajo/01.webp" alt="" className="w-full rounded-3xl" loading="eager" />
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 grid md:grid-cols-2 gap-12 items-center">
+                    <Img src="/img/bolsa-de-trabajo/02.webp" alt="" className="w-full rounded-3xl reveal md:order-2" />
+                    <div className="reveal">
+                        <h2 className="text-4xl">Bienvenido a la revolución</h2>
+                        <p className="text-ink-500 mt-4 leading-relaxed">Individuel Genève es un grupo que constantemente está innovando con tecnologías y fórmulas que le darán a tu piel la mejor calidad en cosmética europea.</p>
+                    </div>
+                </section>
+                <section className="max-w-5xl mx-auto px-4 md:px-8 py-16">
+                    <SectionTitle kicker="Consulta los criterios de cada vacante" script="hoy">Aplica</SectionTitle>
+                    <div className="divide-y divide-ink-line border-y border-ink-line">
+                        {JOBS.map(j => (
+                            <div key={j.title} className="py-6 grid md:grid-cols-3 gap-4 items-start">
+                                <h3 className="text-3xl">{j.title}</h3>
+                                <div className="md:col-span-2">
+                                    {j.open ? <>
+                                        <p className="label text-blush-500">Vacantes disponibles</p>
+                                        <ul className="text-ink-500 mt-3 space-y-1">{j.requirements.map(r => <li key={r}>· {r}</li>)}</ul>
+                                        <p className="text-sm text-ink-500 mt-3">Envía tu currículum a <a href={`mailto:${BRAND.emailJobs}?subject=${encodeURIComponent(j.title)}`} className="underline underline-offset-4">{BRAND.emailJobs}</a></p>
+                                    </> : <p className="text-ink-400">Por el momento, no hay vacantes disponibles.</p>}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            </>
+        ));
+    </script>
+</body>
+</html>

@@ -1,34 +1,238 @@
 {
-  "_schema": "schedule + treatments: id, name, duration_min, price_mxn, short, description, includes, ideal_for, active, sort_order",
-  "_note": "Agenda y tratamientos de cabina (staging). Ver public/db/README.md.",
-  "updated_at": "2026-10-07",
-  "schedule": {
-    "timezone": "America/Mexico_City",
-    "days": [1, 2, 3, 4, 5, 6],
-    "open": "10:00",
-    "close": "19:00",
-    "slot_min": 30,
-    "booking_window_days": 30,
-    "min_notice_hours": 12,
-    "cabins": 1,
-    "closed_dates": ["2026-11-16", "2026-12-25", "2027-01-01"]
+ "_schema": "schedule (hours por día de la semana, 0 = domingo) + groups + treatments: id, group_id, name, duration_min, price_mxn (null = se cotiza en la valoración), short, description, image, active, sort_order",
+ "_note": "Menú de servicios de individuelgeneve.com.mx/menu-servicios y horario de /cotizar (2026-11-01). Duración (60 min) y número de cabinas son supuestos [verificar]; la web original no publica precios salvo la valoración (800 MXN, preguntas frecuentes de Términos). El asistente de reservas (js/reservas.jsx, sin cambios) solo lee days/open/close: hoy reserva lunes a viernes 8:00–20:00; hours_by_day queda listo para cuando se adapte.",
+ "updated_at": "2026-11-01",
+ "schedule": {
+  "timezone": "America/Mexico_City",
+  "days": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "open": "08:00",
+  "close": "20:00",
+  "hours_by_day": {
+   "0": [
+    "10:00",
+    "16:00"
+   ],
+   "1": [
+    "08:00",
+    "20:00"
+   ],
+   "2": [
+    "08:00",
+    "20:00"
+   ],
+   "3": [
+    "08:00",
+    "20:00"
+   ],
+   "4": [
+    "08:00",
+    "20:00"
+   ],
+   "5": [
+    "08:00",
+    "20:00"
+   ],
+   "6": [
+    "10:00",
+    "16:00"
+   ]
   },
-  "treatments": [
-    { "id": "diagnostico", "name": "Diagnóstico de piel", "duration_min": 30, "price_mxn": 350, "active": true, "sort_order": 1,
-      "short": "Analizamos tu piel y diseñamos tu rutina.",
-      "description": "Una especialista revisa hidratación, sebo, sensibilidad y manchas, y te propone una rutina de 3 o 4 pasos. El importe se bonifica en tu primera compra.",
-      "includes": ["Análisis de piel", "Rutina personalizada por escrito", "Bonificación en tienda"], "ideal_for": "Si empiezas o quieres simplificar tu rutina" },
-    { "id": "facial-esencial", "name": "Facial esencial", "duration_min": 45, "price_mxn": 950, "active": true, "sort_order": 2,
-      "short": "Limpieza profunda, exfoliación suave y mascarilla.",
-      "description": "El reinicio mensual de la piel: doble limpieza, exfoliación enzimática, extracción suave si es necesaria y mascarilla calmante.",
-      "includes": ["Doble limpieza", "Exfoliación enzimática", "Mascarilla", "Protección final"], "ideal_for": "Mantenimiento mensual" },
-    { "id": "hidratacion-profunda", "name": "Hidratación profunda", "duration_min": 60, "price_mxn": 1450, "active": true, "sort_order": 3,
-      "short": "Ácido hialurónico y tecnología no invasiva.",
-      "description": "Infusión de ácido hialurónico y péptidos asistida con tecnología no invasiva, seguida de masaje facial y mascarilla de ceramidas. Piel jugosa desde la primera sesión.",
-      "includes": ["Limpieza", "Infusión de activos", "Masaje facial", "Mascarilla de ceramidas"], "ideal_for": "Piel deshidratada, opaca o antes de un evento" },
-    { "id": "rejuvenecimiento", "name": "Rejuvenecimiento", "duration_min": 75, "price_mxn": 2200, "active": true, "sort_order": 4,
-      "short": "Firmeza y líneas finas, sin agujas.",
-      "description": "Protocolo antiedad con péptidos, vitamina C y tecnología no invasiva para estimular la firmeza. Recomendado en ciclos de 4 a 6 sesiones.",
-      "includes": ["Diagnóstico breve", "Peeling suave", "Infusión de péptidos", "Tecnología de firmeza", "Masaje lifting"], "ideal_for": "Piel madura o con pérdida de firmeza" }
+  "slot_min": 30,
+  "booking_window_days": 30,
+  "min_notice_hours": 24,
+  "cabins": 1,
+  "closed_dates": [
+   "2026-11-16",
+   "2026-12-25",
+   "2027-01-01"
   ]
+ },
+ "groups": [
+  {
+   "id": "valoracion",
+   "label": "Valoración",
+   "intro": "Cada piel es única: empezamos con un análisis para conocer su condición y recomendarte el mejor tratamiento."
+  },
+  {
+   "id": "facial",
+   "label": "Hidratación, limpieza y microdermoabrasión",
+   "intro": "Faciales con tecnologías no invasivas y principios activos."
+  },
+  {
+   "id": "antiedad",
+   "label": "Tratamiento antiedad SonNext",
+   "intro": "Ultrasonido no térmico para resultados antiedad sin dañar la piel.",
+   "link": "/pages/tecnologias/sonnext/"
+  },
+  {
+   "id": "corporal",
+   "label": "Lifting y reducción corporal · SonNext & Ballancer",
+   "intro": "Tonificación, reducción de grasa localizada y drenaje linfático.",
+   "link": "/pages/tecnologias/ballancer/"
+  }
+ ],
+ "treatments": [
+  {
+   "id": "valoracion",
+   "group_id": "valoracion",
+   "name": "Dermo-análisis",
+   "duration_min": 60,
+   "price_mxn": 800,
+   "active": true,
+   "sort_order": 1,
+   "short": "Conoce la condición de tu piel y tus opciones de tratamiento.",
+   "description": "Análisis de la piel con una especialista certificada para conocer tus opciones y tomar una mejor decisión antes de agendar tu tratamiento. Está incluido en el costo de cualquier tratamiento.",
+   "image": "/img/servicios/01.webp"
+  },
+  {
+   "id": "exfoliacion",
+   "group_id": "facial",
+   "name": "Exfoliación",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 2,
+   "short": "Hidrata y elimina células muertas.",
+   "description": "Hidrata y elimina células muertas.",
+   "image": "/img/servicios/02.webp"
+  },
+  {
+   "id": "coctel-vitaminico",
+   "group_id": "facial",
+   "name": "Cóctel vitamínico",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 3,
+   "short": "Drenaje linfático con principios activos.",
+   "description": "Drenaje linfático con principios activos.",
+   "image": "/img/servicios/03.webp"
+  },
+  {
+   "id": "fototerapia",
+   "group_id": "facial",
+   "name": "Fototerapia",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 4,
+   "short": "Luz led roja con principios activos.",
+   "description": "Luz led roja con principios activos.",
+   "image": "/img/servicios/04.webp"
+  },
+  {
+   "id": "minerales-esenciales",
+   "group_id": "facial",
+   "name": "Minerales esenciales",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 5,
+   "short": "Nutre y elimina células muertas.",
+   "description": "Nutre y elimina células muertas.",
+   "image": "/img/servicios/05.webp"
+  },
+  {
+   "id": "bb-glow",
+   "group_id": "facial",
+   "name": "BB-Glow",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 6,
+   "short": "Microdermoabrasión con principios activos.",
+   "description": "Microdermoabrasión con principios activos.",
+   "image": "/img/servicios/06.webp"
+  },
+  {
+   "id": "meso-aha-peeling",
+   "group_id": "facial",
+   "name": "Meso AHA Peeling",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 7,
+   "short": "Renueva y elimina células muertas.",
+   "description": "Renueva y elimina células muertas.",
+   "image": "/img/servicios/07.webp"
+  },
+  {
+   "id": "doble-menton",
+   "group_id": "antiedad",
+   "name": "Doble mentón",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 8,
+   "short": "Reducción de grasa localizada en el borde mandibular.",
+   "description": "Reducción de grasa localizada en el borde mandibular.",
+   "image": "/img/servicios/08.webp"
+  },
+  {
+   "id": "contorno-de-ojos",
+   "group_id": "antiedad",
+   "name": "Contorno de ojos",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 9,
+   "short": "Mesoterapia de efecto inmediato en la reducción de líneas finas.",
+   "description": "Mesoterapia de efecto inmediato en la reducción de líneas finas.",
+   "image": "/img/servicios/09.webp"
+  },
+  {
+   "id": "facial-lift",
+   "group_id": "antiedad",
+   "name": "Facial lift",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 10,
+   "short": "Bioestimulación para un efecto tensor.",
+   "description": "Bioestimulación para un efecto tensor.",
+   "image": "/img/servicios/10.webp"
+  },
+  {
+   "id": "gluteo",
+   "group_id": "corporal",
+   "name": "Glúteo",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 11,
+   "short": "Tonifica y levanta pierna y glúteo.",
+   "description": "Tonifica y levanta pierna y glúteo.",
+   "image": "/img/servicios/11.webp"
+  },
+  {
+   "id": "vientre-plano",
+   "group_id": "corporal",
+   "name": "Vientre plano",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 12,
+   "short": "Reducción de grasa localizada en el área abdominal.",
+   "description": "Reducción de grasa localizada en el área abdominal.",
+   "image": "/img/servicios/12.webp"
+  },
+  {
+   "id": "drenaje-linfatico",
+   "group_id": "corporal",
+   "name": "Drenaje linfático",
+   "duration_min": 60,
+   "price_mxn": null,
+   "active": true,
+   "sort_order": 13,
+   "short": "Libera toxinas tonificando y tensando la piel.",
+   "description": "Libera toxinas tonificando y tensando la piel.",
+   "image": "/img/servicios/13.webp"
+  }
+ ]
 }

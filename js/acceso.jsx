@@ -13,7 +13,7 @@ const ACCESS_TXT = { home: 'Volver al inicio', terms: 'Aviso de privacidad' };
 
 const AccessGate = () => {
     const user = useUser();
-    const rule = ACCESS_RULES.find(r => window.location.pathname.startsWith(r.path));
+    const rule = ACCESS_RULES.find(r => PATH.startsWith(r.path));
     const seenKey = rule && `ig-access-${rule.path}`;
     const [dismissed, setDismissed] = useState(() => {
         try { return !!(seenKey && sessionStorage.getItem(seenKey)); } catch (e) { return false; }

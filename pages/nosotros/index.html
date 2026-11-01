@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individuel en México · BELLEZA PRO MX</title>
+    <meta name="description" content="Individuel Genève en México es operado por BELLEZA PRO MX S.A. de C.V.: fórmulas cosméticas con certificaciones internacionales, tecnología patentada y especialistas certificadas.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/nosotros/">
+    <meta property="og:title" content="Individuel en México · BELLEZA PRO MX">
+    <meta property="og:description" content="Individuel Genève en México es operado por BELLEZA PRO MX S.A. de C.V.: fórmulas cosméticas con certificaciones internacionales, tecnología patentada y especialistas certificadas.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/nosotros/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const QUOTES = ['Distribuimos fórmulas cosméticas con propiedades únicas y certificaciones internacionales.', 'Capacitamos y certificamos a especialistas con estándares de calidad en el servicio.', 'Seleccionamos tecnología patentada y fórmulas importadas.'];
+        renderPage(() => (
+            <>
+                <section className="relative bg-ink text-white overflow-hidden">
+                    <Img src="/img/nosotros/01.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" loading="eager" />
+                    <div className="relative max-w-4xl mx-auto px-4 md:px-8 py-28 md:py-36 text-center">
+                        <h1 className="text-5xl md:text-7xl">Individuel en <span className="font-script text-blush-200">México</span></h1>
+                        <p className="label text-blush-300 mt-6">Operado por BELLEZA PRO MX</p>
+                    </div>
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
+                    <Img src="/img/nosotros/02.webp" alt="BELLEZA PRO MX" className="w-full rounded-3xl reveal" />
+                    <p className="text-lg text-ink-500 leading-relaxed reveal">{BRAND.operator} es una empresa mexicana comprometida con los más altos estándares de calidad en el servicio. Creemos que la tecnología de vanguardia abre las puertas a una mejor calidad de vida, y nuestro compromiso con el mercado latinoamericano nos permite acercarles esta tecnología que opera y es un éxito en los países de mayor exigencia en el servicio.</p>
+                </section>
+                <section className="bg-blush-50 py-20">
+                    <div className="max-w-6xl mx-auto px-4 md:px-8 grid md:grid-cols-3 gap-6">
+                        {QUOTES.map(q => <blockquote key={q} className="reveal bg-white rounded-3xl p-8 font-serif text-2xl leading-snug">“{q}”</blockquote>)}
+                    </div>
+                </section>
+                <section className="max-w-4xl mx-auto px-4 md:px-8 py-16 flex flex-wrap justify-center gap-3">
+                    <a href="/pages/tecnologias/" className="btn btn-dark">Aparatología</a>
+                    <a href="/pages/especialistas/" className="btn btn-light">Especialistas</a>
+                    <a href="/pages/partners/" className="btn btn-light">Partners</a>
+                </section>
+            </>
+        ));
+    </script>
+</body>
+</html>

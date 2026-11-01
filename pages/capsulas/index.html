@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cápsulas de tratamiento · Individuel Genève</title>
+    <meta name="description" content="Fórmulas de mantenimiento en cápsulas importadas de un solo uso: Línea Natural, Línea de infusiones y Línea APL.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/capsulas/">
+    <meta property="og:title" content="Cápsulas de tratamiento · Individuel Genève">
+    <meta property="og:description" content="Fórmulas de mantenimiento en cápsulas importadas de un solo uso: Línea Natural, Línea de infusiones y Línea APL.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/capsulas/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const CapsulesPage = () => {
+            const { status, data } = useJson('capsulas');
+            useEffect(() => {
+                if (status === 'ready' && location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start' });
+            }, [status]);
+            const lines = status === 'ready' ? [...new Set(data.capsules.map(c => c.line))] : [];
+            return (
+                <>
+                    <section className="relative bg-ink text-white overflow-hidden">
+                        <Img src="/img/capsulas/01.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" loading="eager" />
+                        <div className="relative max-w-4xl mx-auto px-4 md:px-8 py-28 md:py-36 text-center">
+                            <p className="label text-blush-300 mb-6">Cápsulas importadas y de un uso único</p>
+                            <h1 className="text-5xl md:text-7xl">Fórmulas de <span className="font-script text-blush-200">mantenimiento</span></h1>
+                        </div>
+                    </section>
+                    {lines.map(line => (
+                        <section key={line} className="max-w-7xl mx-auto px-4 md:px-8 pt-20">
+                            <SectionTitle kicker="Cápsulas de tratamiento">{line}</SectionTitle>
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {data.capsules.filter(c => c.line === line).map(c => (
+                                    <article key={c.slug} id={c.slug} className="reveal rounded-3xl bg-blush-50 overflow-hidden scroll-mt-28 flex flex-col">
+                                        <div className="aspect-square bg-white"><Img src={c.cover} alt={c.title} className="w-full h-full object-contain p-4 mix-blend-multiply" /></div>
+                                        <div className="p-6">
+                                            <h3 className="text-3xl">{c.title}</h3>
+                                            <Blocks blocks={c.blocks.filter(b => b.t !== 'img')} className="mt-3 text-sm !space-y-3" />
+                                        </div>
+                                    </article>
+                                ))}
+                            </div>
+                        </section>
+                    ))}
+                    <WhatsAppCTA />
+                </>
+            );
+        };
+        renderPage(CapsulesPage);
+    </script>
+</body>
+</html>

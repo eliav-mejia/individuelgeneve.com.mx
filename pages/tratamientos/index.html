@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tratamientos faciales · Individuel Genève</title>
-    <meta name="description" content="Faciales no invasivos de hidratación y rejuvenecimiento en Ciudad de México. Reserva tu cita en línea.">
+    <title>Menú de servicios · Individuel Genève</title>
+    <meta name="description" content="Faciales de hidratación, limpieza y microdermoabrasión, tratamiento antiedad SonNext y lifting y reducción corporal con SonNext y Ballancer. Valoración con especialistas certificadas.">
     <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tratamientos/">
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Menú de servicios · Individuel Genève">
+    <meta property="og:description" content="Faciales de hidratación, limpieza y microdermoabrasión, tratamiento antiedad SonNext y lifting y reducción corporal con SonNext y Ballancer. Valoración con especialistas certificadas.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/tratamientos/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#f4dfe2">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/js/tailwind.config.js"></script>
+    <script src="../../js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="../../css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -24,44 +29,68 @@
 
     <div id="root"></div>
 
-    <script type="text/babel" src="/js/layout.jsx"></script>
-    <script type="text/babel" src="/js/acceso.jsx"></script>
-    <script type="text/babel" src="/js/reservas.jsx"></script>
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel" src="../../js/reservas.jsx"></script>
     <script type="text/babel">
+        // Menu from public/db/tratamientos.json (groups + treatments). Booking: BookingWizard (js/reservas.jsx, unchanged).
         const TreatmentsPage = () => {
-            const { treatments, schedule } = useAgenda();
+            const { status, data } = useJson('tratamientos');
             const [picked, setPicked] = useState(null);
             const book = (id) => { setPicked(id); document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' }); };
 
             return (
                 <>
-                    <PageHero eyebrow="En cabina · Ciudad de México" title="Tratamientos" script="faciales"
-                        intro="Protocolos no invasivos de hidratación y rejuvenecimiento, con los mismos activos de nuestras fórmulas y una especialista que te acompaña.">
-                        <a href="#reservar" className="btn btn-dark mt-10">Reservar cita</a>
-                    </PageHero>
-
-                    <section className="max-w-6xl mx-auto px-4 md:px-8 py-16 space-y-6">
-                        {treatments.map((t, n) => (
-                            <article key={t.id} className="reveal grid md:grid-cols-12 gap-8 items-center rounded-[2rem] p-8 md:p-12 bg-blush-50">
-                                <p className="md:col-span-1 font-serif text-5xl text-blush-300">{String(n + 1).padStart(2, '0')}</p>
-                                <div className="md:col-span-7">
-                                    <p className="label text-ink-400">{t.duration_min} min · {t.ideal_for}</p>
-                                    <h2 className="text-4xl mt-2">{t.name}</h2>
-                                    <p className="text-ink-500 mt-4 leading-relaxed">{t.description}</p>
-                                    <ul className="flex flex-wrap gap-2 mt-6">{t.includes.map(x => <li key={x} className="px-4 py-1.5 rounded-full bg-white text-sm">{x}</li>)}</ul>
-                                </div>
-                                <div className="md:col-span-4 md:text-right">
-                                    <p className="font-serif text-4xl">{formatMXN(t.price_mxn)}</p>
-                                    <button className="btn btn-dark mt-6" onClick={() => book(t.id)}>Reservar</button>
-                                </div>
-                            </article>
-                        ))}
+                    <section className="relative bg-ink text-white overflow-hidden">
+                        <Img src="/img/servicios/01.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" loading="eager" />
+                        <div className="relative max-w-4xl mx-auto px-4 md:px-8 py-28 md:py-36 text-center animate-rise-in">
+                            <p className="label text-blush-300 mb-6">Condesa · Ciudad de México</p>
+                            <h1 className="text-5xl md:text-7xl">Menú de <span className="font-script text-blush-200">servicios</span></h1>
+                            <p className="mt-8 text-lg text-white/85 max-w-2xl mx-auto">Combinamos tecnologías no invasivas en un tratamiento integral diseñado mediante un dermo-análisis y valorado por especialistas certificadas.</p>
+                            <div className="flex flex-wrap justify-center gap-3 mt-10">
+                                <a href="#reservar" className="btn btn-blush">Reservar cita</a>
+                                <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn border border-white text-white hover:bg-white hover:text-ink">WhatsApp</a>
+                            </div>
+                        </div>
                     </section>
 
-                    <section id="reservar" className="max-w-5xl mx-auto px-4 md:px-8 py-20 scroll-mt-28">
-                        <SectionTitle kicker={schedule ? `${BRAND.hours}` : 'Agenda'} script="cita">Reserva tu</SectionTitle>
+                    {status === 'loading' && <div className="max-w-6xl mx-auto px-4 py-16"><div className="h-64 rounded-3xl bg-blush-50 animate-pulse" /></div>}
+                    {status === 'ready' && data.groups.map(g => {
+                        const items = data.treatments.filter(t => t.group_id === g.id && t.active !== false).sort((a, b) => a.sort_order - b.sort_order);
+                        return (
+                            <section key={g.id} id={g.id} className="max-w-7xl mx-auto px-4 md:px-8 pt-20 scroll-mt-28">
+                                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 reveal">
+                                    <div>
+                                        <h2 className="text-4xl md:text-5xl">{g.label}</h2>
+                                        <p className="text-ink-500 mt-3 max-w-2xl">{g.intro}</p>
+                                    </div>
+                                    {g.link && <a href={g.link} className="label text-ink-400 hover:text-ink whitespace-nowrap">Conoce la tecnología →</a>}
+                                </div>
+                                <div className={`grid gap-6 ${items.length === 1 ? 'md:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
+                                    {items.map(t => (
+                                        <article key={t.id} className="reveal rounded-3xl overflow-hidden bg-blush-50 flex flex-col">
+                                            <Img src={t.image} alt={t.name} className="w-full aspect-[4/3] object-cover" />
+                                            <div className="p-8 flex-1 flex flex-col">
+                                                <h3 className="text-3xl">{t.name}</h3>
+                                                <p className="text-ink-500 mt-3 flex-1">{t.description}</p>
+                                                <div className="flex items-center justify-between gap-3 mt-6">
+                                                    <span className="text-sm text-ink-400">{formatPrice(t.price_mxn, 'Se cotiza en tu valoración')}</span>
+                                                    <button className="btn btn-dark !py-2.5 !px-5 shrink-0" onClick={() => book(t.id)}>Reservar</button>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    ))}
+                                </div>
+                            </section>
+                        );
+                    })}
+
+                    <section id="reservar" className="max-w-5xl mx-auto px-4 md:px-8 py-24 scroll-mt-28">
+                        <SectionTitle kicker={BRAND.hours} script="cita">Reserva tu</SectionTitle>
                         <BookingWizard key={picked || 'none'} initialTreatment={picked} />
-                        <p className="text-center text-sm text-ink-400 mt-10">{BRAND.address}</p>
+                        <p className="text-center text-sm text-ink-400 mt-10">
+                            ¿Prefieres agendar con una persona? <a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Escríbenos por WhatsApp</a> · {BRAND.address}
+                        </p>
                     </section>
                 </>
             );

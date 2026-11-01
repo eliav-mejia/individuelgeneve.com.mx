@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnología MIT · Certificaciones · Individuel Genève</title>
+    <meta name="description" content="Tecnología patentada FDA Approved que combina cuatro tecnologías convencionales en un dispositivo seguro y portátil, con certificaciones ISO 22716, ISO 9001 e ISO 13485.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tecnologias/mit/">
+    <meta property="og:title" content="Tecnología MIT · Certificaciones · Individuel Genève">
+    <meta property="og:description" content="Tecnología patentada FDA Approved que combina cuatro tecnologías convencionales en un dispositivo seguro y portátil, con certificaciones ISO 22716, ISO 9001 e ISO 13485.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/tecnologias/mit/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const BADGES = [['02', 'Hecho en Israel'], ['03', 'Aprobado por dermatólogos'], ['04', 'COFEPRIS'], ['05', 'LPDE'], ['06', 'Paraben free'], ['07', 'Marcado de conformidad CE'], ['08', 'Not tested on animals'], ['09', 'FDA approved'], ['10', 'COFEPRIS']];
+        const ISO = [['12', 'ISO 22716:2007 CGMP', 'Good Manufacturing Practices for Cosmetic Products.'], ['13', 'ISO 9001:2008', 'System for Quality management.'], ['14', 'ISO 13485:2003', 'Health Products Quality Management Systems.']];
+        renderPage(() => (
+            <>
+                <section className="wash">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+                        <div className="animate-rise-in">
+                            <p className="label text-ink-400 mb-6">FDA Approved</p>
+                            <h1 className="text-5xl md:text-7xl">Tecnología <span className="font-script text-blush-500">MIT</span></h1>
+                            <p className="mt-8 text-lg text-ink-500 leading-relaxed">Tecnología patentada que combina 4 tecnologías convencionales en un dispositivo seguro y portátil. Elige entre nuestras 10 cápsulas patentadas de tratamiento facial, con efectos antiinflamatorios y analgésicos. Ningún otro dispositivo es capaz de lograr estos resultados con tratamientos no invasivos.</p>
+                            <a href="/pages/capsulas/" className="btn btn-dark mt-10">Ver cápsulas</a>
+                        </div>
+                        <Img src="/img/mit/01.webp" alt="Dispositivo MIT" className="w-full mix-blend-multiply" loading="eager" />
+                    </div>
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-20">
+                    <SectionTitle kicker="Calidad garantizada" script="certificaciones">Nuestras</SectionTitle>
+                    <p className="text-center text-ink-500 max-w-2xl mx-auto -mt-6 mb-12">Ofrecemos un servicio profesional y contamos con las certificaciones más relevantes del mundo, como normas ISO de calidad, patentes y premios en congresos de medicina estética.</p>
+                    <div className="grid grid-cols-3 md:grid-cols-9 gap-4">
+                        {BADGES.map(([n, t]) => <figure key={n + t} className="reveal text-center"><Img src={`/img/mit/${n}.webp`} alt={t} className="w-full aspect-square object-contain rounded-2xl bg-white border border-ink-line p-2" /><figcaption className="text-[0.7rem] text-ink-400 mt-2">{t}</figcaption></figure>)}
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6 mt-16">
+                        {ISO.map(([n, t, d]) => <figure key={n} className="reveal rounded-3xl bg-blush-50 p-6"><Img src={`/img/mit/${n}.webp`} alt={t} className="w-full rounded-xl" /><figcaption className="mt-4"><p className="font-serif text-2xl">{t}</p><p className="text-sm text-ink-500">{d}</p></figcaption></figure>)}
+                    </div>
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid md:grid-cols-2 gap-12 items-center">
+                    <Img src="/img/mit/19.webp" alt="Premio H. Pierantoni de l’Innovation" className="w-full rounded-3xl reveal" />
+                    <div className="reveal">
+                        <p className="label text-ink-400">2014</p>
+                        <h2 className="text-4xl mt-2">Prix H. Pierantoni de l’Innovation</h2>
+                        <p className="text-ink-500 mt-4 leading-relaxed">H. Pierantoni of Innovation es un congreso que se celebra cada año en Francia. En él se exhiben las mejores tecnologías de Europa; Wishpro destacó y ganó en 2014.</p>
+                        <a href="https://www.youtube.com/watch?v=DPs-m1E3FAk" target="_blank" rel="noopener noreferrer" className="btn btn-light mt-8">Ver el premio ↗</a>
+                    </div>
+                </section>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {['15', '16', '17', '18'].map(n => <Img key={n} src={`/img/mit/${n}.webp`} alt="Certificado de concesión de equipo" className="w-full rounded-2xl border border-ink-line reveal" />)}
+                </section>
+                <WhatsAppCTA />
+            </>
+        ));
+    </script>
+</body>
+</html>

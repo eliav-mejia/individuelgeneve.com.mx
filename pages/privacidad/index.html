@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviso de privacidad · Individuel Genève</title>
-    <meta name="description" content="Aviso de privacidad integral conforme a la LFPDPPP.">
+    <title>Políticas de privacidad · Individuel Genève</title>
+    <meta name="description" content="Qué información recopila Individuel Genève México, cómo la usamos y protegemos, cookies y cómo contactarnos.">
     <link rel="canonical" href="https://individuelgeneve.com.mx/pages/privacidad/">
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Políticas de privacidad · Individuel Genève">
+    <meta property="og:description" content="Qué información recopila Individuel Genève México, cómo la usamos y protegemos, cookies y cómo contactarnos.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/privacidad/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#f4dfe2">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/js/tailwind.config.js"></script>
+    <script src="../../js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="../../css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -24,61 +29,30 @@
 
     <div id="root"></div>
 
-    <script type="text/babel" src="/js/layout.jsx"></script>
-    <script type="text/babel" src="/js/acceso.jsx"></script>
-
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
     <script type="text/babel">
-        // Values in [corchetes] are placeholders, highlighted on the page until filled in. Pending legal review.
-        const Mark = ({ children }) => {
-            const parts = String(children).split(/(\[[^\]]+\])/g);
-            return parts.map((p, i) => p.startsWith("[") ? <mark key={i} className="bg-blush-200 px-1 rounded">{p}</mark> : p);
-        };
-        const LegalPage = ({ eyebrow, title, script, updated, sections }) => (
-            <>
-                <PageHero eyebrow={eyebrow} title={title} script={script} intro={`Última actualización: ${updated}`} />
-                <section className="max-w-6xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-4 gap-12">
-                    <nav className="hidden md:block md:sticky md:top-32 self-start text-sm space-y-3" aria-label="Índice">
-                        {sections.map(s => <a key={s.id} href={`#${s.id}`} className="block text-ink-400 hover:text-ink">{s.title}</a>)}
-                    </nav>
-                    <div className="md:col-span-3 space-y-14">
-                        {sections.map(s => (
-                            <article key={s.id} id={s.id} className="scroll-mt-32">
-                                <h2 className="text-3xl mb-4">{s.title}</h2>
-                                <div className="space-y-4 text-ink-500 leading-relaxed">{s.body.map((p, i) => <p key={i}><Mark>{p}</Mark></p>)}</div>
-                            </article>
-                        ))}
-                    </div>
-                </section>
-            </>
-        );
+        // Text from individuelgeneve.com.mx/polticas-de-privacidad (2026-11-01). Pending review against the LFPDPPP (aviso de privacidad).
         const SECTIONS = [
-            { id: 'responsable', title: 'Responsable', body: [
-                `[Razón social] («${BRAND.name}»), con domicilio en ${BRAND.address}, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).`,
-            ] },
-            { id: 'datos', title: 'Datos que recabamos', body: [
-                'Identificación y contacto: nombre, email, teléfono y dirección de envío.',
-                'Datos de tus citas: tratamiento, fecha y las observaciones que nos indiques. Si nos compartes información de salud (alergias, embarazo, medicación), se considera dato sensible y solo la usamos para tu seguridad durante el tratamiento, con tu consentimiento expreso.',
-                'No almacenamos datos de tarjeta: los pagos los procesa la pasarela de pago.',
-            ] },
-            { id: 'finalidades', title: 'Finalidades', body: [
-                'Primarias: gestionar tu cuenta, tus pedidos, envíos y citas, y atender tus solicitudes.',
-                'Secundarias (puedes oponerte): enviarte novedades y recomendaciones. Si no deseas recibirlas, escríbenos a ' + BRAND.email + '.',
-            ] },
-            { id: 'transferencias', title: 'Encargados y transferencias', body: [
-                'Usamos proveedores que tratan datos por nuestra cuenta: alojamiento de base de datos [Supabase], pasarela de pago [Stripe / Mercado Pago] y paquetería [proveedor]. No vendemos tus datos.',
-            ] },
-            { id: 'arco', title: 'Derechos ARCO', body: [
-                'Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos, así como revocar tu consentimiento, enviando tu solicitud a ' + BRAND.email + ' con tu nombre, una identificación y la descripción de tu solicitud. Responderemos en un máximo de 20 días hábiles.',
-            ] },
-            { id: 'cookies', title: 'Cookies y almacenamiento local', body: [
-                'Usamos almacenamiento local del navegador, estrictamente necesario, para tu bolsa, tu sesión y tu elección de cookies. Las cookies de medición solo se activan si eliges «Aceptar todas».',
-            ] },
-            { id: 'cambios', title: 'Cambios a este aviso', body: [
-                'Publicaremos cualquier cambio en esta página, con su fecha de actualización.',
-            ] },
+            { id: 'intro', title: 'Introducción', body: ['En vigor a partir del 1 de septiembre de 2023.', 'En Individuel Genève México entendemos la importancia de la privacidad y la tomamos en serio. Esta política describe los tipos de información que recopilamos y cómo la usamos y protegemos. Al visitar nuestro sitio web o utilizar nuestros servicios, aceptas los términos de esta política.', `Responsable: ${BRAND.operator}, ${BRAND.address}.`] },
+            { id: 'informacion', title: 'Información recopilada', body: ['Recopilamos información cuando utilizas nuestros servicios o visitas nuestro sitio web. Puede incluir:', [
+                'Información personal: nombre, correo electrónico, dirección postal, número de teléfono y otra información de contacto.',
+                'Información demográfica: edad, sexo y ubicación.',
+                'Información de tratamiento: tratamientos que has recibido en nuestra clínica y tus preferencias y necesidades personales.',
+                'Información de pago: datos relacionados con tu método de pago.',
+                'Información técnica: dirección IP, tipo de navegador y sistema operativo.'],
+                `No vendemos tu información personal. Tienes derecho a solicitar información sobre cómo compartimos tu información personal con terceros; escríbenos a ${BRAND.emailPrivacy}.`] },
+            { id: 'uso', title: 'Cómo utilizamos tu información', body: [[
+                'Para brindarte los servicios que solicitas y comunicarnos contigo acerca de ellos.', 'Para procesar pagos por los servicios que recibes.',
+                'Para enviarte materiales promocionales sobre nuestros servicios y ofertas.', 'Para mejorar nuestro sitio web y servicios y comprender mejor las necesidades de nuestros clientes.',
+                'Para cumplir con requisitos legales y proteger nuestros derechos y los de los demás.', 'Para usar como portafolio de evidencias.'],
+                'No vendemos ni alquilamos tu información personal a terceros. Solo la compartimos con los proveedores que nos ayudan a brindarte los servicios que solicitas, para cumplir con requisitos legales (como una citación u orden judicial) o para proteger los derechos y la seguridad de Individuel Genève México y de nuestros clientes.'] },
+            { id: 'seguridad', title: 'Seguridad de datos', body: ['Tomamos medidas razonables para proteger tu información personal del acceso, uso o divulgación no autorizados. Sin embargo, ninguna transmisión de datos por internet ni sistema de almacenamiento es 100 % seguro, por lo que no podemos garantizar su seguridad absoluta.'] },
+            { id: 'cookies', title: 'Cookies', body: ['Utilizamos cookies para mejorar tu experiencia y recopilar información sobre cómo se utiliza nuestro sitio. Una cookie es un pequeño archivo de texto que se almacena en tu dispositivo. Puedes controlar su uso desde la configuración de tu navegador o desde el aviso de cookies de este sitio.'] },
+            { id: 'cambios', title: 'Cambios a esta política', body: ['Podemos actualizar esta política para reflejar cambios en nuestras prácticas o en la ley. Te notificaremos cualquier cambio importante publicando la política revisada en este sitio y actualizando su fecha de entrada en vigor.'] },
+            { id: 'contacto', title: 'Contáctanos', body: [`Si tienes alguna pregunta sobre esta política o sobre cómo manejamos tu información personal, escríbenos a ${BRAND.emailPrivacy}.`, 'Última actualización: 24 de agosto de 2023.'] },
         ];
-
-        renderPage(() => <LegalPage eyebrow="Legal · México" title="Aviso de" script="privacidad" updated="7 de octubre de 2026" sections={SECTIONS} />);
+        renderPage(() => <LegalPage eyebrow="Nuestras políticas" title="Políticas de" script="privacidad" intro="Política de privacidad de Individuel Genève México." sections={SECTIONS} />);
     </script>
 </body>
 </html>

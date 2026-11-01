@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Individuel Genève · Cuidado de la piel con activos esenciales</title>
-    <meta name="description" content="Fórmulas minimalistas con un activo principal en la concentración que funciona: niacinamida, ácido hialurónico, vitamina C, retinal y ceramidas. Tienda y tratamientos faciales en Ciudad de México.">
+    <title>Individuel Genève · Tratamientos faciales y corporales no invasivos · Ciudad de México</title>
+    <meta name="description" content="Expertos en hidratación y rejuvenecimiento. Tratamientos faciales y corporales con aparatología no invasiva y fórmulas cosméticas Advance Pro. Condesa, Ciudad de México.">
     <link rel="canonical" href="https://individuelgeneve.com.mx/">
-    <meta property="og:title" content="Individuel Genève">
-    <meta property="og:description" content="Cuidado de la piel con activos esenciales.">
+    <meta property="og:title" content="Individuel Genève · Tratamientos faciales y corporales no invasivos · Ciudad de México">
+    <meta property="og:description" content="Expertos en hidratación y rejuvenecimiento. Tratamientos faciales y corporales con aparatología no invasiva y fórmulas cosméticas Advance Pro. Condesa, Ciudad de México.">
     <meta property="og:url" content="https://individuelgeneve.com.mx/">
     <meta property="og:type" content="website">
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#f4dfe2">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/js/tailwind.config.js"></script>
+    <script src="./js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="./css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -28,153 +29,125 @@
 
     <div id="root"></div>
 
-    <script type="text/babel" src="/js/layout.jsx"></script>
-    <script type="text/babel" src="/js/acceso.jsx"></script>
-    <script type="text/babel" src="/js/tienda.jsx"></script>
-    <script type="text/babel" src="/js/reservas.jsx"></script>
+    <script type="text/babel" src="./js/layout.jsx"></script>
+    <script type="text/babel" src="./js/acceso.jsx"></script>
+    <script type="text/babel" src="./js/tienda.jsx"></script>
     <script type="text/babel">
-        const PRINCIPLES = [
-            { n: 'I', title: 'Pocos ingredientes', text: 'Cada fórmula gira en torno a un activo principal. Lo demás está ahí para que funcione, no para el marketing.' },
-            { n: 'II', title: 'Concentración honesta', text: 'Escribimos el porcentaje en la etiqueta: la dosis que la evidencia respalda, ni más ni menos.' },
-            { n: 'III', title: 'Fórmula a la vista', text: 'Lista INCI completa en cada producto, sin perfume añadido y sin pruebas en animales.' },
-        ];
-
         const Hero = () => (
-            <section className="wash overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 md:px-8 pt-14 pb-20 md:pt-24 md:pb-32 grid md:grid-cols-2 gap-12 items-center">
-                    <div className="animate-rise-in text-center md:text-left">
-                        <p className="label text-ink-400 mb-8">Ciudad de México · Desde Ginebra</p>
-                        <h1 className="text-6xl md:text-8xl leading-[0.95]">
-                            Menos,<br />pero <span className="font-script text-blush-500 text-[1.15em]">mejor</span>
-                        </h1>
-                        <p className="mt-8 text-lg text-ink-500 max-w-md mx-auto md:mx-0 leading-relaxed">
-                            Fórmulas minimalistas con un activo principal en la concentración que funciona. Hidratación y rejuvenecimiento, sin ruido.
-                        </p>
-                        <div className="flex flex-wrap gap-3 mt-10 justify-center md:justify-start">
-                            <a href="/pages/tienda/" className="btn btn-dark">Descubrir la colección</a>
-                            <a href="/pages/tratamientos/#reservar" className="btn btn-light">Reservar un facial</a>
-                        </div>
+            <section className="relative overflow-hidden bg-ink">
+                <Img src="/img/inicio/01.webp" alt="" className="absolute inset-0 w-full h-full object-cover object-[70%_20%] opacity-80" loading="eager" />
+                <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent" />
+                <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-28 md:py-44 text-white animate-rise-in">
+                    <p className="label text-blush-300 mb-6">{BRAND.tagline}</p>
+                    <h1 className="text-6xl md:text-8xl leading-[0.95]">Facial <span className="font-script text-blush-200 text-[1.1em]">glow up</span></h1>
+                    <p className="mt-8 text-lg text-white/85 max-w-md leading-relaxed">
+                        Tratamientos faciales y corporales con soluciones cosméticas antiedad seguras y eficaces para el cuidado de tu piel.
+                    </p>
+                    <div className="flex flex-wrap gap-3 mt-10">
+                        <a href="/pages/tratamientos/" className="btn btn-blush">Menú de servicios</a>
+                        <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn border border-white text-white hover:bg-white hover:text-ink">Agenda por WhatsApp</a>
                     </div>
-                    <HeroBottles />
                 </div>
             </section>
         );
 
-        // Three featured bottles arranged like a still life.
-        const HeroBottles = () => {
-            const catalog = useCatalog();
-            const picks = catalog.products.filter(p => p.featured).slice(0, 3);
-            return (
-                <div className="relative aspect-square max-w-lg mx-auto w-full animate-fade-in">
-                    <div className="absolute inset-[8%] rounded-full bg-blush-200/70" />
-                    <div className="absolute inset-[22%] rounded-full border border-white" />
-                    {picks.length === 3 && <>
-                        <a href={`/pages/tienda/${picks[0].slug}/`} className="absolute left-[2%] bottom-[10%] w-[40%] hover:-translate-y-1 transition-transform"><Bottle product={picks[0]} /></a>
-                        <a href={`/pages/tienda/${picks[1].slug}/`} className="absolute left-[30%] bottom-[16%] w-[44%] z-10 hover:-translate-y-1 transition-transform"><Bottle product={picks[1]} /></a>
-                        <a href={`/pages/tienda/${picks[2].slug}/`} className="absolute right-[2%] bottom-[10%] w-[40%] hover:-translate-y-1 transition-transform"><Bottle product={picks[2]} /></a>
-                    </>}
-                    <p className="absolute top-[6%] right-[4%] font-script text-3xl text-ink/70 rotate-[-6deg]">activos esenciales</p>
-                </div>
-            );
-        };
-
-        const Principles = () => (
-            <section className="max-w-6xl mx-auto px-4 md:px-8 py-24 md:py-32">
-                <SectionTitle kicker="Nuestra filosofía" script="esencial">Lo</SectionTitle>
-                <div className="grid md:grid-cols-3 gap-12 md:gap-16">
-                    {PRINCIPLES.map(p => (
-                        <div key={p.n} className="text-center reveal">
-                            <p className="font-serif italic text-blush-500 text-2xl">{p.n}</p>
-                            <h3 className="text-3xl mt-3">{p.title}</h3>
-                            <p className="text-ink-500 mt-4 leading-relaxed">{p.text}</p>
-                        </div>
-                    ))}
+        const Split = ({ img, alt, kicker, title, script, text, children, flip = false, dark = false }) => (
+            <section className={dark ? 'bg-ink text-white' : ''}>
+                <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+                    <Img src={img} alt={alt} className={`w-full rounded-3xl reveal ${flip ? 'md:order-2' : ''}`} />
+                    <div className="reveal">
+                        <p className={`label mb-5 ${dark ? 'text-blush-300' : 'text-ink-400'}`}>{kicker}</p>
+                        <h2 className="text-5xl md:text-6xl leading-tight">{title} <span className={`font-script ${dark ? 'text-blush-300' : 'text-blush-500'}`}>{script}</span></h2>
+                        <p className={`mt-6 leading-relaxed max-w-md ${dark ? 'text-white/75' : 'text-ink-500'}`}>{text}</p>
+                        {children}
+                    </div>
                 </div>
             </section>
         );
 
-        const Ritual = () => {
-            const catalog = useCatalog();
+        const Services = () => {
+            const { status, data } = useJson('tratamientos');
+            if (status !== 'ready') return null;
+            const groups = data.groups.filter(g => g.id !== 'valoracion');
             return (
                 <section className="bg-blush-50 py-24 md:py-32">
                     <div className="max-w-7xl mx-auto px-4 md:px-8">
-                        <SectionTitle kicker="El ritual" script="pasos">Cuatro</SectionTitle>
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {catalog.categories.map(c => (
-                                <a key={c.id} href={`/pages/tienda/?cat=${c.id}`} className="reveal group bg-white rounded-3xl p-8 hover:shadow-[0_20px_50px_-30px_rgba(47,47,51,.35)] transition-shadow">
-                                    <p className="font-serif text-5xl text-blush-300">{c.step}</p>
-                                    <h3 className="text-3xl mt-6">{c.label}</h3>
-                                    <p className="text-ink-500 text-sm mt-3 leading-relaxed">{c.description}</p>
-                                    <p className="label text-ink-400 mt-8 group-hover:text-ink">Ver productos →</p>
-                                </a>
-                            ))}
+                        <SectionTitle kicker="Menú de servicios" script="integral">Un tratamiento</SectionTitle>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {groups.map(g => {
+                                const items = data.treatments.filter(t => t.group_id === g.id && t.active !== false);
+                                return (
+                                    <a key={g.id} href={`/pages/tratamientos/#${g.id}`} className="reveal group bg-white rounded-3xl overflow-hidden hover:shadow-[0_20px_50px_-30px_rgba(47,47,51,.35)] transition-shadow flex flex-col">
+                                        <Img src={items[0].image} alt="" className="w-full aspect-[4/3] object-cover" />
+                                        <div className="p-8 flex-1 flex flex-col">
+                                            <h3 className="text-3xl">{g.label}</h3>
+                                            <p className="text-ink-500 text-sm mt-3 leading-relaxed flex-1">{items.map(t => t.name).join(' · ')}</p>
+                                            <p className="label text-ink-400 mt-8 group-hover:text-ink">Ver tratamientos →</p>
+                                        </div>
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
             );
         };
 
-        const Featured = () => {
+        const Process = () => (
+            <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
+                <SectionTitle kicker="Seguimiento clínico" script="resultados">Registra tus</SectionTitle>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <Img src="/img/inicio/04.webp" alt="Estudio fotográfico de registro: empieza con tu registro" className="w-full rounded-3xl reveal" />
+                    <Img src="/img/inicio/05.webp" alt="Comparativas de piel: y disfruta el proceso" className="w-full rounded-3xl reveal" />
+                </div>
+                <p className="text-center text-ink-500 mt-10 max-w-2xl mx-auto reveal">
+                    Nuestro estudio toma cinco fotografías homogéneas en cada sesión para crear tu historial y comparar tu progreso.
+                </p>
+                <div className="text-center mt-8"><a href="/pages/blog/registros/" className="btn btn-light">Conoce el estudio</a></div>
+            </section>
+        );
+
+        const Boutique = () => {
             const catalog = useCatalog();
             return (
                 <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
-                    <SectionTitle kicker="Los esenciales" script="favoritos">Nuestros</SectionTitle>
+                    <SectionTitle kicker="Tratamiento facial en un acompañamiento integral" script="Advance Pro">Fórmulas</SectionTitle>
                     {catalog.status === 'loading' && <ProductGridSkeleton />}
                     {catalog.status === 'error' && <LoadError />}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-                        {catalog.products.filter(p => p.featured).map(p => <ProductCard key={p.id} product={p} category={catalog.category[p.category_id]} />)}
+                        {catalog.products.filter(p => p.featured).map(p => <ProductCard key={p.id} product={p} category={primaryCategory(catalog, p)} />)}
                     </div>
-                    <div className="text-center mt-16"><a href="/pages/tienda/" className="btn btn-light">Ver toda la tienda</a></div>
+                    <div className="text-center mt-16"><a href="/pages/tienda/" className="btn btn-dark">Ver la boutique</a></div>
                 </section>
             );
         };
 
-        const Ingredients = () => {
-            const catalog = useCatalog();
-            return (
-                <section className="bg-ink text-white py-24 md:py-28 overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-12 items-center">
-                        <div className="reveal">
-                            <p className="label text-blush-300 mb-6">Glosario de activos</p>
-                            <h2 className="text-5xl md:text-6xl leading-tight">Sabes lo que <span className="font-script text-blush-300">aplicas</span></h2>
-                            <p className="text-white/70 mt-6 max-w-md leading-relaxed">Qué hace cada activo, con qué combinarlo y cuándo tener precaución. Sin promesas imposibles.</p>
-                            <a href="/pages/ingredientes/" className="btn btn-blush mt-10">Explorar ingredientes</a>
-                        </div>
-                        <ul className="flex flex-wrap gap-3 reveal">
-                            {catalog.ingredients.map(i => (
-                                <li key={i.id}><a href={`/pages/ingredientes/#${i.id}`} className="inline-block px-5 py-2.5 rounded-full border border-white/20 font-serif text-xl hover:bg-white hover:text-ink transition-colors">{i.name}</a></li>
-                            ))}
-                        </ul>
-                    </div>
-                </section>
-            );
-        };
+        const TECH = [
+            { href: '/pages/tecnologias/sonnext/', name: 'SonNext', text: 'Ultrasonido no térmico para lifting y reducción sin calor.', img: '/img/sonnext/04.webp' },
+            { href: '/pages/tecnologias/ballancer/', name: 'Ballancer Gold', text: 'Drenaje linfático con presoterapia patentada y aprobada por la FDA.', img: '/img/servicios/13.webp' },
+            { href: '/pages/tecnologias/mit/', name: 'Tecnología MIT', text: 'Cuatro tecnologías en un dispositivo y diez cápsulas de tratamiento.', img: '/img/mit/01.webp' },
+        ];
 
-        const Treatments = () => {
-            const { treatments } = useAgenda();
-            return (
-                <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
-                    <SectionTitle kicker="En cabina" script="tratamientos">Nuestros</SectionTitle>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {treatments.map(t => (
-                            <a key={t.id} href={`/pages/tratamientos/?tratamiento=${t.id}#reservar`} className="reveal border border-ink-line rounded-3xl p-8 hover:border-blush-400 transition-colors flex flex-col">
-                                <p className="label text-ink-400">{t.duration_min} min</p>
-                                <h3 className="text-3xl mt-4">{t.name}</h3>
-                                <p className="text-sm text-ink-500 mt-3 flex-1">{t.short}</p>
-                                <p className="font-serif text-2xl mt-8">{formatMXN(t.price_mxn)}</p>
+        const Technologies = () => (
+            <section className="bg-ink text-white py-24 md:py-32">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="text-center mb-14 reveal">
+                        <p className="label text-blush-300 mb-4">FDA-Approved · ISO 9001 · Patent exclusive</p>
+                        <h2 className="text-4xl md:text-5xl">Faciales con aparatología <span className="font-script text-blush-300">de primer nivel</span></h2>
+                        <p className="text-white/70 mt-6 max-w-2xl mx-auto">Tecnologías no invasivas para tratamientos faciales y corporales a base de fórmulas cosméticas y mesoterapia virtual.</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {TECH.map(t => (
+                            <a key={t.href} href={t.href} className="reveal group rounded-3xl overflow-hidden bg-white/5 hover:bg-white/10 transition-colors">
+                                <div className="aspect-[4/3] bg-white overflow-hidden"><Img src={t.img} alt="" className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" /></div>
+                                <div className="p-8">
+                                    <h3 className="text-3xl">{t.name}</h3>
+                                    <p className="text-white/70 text-sm mt-3">{t.text}</p>
+                                    <p className="label text-blush-300 mt-6">Conocer más →</p>
+                                </div>
                             </a>
                         ))}
                     </div>
-                    <div className="text-center mt-16"><a href="/pages/tratamientos/#reservar" className="btn btn-dark">Reservar cita</a></div>
-                </section>
-            );
-        };
-
-        const Quote = () => (
-            <section className="bg-blush-100 py-24">
-                <div className="max-w-3xl mx-auto px-4 text-center reveal">
-                    <p className="font-script text-5xl md:text-6xl text-ink leading-snug">“La piel no necesita más productos, necesita los correctos.”</p>
-                    <p className="label text-ink-400 mt-8">Individuel Genève</p>
                 </div>
             </section>
         );
@@ -182,12 +155,21 @@
         const Home = () => (
             <>
                 <Hero />
-                <Principles />
-                <Ritual />
-                <Featured />
-                <Ingredients />
-                <Treatments />
-                <Quote />
+                <Split img="/img/inicio/03.webp" alt="Especialista aplicando un tratamiento facial no invasivo"
+                    kicker="Expertos en hidratación" title="Tratamiento no invasivo" script="para pieles sensibles"
+                    text="Combinamos tecnologías no invasivas en un tratamiento integral diseñado mediante un dermo-análisis y valorado por especialistas certificadas.">
+                    <a href="/pages/tratamientos/?tratamiento=valoracion#reservar" className="btn btn-dark mt-10">Agendar valoración</a>
+                </Split>
+                <Services />
+                <Boutique />
+                <Technologies />
+                <Process />
+                <Split img="/img/capsulas/01.webp" alt="Cápsulas de tratamiento" flip
+                    kicker="Cápsulas importadas de un solo uso" title="Fórmulas de" script="mantenimiento"
+                    text="Diez cápsulas en tres líneas, Natural, Infusión y APL, selladas y esterilizadas para un único uso.">
+                    <a href="/pages/capsulas/" className="btn btn-light mt-10">Ver cápsulas</a>
+                </Split>
+                <WhatsAppCTA />
             </>
         );
 

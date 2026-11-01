@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partners en Europa · Individuel Genève</title>
+    <meta name="description" content="Encuentra las colecciones Individuel Genève en lugares selectos distribuidos por todo el mundo. ¿Quieres ser partner en México?">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/partners/">
+    <meta property="og:title" content="Partners en Europa · Individuel Genève">
+    <meta property="og:description" content="Encuentra las colecciones Individuel Genève en lugares selectos distribuidos por todo el mundo. ¿Quieres ser partner en México?">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/partners/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const LOGOS = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15'];
+        renderPage(() => (
+            <>
+                <section className="relative bg-ink text-white overflow-hidden">
+                    <Img src="/img/partners/01.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" loading="eager" />
+                    <div className="relative max-w-4xl mx-auto px-4 md:px-8 py-28 md:py-36 text-center">
+                        <h1 className="text-5xl md:text-7xl">Partners en <span className="font-script text-blush-200">Europa</span></h1>
+                        <p className="mt-8 text-lg text-white/85">Podrás encontrar las colecciones Individuel Genève en lugares selectos distribuidos por todo el mundo.</p>
+                    </div>
+                </section>
+                <section className="max-w-6xl mx-auto px-4 md:px-8 py-20 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                    {LOGOS.map(n => <Img key={n} src={`/img/partners/${n}.webp`} alt="Partner de Individuel Genève" className="w-full aspect-square object-cover rounded-2xl border border-ink-line reveal" />)}
+                </section>
+                <WhatsAppCTA title="¿Quieres ser partner en México?" text="Escríbenos y te contamos cómo distribuir Individuel Genève." message="Hola, quiero información para ser partner de Individuel Genève en México." />
+            </>
+        ));
+    </script>
+</body>
+</html>

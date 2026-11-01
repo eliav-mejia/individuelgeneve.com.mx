@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballancer Gold · Drenaje linfático · Individuel Genève</title>
+    <meta name="description" content="Ballancer combina drenaje linfático, reducción avanzada de la celulitis, moldeado corporal y relajación con Smart Technology, aprobada por la FDA.">
+    <link rel="canonical" href="https://individuelgeneve.com.mx/pages/tecnologias/ballancer/">
+    <meta property="og:title" content="Ballancer Gold · Drenaje linfático · Individuel Genève">
+    <meta property="og:description" content="Ballancer combina drenaje linfático, reducción avanzada de la celulitis, moldeado corporal y relajación con Smart Technology, aprobada por la FDA.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/tecnologias/ballancer/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#f4dfe2">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="../../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../../js/acceso.jsx"></script>
+    <script type="text/babel">
+        const BENEFITS = [
+            ['Piel', 'El masaje Ballancer® aumenta el flujo de sangre fresca oxigenada a las capas de la piel. La piel se verá firme y tonificada, y se sentirá más tersa y suave.'],
+            ['Sistema circulatorio', 'El masaje peristáltico Ballancer® mejora la circulación sanguínea y linfática en la piel y las capas profundas debajo de ella. Esto aporta oxígeno más fresco a las células de la piel y ayuda a acelerar la eliminación de toxinas.'],
+            ['Sistema digestivo', 'Ballancer® comprime y masajea el abdomen, relajando los músculos abdominales. La acción del masaje es un estimulante intestinal natural y puede ser especialmente útil para los clientes que sufren de estreñimiento.'],
+            ['Eliminación de productos de desecho', 'Ballancer® aumenta el flujo linfático. El sistema linfático es responsable de eliminar los productos de desecho de las áreas debajo de la piel, y el masaje Ballancer® acelera su eliminación.'],
+            ['Músculos', 'El masaje peristáltico Ballancer® ayuda a eliminar las toxinas del ejercicio y la actividad física, además de calmar, relajar y descongestionar los músculos, aliviando dolores y molestias.'],
+        ];
+        const OTHER = ['Estimula la circulación subcutánea', 'Acelera y remueve grasa y toxinas', 'Reduce la apariencia de la celulitis', 'Mejora el tono de piel', 'Reduce volumen en áreas con exceso de líquidos', 'Un masaje relajante que mejora la circulación'];
+        const WARNINGS = [
+            'El sistema Ballancer® está diseñado para que lo utilicen personas con buena salud. Este sistema no se recomienda para personas que tengan problemas cardíacos, problemas vasculares, condiciones que requieran el uso de algún dispositivo médico o cualquier condición que pueda afectar su bienestar.',
+            'Si está embarazada, o sospecha estarlo, consulte con su médico antes de utilizarlo. No trate la zona abdominal con el sistema Ballancer® durante el embarazo.',
+            'No utilice el sistema Ballancer® sobre áreas sin sensibilidad o adormecidas, o en presencia de mala circulación. No lo utilice si ha sido diagnosticado con coágulos sanguíneos, trombosis venosa profunda o flebitis, sobre áreas hinchadas, inflamadas o con erupciones en la piel, ni en presencia de dolor de pantorrilla inexplicable.',
+            'No utilice el sistema Ballancer® después de una cirugía o un procedimiento médico sin la aprobación de su doctor. El sistema no debe ser utilizado durante el periodo de recuperación.',
+        ];
+        const DOCS = [
+            ['US Patent', 'https://drive.google.com/file/d/1M_gb9f4SZ5_0MBEwvMTmrqUyfPg_lmEG/view?usp=sharing'],
+            ['Funda de compresión', 'https://drive.google.com/file/d/1xQPQEiHNiSniOz-oNha4C0LFQ6z1ioTH/view?usp=sharing'],
+        ];
+        renderPage(() => (
+            <>
+                <PageHero eyebrow="Tecnología patentada" title="Drenaje" script="linfático"
+                    intro="Ballancer® combina el tratamiento de drenaje linfático con la reducción avanzada de la celulitis, técnicas de moldeamiento del cuerpo y relajación con Smart Technology™ de última generación que se adapta a la forma del cuerpo de cada cliente, para un tratamiento efectivo e individualizado.">
+                    <a href={waLink('Hola, quiero información de Ballancer Gold.')} target="_blank" rel="noopener noreferrer" className="btn btn-dark mt-10">Hablar con un ejecutivo</a>
+                </PageHero>
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid md:grid-cols-2 gap-12 items-center">
+                    <Img src="/img/servicios/13.webp" alt="Tratamiento con Ballancer" className="w-full rounded-3xl reveal" />
+                    <div className="reveal text-ink-500 leading-relaxed space-y-5">
+                        <p>Respaldada por décadas de investigación médica y basada en los principios del drenaje linfático manual, esta tecnología aprobada por la FDA está «años luz» por delante de cualquier sistema de terapia de compresión.</p>
+                        <p>Ballancer® utiliza una prenda especial de compresión que se infla para aplicar un masaje suave o firme. Cada prenda contiene hasta 24 cámaras de aire individuales que se superponen para aplicar movimientos fluidos de compresión y liberación que apuntan a cada centímetro del área tratada. Este movimiento, con su dirección especial de flujo, aumenta la circulación y descongestiona suave pero completamente las caderas, los muslos, las nalgas y la parte superior de los brazos.</p>
+                    </div>
+                </section>
+                <section className="bg-blush-50 py-20 mt-10">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8">
+                        <SectionTitle kicker="Ballancer®" script="beneficios">Múltiples</SectionTitle>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {BENEFITS.map(([t, x]) => <div key={t} className="reveal bg-white rounded-3xl p-8"><h3 className="text-2xl">{t}</h3><p className="text-sm text-ink-500 mt-3 leading-relaxed">{x}</p></div>)}
+                            <div className="reveal bg-ink text-white rounded-3xl p-8"><h3 className="text-2xl">Otros beneficios</h3>
+                                <ul className="text-sm text-white/80 mt-3 space-y-2">{OTHER.map(o => <li key={o}>· {o}</li>)}</ul></div>
+                        </div>
+                    </div>
+                </section>
+                <section className="max-w-6xl mx-auto px-4 md:px-8 py-20 grid md:grid-cols-5 gap-12">
+                    <div className="md:col-span-2"><Img src="/img/ballancer/01.webp" alt="Ballancer: contraindicaciones" className="w-full rounded-3xl" /></div>
+                    <div className="md:col-span-3">
+                        <h2 className="text-4xl">Contraindicaciones y advertencias</h2>
+                        <div className="space-y-4 text-ink-500 leading-relaxed mt-6">{WARNINGS.map((w, i) => <p key={i}>{w}</p>)}</div>
+                        <div className="flex flex-wrap gap-3 mt-8">{DOCS.map(([t, u]) => <a key={t} href={u} target="_blank" rel="noopener noreferrer" className="btn btn-light">{t} (PDF) ↗</a>)}</div>
+                    </div>
+                </section>
+                <WhatsAppCTA message="Hola, quiero información de Ballancer Gold." />
+            </>
+        ));
+    </script>
+</body>
+</html>

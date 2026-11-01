@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Términos y condiciones · Individuel Genève</title>
-    <meta name="description" content="Términos de compra, envíos, devoluciones y política de citas de Individuel Genève (México).">
+    <meta name="description" content="Reservaciones, modificación de citas, cesión de derechos, garantía sobre tratamientos, reembolsos y preguntas frecuentes.">
     <link rel="canonical" href="https://individuelgeneve.com.mx/pages/terminos/">
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Términos y condiciones · Individuel Genève">
+    <meta property="og:description" content="Reservaciones, modificación de citas, cesión de derechos, garantía sobre tratamientos, reembolsos y preguntas frecuentes.">
+    <meta property="og:url" content="https://individuelgeneve.com.mx/pages/terminos/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://individuelgeneve.com.mx/img/inicio/01.webp">
+    <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#f4dfe2">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/js/tailwind.config.js"></script>
+    <script src="../../js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="../../css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -24,67 +29,37 @@
 
     <div id="root"></div>
 
-    <script type="text/babel" src="/js/layout.jsx"></script>
-    <script type="text/babel" src="/js/acceso.jsx"></script>
-
+    <script type="text/babel" src="../../js/layout.jsx"></script>
+    <script type="text/babel" src="../../js/acceso.jsx"></script>
     <script type="text/babel">
-        // Values in [corchetes] are placeholders, highlighted on the page until filled in. Pending legal review.
-        const Mark = ({ children }) => {
-            const parts = String(children).split(/(\[[^\]]+\])/g);
-            return parts.map((p, i) => p.startsWith("[") ? <mark key={i} className="bg-blush-200 px-1 rounded">{p}</mark> : p);
-        };
-        const LegalPage = ({ eyebrow, title, script, updated, sections }) => (
-            <>
-                <PageHero eyebrow={eyebrow} title={title} script={script} intro={`Última actualización: ${updated}`} />
-                <section className="max-w-6xl mx-auto px-4 md:px-8 pb-16 grid md:grid-cols-4 gap-12">
-                    <nav className="hidden md:block md:sticky md:top-32 self-start text-sm space-y-3" aria-label="Índice">
-                        {sections.map(s => <a key={s.id} href={`#${s.id}`} className="block text-ink-400 hover:text-ink">{s.title}</a>)}
-                    </nav>
-                    <div className="md:col-span-3 space-y-14">
-                        {sections.map(s => (
-                            <article key={s.id} id={s.id} className="scroll-mt-32">
-                                <h2 className="text-3xl mb-4">{s.title}</h2>
-                                <div className="space-y-4 text-ink-500 leading-relaxed">{s.body.map((p, i) => <p key={i}><Mark>{p}</Mark></p>)}</div>
-                            </article>
-                        ))}
-                    </div>
-                </section>
-            </>
-        );
-        // Keep these ids: product pages, the bag and the booking form link to #precios, #envios, #devoluciones and #citas.
+        // Text from individuelgeneve.com.mx/terminos-y-condiciones (2026-11-01). Ids #citas and #reembolsos are linked from other pages.
         const SECTIONS = [
-            { id: 'vendedor', title: 'Quiénes somos', body: [
-                `${BRAND.name} es una marca operada por [Razón social], RFC [RFC], con domicilio en ${BRAND.address}. Contacto: ${BRAND.email}.`,
-                'Estos términos se rigen por la Ley Federal de Protección al Consumidor (LFPC) y la NOM-151-SCFI aplicable al comercio electrónico.',
-            ] },
-            { id: 'precios', title: 'Precios y pago', body: [
-                'Todos los precios están en pesos mexicanos (MXN) e incluyen IVA. El precio aplicable es el que aparece al confirmar el pedido.',
-                'Durante la etapa de lanzamiento confirmamos cada pedido y su forma de pago por WhatsApp. Nunca te pediremos datos de tarjeta por mensaje.',
-            ] },
-            { id: 'envios', title: 'Envíos', body: [
-                `Enviamos a toda la República Mexicana. Envío estándar ${formatMXN(SHIPPING_MXN)}; gratis en pedidos desde ${formatMXN(FREE_SHIPPING_MXN)}.`,
-                'Plazo estimado: [2 a 5] días hábiles tras la confirmación del pago. Recibirás tu número de guía por correo o WhatsApp.',
-            ] },
-            { id: 'devoluciones', title: 'Devoluciones', body: [
-                'Puedes devolver productos cerrados y sin usar en un plazo de [30] días naturales desde la entrega. Por higiene, no aceptamos devoluciones de productos abiertos salvo defecto o reacción documentada.',
-                'Si un producto llega dañado o con defecto, escríbenos en las primeras 72 horas con una foto y lo reponemos sin costo.',
-                'Tienes derecho a revocar tu consentimiento de compra dentro de los 5 días hábiles siguientes a la entrega (art. 56 LFPC).',
-            ] },
-            { id: 'citas', title: 'Citas y cancelaciones', body: [
-                'Puedes cancelar o cambiar tu cita sin costo hasta 24 horas antes desde Mi cuenta o por WhatsApp.',
-                'Cancelaciones con menos de 24 horas o inasistencias: [política pendiente de definir, p. ej. anticipo no reembolsable].',
-                'Antes del tratamiento te preguntaremos por alergias, embarazo, tratamientos médicos recientes y medicación. Nuestros tratamientos son cosméticos y no sustituyen la consulta médica.',
-            ] },
-            { id: 'uso', title: 'Uso de los productos', body: [
-                'Los productos son cosméticos de uso externo. Haz una prueba en una zona pequeña antes del primer uso y suspende si aparece irritación.',
-                'La información de la sección Ingredientes es divulgativa y no constituye consejo médico.',
-            ] },
-            { id: 'cuenta', title: 'Tu cuenta', body: [
-                'Eres responsable de la confidencialidad de tu contraseña. Puedes solicitar la eliminación de tu cuenta escribiendo a ' + BRAND.email + '.',
-            ] },
+            { id: 'reservaciones', title: 'Reservaciones', body: ['Todas las reservaciones estarán registradas bajo tus datos personales. Es recomendable crear una cuenta: te brindará mayor seguridad, podrás consultar tus citas, modificarlas y ceder los derechos a un tercero.'] },
+            { id: 'citas', title: 'Modificación de citas', body: ['Podrás modificar tu cita sin costo adicional hasta 2 veces por cada sesión de tratamiento. En la tercera ocasión, la cita se considerará como concluida. El límite de tiempo para modificar una cita es de 24 horas de anticipación. Para hacer válida una cita con más de 2 modificaciones, revisa el apartado de apelación a citas canceladas.'] },
+            { id: 'cesion', title: 'Cesión de derechos', body: ['Podrás ceder los derechos de una cita que no forme parte de un tratamiento. Para hacerlo, accede a tu cuenta y modifica el formulario de registro con el nombre, teléfono y correo electrónico de la persona a la que le cedes los derechos de tu cita.'] },
+            { id: 'apelacion', title: 'Apelación a citas canceladas', body: [
+                `Para reactivar una cita cancelada deberás notificarlo inmediatamente al correo ${BRAND.email} y presentar una carta escrita con el motivo de la cancelación para ser evaluada por el departamento de atención a clientes. ${BRAND.operator} reactivará la cita siempre y cuando el cliente haya demostrado con documento válido su incapacidad para continuar con el tratamiento. [verificar: el texto original deja incompleta la segunda condición]`,
+                'El reembolso se realizará de manera parcial según la cantidad de citas restantes mediante el procesador de pagos EVO PAYMENTS operado por CITIBANAMEX o Stripe, a la cuenta de origen con la que se realizó el pago. Este proceso puede demorar de 5 a 10 días hábiles.'] },
+            { id: 'garantia', title: 'Garantía sobre tratamientos', body: [
+                `Se considera tratamiento una serie de citas agendadas para alcanzar una mejora en un área específica del cuidado de tu piel. Para solicitar un reembolso por falta de resultados deberás notificarlo inmediatamente al correo ${BRAND.email} y presentar una carta escrita con el motivo del reembolso. ${BRAND.operator} realizará el reembolso total del tratamiento siempre y cuando se den las siguientes condiciones:`,
+                ['El cliente contrató un tratamiento de 3, 5 o 7 sesiones según lo recomendado para su caso.', 'El historial clínico del cliente no muestra una mejora en ninguna de las áreas mencionadas como beneficios prometidos con el tratamiento.', 'El cliente concluyó efectivamente el tratamiento sin modificaciones en la periodicidad de sus citas.'],
+                'Los resultados de un tratamiento estético dependen de diferentes factores, por lo que no son los mismos para todos los clientes: van en medida de su historial clínico y de la rigurosidad con la que se atiende a las sesiones.'] },
+            { id: 'reembolsos', title: 'Reembolso para productos', body: [
+                `Para solicitar un reembolso de productos deberás notificarlo inmediatamente al correo ${BRAND.email} y presentar una carta escrita con el motivo del reembolso y fotografías del producto. ${BRAND.operator} realizará el reembolso total siempre y cuando:`,
+                ['El cliente no ha usado el producto.', 'El cliente solicitó el reembolso en el mismo mes en el que realizó la compra.', 'El producto cuenta con defectos de fábrica.'],
+                `Una vez evaluado el caso, recibirás una confirmación por correo electrónico y deberás enviar el producto, en su embalaje original, para revisión a: ${BRAND.address}.`,
+                'El reembolso se realizará en su totalidad mediante EVO PAYMENTS (CITIBANAMEX) o Stripe, a la cuenta de origen. Este proceso puede demorar de 5 a 10 días hábiles. Consulta también las políticas de devolución.'] },
+            { id: 'aviso', title: '¡Aviso importante!', body: ['Si infringes alguna de nuestras políticas del servicio recibirás una notificación por correo electrónico.'] },
+            { id: 'faq', title: 'Preguntas frecuentes', body: [
+                '¿Qué esperar de un tratamiento con nosotros? Es un servicio personalizado que combina la experiencia de un facial con los resultados de un tratamiento profesional.',
+                '¿Por qué personalizado? Creemos que cada piel es única, así que empezamos con un análisis para conocer la condición de tu piel y brindarte mejores recomendaciones de tratamiento.',
+                '¿El análisis tiene costo? Está incluido en el costo del servicio, pero puedes adquirirlo de forma individual para conocer tus opciones antes de agendar tu tratamiento. El costo del análisis es de 800 pesos.',
+                '¿Cuántas sesiones necesito? El cuidado de la piel requiere constancia y tenemos muchas opciones para ti. Por eso recomendamos empezar con un análisis.',
+                '¿Y la propina? Las especialistas pueden recibir propina por el medio que prefiera el cliente, pero no nos hacemos responsables del manejo de propinas.',
+                '¡Precaución! Nuestras especialistas dan masaje solo en el área del rostro, cuello y escote. Queda estrictamente prohibido solicitar cualquier tipo de servicio erótico o sexual. Cualquier insinuación sexual implica el veto de nuestros servicios.'] },
         ];
-
-        renderPage(() => <LegalPage eyebrow="Legal · México" title="Términos y" script="condiciones" updated="7 de octubre de 2026" sections={SECTIONS} />);
+        renderPage(() => <LegalPage eyebrow="Nuestras políticas" title="Términos y" script="condiciones"
+            intro="Términos y condiciones aplicables para garantizar la satisfacción del servicio. Es importante leerlos a detalle." sections={SECTIONS} />);
     </script>
 </body>
 </html>
