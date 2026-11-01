@@ -112,6 +112,24 @@ Orden: `tailwind.config.js` (en el `<head>`) → `layout.jsx` → `acceso.jsx` �
 - **Textos legales**: `SECTIONS` en `pages/terminos/` y `pages/privacidad/`. Los `[corchetes]` se ven resaltados hasta rellenarlos.
 - **Páginas con login**: `ACCESS_RULES` en `js/acceso.jsx`. Nunca en las páginas legales.
 
+## SEO
+
+`tools/seo.py` es la única fuente de títulos, descripciones y datos estructurados (lo ejecuta también
+`tools/generar-paginas-producto.py`). Después de cambiar textos, productos o artículos: `python tools/generar-paginas-producto.py`.
+
+- **Marca y palabras clave:** Individuel Genève / Individuel Geneve, Individuel México, cosméticos Individuel, Shop Individuel,
+  producto original, distribuidor autorizado, cosméticos personalizados para todo tipo de piel. Mismos textos visibles en el inicio
+  («Cosméticos Individuel originales»), la tienda, las fichas (`BRAND_CLAIMS` / `ClaimsRow` en `js/layout.jsx`) y el pie.
+- **`<head>`** (entre `<!-- seo -->` y `<!-- /seo -->`): title, description, robots, canonical, Open Graph y Twitter. Títulos y
+  descripciones de páginas fijas en `PAGES`; de productos y artículos, desde `public/db/*.json`.
+- **JSON-LD:** Organization + WebSite + BeautySalon (dirección, geo y horario) en el inicio; Product (marca Individuel Genève; `Offer`
+  solo cuando hay `price_mxn`), CollectionPage + ItemList en la tienda, BlogPosting y BreadcrumbList en todas.
+- **HTML estático para buscadores:** el inicio, la tienda, cada ficha y cada artículo llevan en `#root` un h1, texto y enlaces
+  (entre `<!--seo-root-->`). React lo sustituye al cargar; sirve a buscadores y vistas previas que no ejecutan JavaScript.
+- **`sitemap.xml`** (52 URL) y **`robots.txt`** (bloquea `/pages/cuenta/` y `/pages/gracias/`, que además llevan `noindex`).
+- **Canónico:** `https://individuelgeneve.com.mx` (sin www, como el `CNAME`). El sitio de Squarespace usaba `www.`: al migrar el
+  dominio, redirigir www → sin www y dar de alta el sitemap en Google Search Console.
+
 ## Añadir una página
 
 1. Copia `pages/ingredientes/` a `pages/<nombre>/`, cambia `<title>`, descripción, canónica y el componente.
@@ -144,13 +162,17 @@ se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
 - `404.html`: redirecciones desde las URL de Squarespace. Identidad visual sin cambios.
 - Sin carrito: se eliminan la bolsa (`/pages/bolsa/` → tienda), el icono de la cabecera y los pedidos locales; cada producto se
   compra solo con «Comprar ahora» → Stripe Payment Link, o «Pedir por WhatsApp» si aún no tiene link. Nueva `/pages/gracias/`.
+- SEO de marca (`tools/seo.py`): títulos y descripciones con Individuel Genève / Individuel México / Shop Individuel / producto
+  original / distribuidor autorizado, JSON-LD (Organization, BeautySalon, Product, BlogPosting, breadcrumbs), HTML estático
+  para buscadores, `sitemap.xml` y `robots.txt`. Nueva sección «Cosméticos Individuel originales» en el inicio.
 - Logo real del cliente en la cabecera, el menú móvil y el pie (antes, texto en Pinyon Script).
 - Rutas compatibles con la subruta de GitHub Pages (`BASE` en `js/layout.jsx`, `<head>` con rutas relativas): arregla la página
   en blanco en `eliav-mejia.github.io/individuelgeneve.com.mx/`.
 - **Pendiente del cliente:** precios (el export los trae en 0; una captura de 2024 en el inicio original mostraba
   $3,711–$4,574) y un Payment Link de Stripe por producto, costo de envío (se configura en cada Payment Link), duración de cada servicio (60 min supuesto), número de cabinas, correo de atención
   (la web escribe «atención@»), texto en inglés de Tinted Moisturizer, segunda condición incompleta de «Apelación» en términos,
-  y si devoluciones sigue usando contacto@bellezapro.mx.
+  y si devoluciones sigue usando contacto@bellezapro.mx. Confirmar que BELLEZA PRO MX puede anunciarse como «distribuidor
+  autorizado» de Individuel Genève (se muestra en títulos, inicio, tienda y fichas).
 - **No incluido:** `js/reservas.jsx` sin cambios: el asistente reserva solo lun–vie 8:00–20:00 y muestra «$0» en los servicios
   sin precio.
 

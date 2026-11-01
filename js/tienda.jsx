@@ -39,7 +39,7 @@ const primaryCategory = (catalog, p) => catalog.category[p.category_ids[0]];
 // images[0] is the packshot, images[1] the information card from the original boutique.
 const ProductImage = ({ product, index = 0, className = '' }) => (
     product.images && product.images[index]
-        ? <Img src={product.images[index]} alt={`${product.name}${product.size ? `, ${product.size}` : ''}`} className={`object-contain mix-blend-multiply ${className}`} />
+        ? <Img src={product.images[index]} alt={`${product.name} Individuel Genève${product.size ? ` ${product.size}` : ''}${index ? ' · información del producto' : ''}`} className={`object-contain mix-blend-multiply ${className}`} />
         : <div className={`flex items-center justify-center font-script text-3xl text-blush-500 ${className}`}>Individuel</div>
 );
 
@@ -175,8 +175,11 @@ const ProductPage = () => {
                     <nav className="label text-ink-400 mb-8" aria-label="Ruta">
                         <a href="/pages/tienda/" className="hover:text-ink">Boutique</a>{cat && <> / <a href={`/pages/tienda/?cat=${cat.id}`} className="hover:text-ink">{cat.label}</a></>}
                     </nav>
-                    <p className="font-script text-4xl text-blush-500">{product.line}</p>
-                    <h1 className="text-5xl md:text-6xl mt-1">{product.name}</h1>
+                    <h1>
+                        <span className="block font-script text-4xl text-blush-500">Individuel Genève</span>
+                        <span className="block text-5xl md:text-6xl mt-1">{product.name}</span>
+                    </h1>
+                    <p className="label text-ink-400 mt-2">Línea {product.line}{product.size ? ` · ${product.size}` : ''}</p>
                     {product.actives && <p className="label text-ink-400 mt-5 !tracking-[0.18em] leading-relaxed">{product.actives}</p>}
                     <p className="text-lg text-ink-500 mt-6 leading-relaxed">{product.description}</p>
                     <div className="flex items-baseline justify-between mt-10 pt-6 border-t border-ink-line">
@@ -184,6 +187,7 @@ const ProductPage = () => {
                         <span className={`label ${note.cls}`}>{note.text}</span>
                     </div>
                     <BuyButton product={product} className="w-full mt-6" />
+                    <ClaimsRow className="!justify-start mt-6 !text-[0.62rem]" />
                     <p className="text-xs text-ink-400 mt-4 text-center">
                         {checkoutUrl(product, null)
                             ? 'Pago seguro con Stripe. Recibirás tu recibo por correo electrónico.'

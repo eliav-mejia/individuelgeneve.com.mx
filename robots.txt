@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /pages/cuenta/
+Disallow: /pages/gracias/
+
+Sitemap: https://individuelgeneve.com.mx/sitemap.xml

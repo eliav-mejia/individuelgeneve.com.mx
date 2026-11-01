@@ -120,3 +120,6 @@ def blog():
 if __name__ == '__main__':
     main()
     blog()
+    # Titles, descriptions, JSON-LD, static HTML, sitemap.xml and robots.txt: always re-applied after generating.
+    import runpy
+    runpy.run_path(str(ROOT / 'tools' / 'seo.py'), run_name='__main__')

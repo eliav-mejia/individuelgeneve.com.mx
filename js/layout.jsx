@@ -47,6 +47,16 @@ const BRAND = {
     mapUrl: 'https://maps.google.com/?q=Av.+Tamaulipas+150,+Condesa,+Ciudad+de+M%C3%A9xico',
 };
 
+// Brand claims shown on the home, shop and product pages (SEO: tools/seo.py uses the same wording).
+// «Distribuidor autorizado» comes from the original site (Individuel en México, operado por BELLEZA PRO MX). [verificar con el cliente]
+const BRAND_CLAIMS = ['Producto original', 'Distribuidor autorizado en México', 'Personalizado para todo tipo de piel'];
+
+const ClaimsRow = ({ dark = false, className = '' }) => (
+    <ul className={`flex flex-wrap justify-center gap-x-6 gap-y-2 label ${dark ? 'text-white/80' : 'text-ink-400'} ${className}`}>
+        {BRAND_CLAIMS.map(c => <li key={c} className="flex items-center gap-2"><IconCheck className={`w-4 h-4 ${dark ? 'text-blush-300' : 'text-blush-500'}`} />{c}</li>)}
+    </ul>
+);
+
 // Opening hours by day (the same values drive the booking agenda in public/db/tratamientos.json).
 const OPENING_HOURS = [
     ['Lunes', '8:00 – 20:00'], ['Martes', '8:00 – 20:00'], ['Miércoles', '8:00 – 20:00'], ['Jueves', '8:00 – 20:00'],
@@ -55,8 +65,9 @@ const OPENING_HOURS = [
 
 const waLink = (text = 'Hola, quiero agendar una cita en Individuel Genève.') => `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(text)}`;
 
+// Main menu (desktop and mobile). «Menú de servicios» (/pages/tratamientos/) is hidden here on purpose; the page stays
+// reachable from the home page (hero and services section) and the «Reservar cita» button in the header.
 const NAV_LINKS = [
-    { href: '/pages/tratamientos/', label: 'Menú de servicios' },
     { href: '/pages/tienda/', label: 'Boutique' },
     { href: '/pages/tecnologias/', label: 'Tecnologías' },
     { href: '/pages/blog/', label: 'Blog' },
@@ -388,7 +399,7 @@ const Footer = () => (
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 grid gap-12 sm:grid-cols-2 lg:grid-cols-6">
             <div className="sm:col-span-2">
                 <Logo light className="h-24" />
-                <p className="mt-6 text-sm max-w-xs leading-relaxed">{BRAND.tagline}. Tratamientos faciales y corporales no invasivos y fórmulas cosméticas de grado profesional.</p>
+                <p className="mt-6 text-sm max-w-xs leading-relaxed">Distribuidor autorizado de Individuel Genève en México. Cosméticos originales personalizados para todo tipo de piel y tratamientos faciales no invasivos.</p>
                 <div className="flex gap-6 mt-6">
                     <a href={waLink()} target="_blank" rel="noopener noreferrer" className="label text-blush-300 hover:text-white">WhatsApp ↗</a>
                     <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="label text-blush-300 hover:text-white">Instagram ↗</a>
