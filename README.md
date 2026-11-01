@@ -127,8 +127,27 @@ Orden: `tailwind.config.js` (en el `<head>`) → `layout.jsx` → `acceso.jsx` �
 - **HTML estático para buscadores:** el inicio, la tienda, cada ficha y cada artículo llevan en `#root` un h1, texto y enlaces
   (entre `<!--seo-root-->`). React lo sustituye al cargar; sirve a buscadores y vistas previas que no ejecutan JavaScript.
 - **`sitemap.xml`** (52 URL) y **`robots.txt`** (bloquea `/pages/cuenta/` y `/pages/gracias/`, que además llevan `noindex`).
-- **Canónico:** `https://individuelgeneve.com.mx` (sin www, como el `CNAME`). El sitio de Squarespace usaba `www.`: al migrar el
-  dominio, redirigir www → sin www y dar de alta el sitemap en Google Search Console.
+- **Canónico:** `https://individuelgeneve.com.mx` (sin www, como el `CNAME`). El sitio de Squarespace usaba `www.`: GitHub Pages
+  redirige www → sin www cuando `CNAME www` apunta a `eliav-mejia.github.io`. Dar de alta el sitemap en Google Search Console.
+- **URL antiguas:** una página por cada URL de Squarespace (`/menu-servicios/`, `/blog-oficial-tips-secretos/…`, …) con canónica y
+  `meta refresh` inmediato: Google lo trata como redirección permanente (GitHub Pages no tiene 301 de servidor).
+
+## Dominio y DNS (publicación en individuelgeneve.com.mx)
+
+GitHub Pages se publica con GitHub Actions (`.github/workflows/pages.yml`): con este método **GitHub ignora el archivo `CNAME`**;
+el dominio se define en *Settings → Pages → Custom domain* (`individuelgeneve.com.mx`, sin www). El archivo `CNAME` se conserva
+como referencia. El DNS está en **Namecheap** (`dns1/dns2.registrar-servers.com`), no en Squarespace.
+
+| Registro (Namecheap → Advanced DNS) | Antes (Squarespace) | Después (GitHub Pages) |
+|---|---|---|
+| `A @` | 198.185.159.144 · 198.185.159.145 · 198.49.23.144 · 198.49.23.145 | 185.199.108.153 · 185.199.109.153 · 185.199.110.153 · 185.199.111.153 |
+| `AAAA @` | — | 2606:50c0:8000::153 · 2606:50c0:8001::153 · 2606:50c0:8002::153 · 2606:50c0:8003::153 |
+| `CNAME www` | ext-cust.squarespace.com | eliav-mejia.github.io |
+| `MX @` (eforward1–5) y `TXT @` (SPF) | reenvío de correo de Namecheap | **sin cambios** |
+
+Después del cambio: esperar a que GitHub emita el certificado y activar *Enforce HTTPS*; `www` redirige solo a la raíz.
+Las URL antiguas de Squarespace tienen cada una su página de redirección (`tools/seo.py`, desde `MOVED` en `404.html`).
+Detalle, orden de los pasos, reversión e impacto SEO: `_interno/migracion/` (documento interno, no se publica).
 
 ## Añadir una página
 
