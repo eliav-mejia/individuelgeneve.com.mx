@@ -66,7 +66,8 @@ const OPENING_HOURS = [
 const waLink = (text = 'Hola, quiero agendar una cita en Individuel Genève.') => `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(text)}`;
 
 // Main menu (desktop and mobile). «Menú de servicios» (/pages/tratamientos/) is hidden here on purpose; the page stays
-// reachable from the home page (hero and services section) and the «Reservar cita» button in the header.
+// reachable from the home page (hero, services section, «Agendar valoración») and the WhatsApp calls to action.
+// The pink header button is «Promociones» (/pages/promociones/).
 const NAV_LINKS = [
     { href: '/pages/tienda/', label: 'Boutique' },
     { href: '/pages/tecnologias/', label: 'Tecnologías' },
@@ -334,7 +335,7 @@ const Layout = ({ children }) => {
                     </nav>
 
                     <div className="flex items-center gap-5 md:gap-7">
-                        <a href="/pages/tratamientos/#reservar" className="hidden lg:inline-flex btn btn-blush !py-3 !px-5">Reservar cita</a>
+                        <a href="/pages/promociones/" aria-current={isActive('/pages/promociones/') ? 'page' : undefined} className="hidden lg:inline-flex btn btn-blush !py-3 !px-5">Promociones</a>
                         {accountButton}
                     </div>
                 </div>
@@ -348,7 +349,7 @@ const Layout = ({ children }) => {
                     </div>
                     <nav className="flex-1 flex flex-col items-center justify-center gap-7 overflow-y-auto py-8">
                         {NAV_LINKS.map(l => <a key={l.href} href={l.href} className="font-serif text-4xl">{l.label}</a>)}
-                        <a href="/pages/tratamientos/#reservar" className="btn btn-blush mt-4">Reservar cita</a>
+                        <a href="/pages/promociones/" className="btn btn-blush mt-4">Promociones</a>
                         {user
                             ? <a href="/pages/cuenta/" className="label text-ink-400">{TXT.account}</a>
                             : <button onClick={() => { setMenuOpen(false); setAuthMode('login'); }} className="label text-ink-400">{TXT.login}</button>}

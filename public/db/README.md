@@ -12,6 +12,7 @@ Los nombres de campo coinciden con las columnas de `supabase/migrations/0001_esq
 | `tratamientos.json` | `schedule` + `groups` + `treatments` | menú de servicios, reservas, inicio |
 | `blog.json` | `posts` | blog y páginas `/pages/blog/<slug>/` |
 | `capsulas.json` | `capsules` | `/pages/capsulas/` |
+| `cupones.json` | `groups` + `coupons` | `/pages/promociones/`, nota de cupón en las fichas, `prefilled_promo_code` de Stripe |
 
 Cada archivo lleva `_schema`, `_note` y `updated_at`: actualiza `updated_at` al editar.
 Origen (2026-11-01): `productos.json` y `categorias.json` desde el export de Squarespace `products_Nov-01_10-41-27AM.csv`;
@@ -48,6 +49,20 @@ por día (sáb y dom 10:00–16:00) para cuando se adapte el asistente —, `slo
 1. Copia un objeto en `productos.json` con `id`, `slug` y `sku` nuevos.
 2. `python tools/generar-paginas-producto.py` (crea `pages/tienda/<slug>/`).
 3. Commit y push. Cambios de precio, stock o textos no necesitan regenerar.
+
+## coupons (cupones.json)
+
+| Campo | Notas |
+|---|---|
+| `code` | código, igual que el *Promotion code* de Stripe (mayúsculas, sin espacios) |
+| `type` | `linea` · `minimo` · `producto` (agrupa la página y decide a qué productos aplica) |
+| `title`, `discount`, `description`, `terms` | textos de la tarjeta; `discount` es texto libre («10 %», «$1,000») |
+| `line`, `category_ids` | `linea` / `minimo`: aplica a la línea (o solo a esas categorías) |
+| `product_slugs` | `producto`: slugs de `productos.json` |
+| `min_purchase_mxn` | solo informativo; el mínimo real lo exige Stripe (*Minimum order value*) |
+| `valid_until`, `active` | vencido o `false` → no se muestra |
+
+El sitio no calcula descuentos: solo muestra el cupón y lo envía a Stripe, que lo valida.
 
 ## Añadir un artículo del blog
 

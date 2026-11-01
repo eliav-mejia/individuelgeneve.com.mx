@@ -105,6 +105,11 @@ Orden: `tailwind.config.js` (en el `<head>`) → `layout.jsx` → `acceso.jsx` �
 - **Compra («Comprar ahora»)**: crea en Stripe un Payment Link por producto (precio en MXN, dirección de envío y, si se quiere,
   cantidad ajustable; tras el pago, redirigir a `https://individuelgeneve.com.mx/pages/gracias/`) y pega su URL en `stripe_url`.
   Solo se aceptan URLs `https://buy.stripe.com/…`. El botón añade `client_reference_id` (SKU), `locale` y el email de la cuenta.
+- **Promociones / cupones**: `public/db/cupones.json` (página `/pages/promociones/`, botón rosa de la cabecera). Tipos `linea`
+  (línea o categorías Advance Pro), `minimo` (compra mínima, p. ej. $10,000) y `producto` (productos en oferta). Los vencidos
+  (`valid_until`) se ocultan solos. «Usar cupón» guarda el código (`ig-cupon`) y «Comprar ahora» lo envía a Stripe como
+  `prefilled_promo_code`. **Cada código debe existir en Stripe** (*Products → Coupons* + *Promotion code* con el mismo nombre,
+  productos y *Minimum order value*) y cada Payment Link debe tener *Allow promotion codes*; Stripe es quien valida el descuento.
 - **Horario de atención**: `OPENING_HOURS` en `js/layout.jsx` y `schedule` en `public/db/tratamientos.json`.
 - **Productos, ingredientes, servicios, blog, cápsulas**: `public/db/*.json` (ver `public/db/README.md`).
 - **Precios**: `price_mxn` en `productos.json` / `tratamientos.json`; `null` muestra «Precio a consultar».
@@ -156,7 +161,7 @@ Detalle, orden de los pasos, reversión e impacto SEO: `_interno/migracion/` (do
 
 ## Claves de almacenamiento local (staging)
 
-`ig-users` · `ig-session` · `ig-citas` · `ig-cookies`. Desaparecen con la v2 salvo `ig-cookies`.
+`ig-users` · `ig-session` · `ig-citas` · `ig-cupon` · `ig-cookies`. Desaparecen con la v2 salvo `ig-cookies`.
 
 ## Hoja de ruta
 
@@ -184,6 +189,8 @@ se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
 - SEO de marca (`tools/seo.py`): títulos y descripciones con Individuel Genève / Individuel México / Shop Individuel / producto
   original / distribuidor autorizado, JSON-LD (Organization, BeautySalon, Product, BlogPosting, breadcrumbs), HTML estático
   para buscadores, `sitemap.xml` y `robots.txt`. Nueva sección «Cosméticos Individuel originales» en el inicio.
+- Promociones: el botón rosa de la cabecera pasa de «Reservar cita» a «Promociones» → `/pages/promociones/`, índice de 13
+  cupones (línea Advance Pro, compra mínima de $10,000, productos en oferta) que se aplican en el pago de Stripe.
 - Logo real del cliente en la cabecera, el menú móvil y el pie (antes, texto en Pinyon Script).
 - Rutas compatibles con la subruta de GitHub Pages (`BASE` en `js/layout.jsx`, `<head>` con rutas relativas): arregla la página
   en blanco en `eliav-mejia.github.io/individuelgeneve.com.mx/`.
@@ -191,7 +198,8 @@ se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
   $3,711–$4,574) y un Payment Link de Stripe por producto, costo de envío (se configura en cada Payment Link), duración de cada servicio (60 min supuesto), número de cabinas, correo de atención
   (la web escribe «atención@»), texto en inglés de Tinted Moisturizer, segunda condición incompleta de «Apelación» en términos,
   y si devoluciones sigue usando contacto@bellezapro.mx. Confirmar que BELLEZA PRO MX puede anunciarse como «distribuidor
-  autorizado» de Individuel Genève (se muestra en títulos, inicio, tienda y fichas).
+  autorizado» de Individuel Genève (se muestra en títulos, inicio, tienda y fichas). Confirmar códigos y descuentos de
+  `cupones.json` (propuestos; los productos en oferta son los marcados OFERTA en el sitio original) y crearlos en Stripe.
 - **No incluido:** `js/reservas.jsx` sin cambios: el asistente reserva solo lun–vie 8:00–20:00 y muestra «$0» en los servicios
   sin precio.
 

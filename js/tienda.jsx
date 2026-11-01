@@ -1,4 +1,4 @@
-// Shop only (index, /pages/tienda/, product pages, /pages/ingredientes/).
+// Shop only (index, /pages/tienda/, product pages, /pages/ingredientes/, /pages/promociones/).
 // Data layer (db), catalogue hook, product image, «Comprar ahora» (Stripe Payment Links), cards and product page.
 // No cart: each product is bought on its own through its Stripe Payment Link.
 // Catalogue: the Advance Pro line, migrated from the Squarespace export (public/db/productos.json).
@@ -52,24 +52,67 @@ const ProductImage = ({ product, index = 0, className = '' }) => (
 // Without a link the button falls back to ordering by WhatsApp.
 const STRIPE_LINK_PREFIX = 'https://buy.stripe.com/';
 
-const checkoutUrl = (product, user) => {
+// --- COUPONS (public/db/cupones.json, page /pages/promociones/) ---
+// «Usar cupón» stores the code in 'ig-cupon'. When it applies to a product, «Comprar ahora» opens the Payment Link with
+// ?prefilled_promo_code=<code> and the WhatsApp order mentions it. Stripe validates the code (it must exist as a Promotion code,
+// with the same products and minimum order value), so an edited JSON or localStorage cannot create a discount.
+// The Payment Link needs «Allow promotion codes» turned on.
+const loadCoupons = () => loadJson('cupones').then(d => ({ groups: d.groups, coupons: d.coupons
+    .filter(c => c.active !== false && (!c.valid_until || c.valid_until >= isoToday()))
+    .sort((a, b) => a.sort_order - b.sort_order) }));
+const isoToday = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+
+const couponApplies = (c, p) => !!c && !!p && (
+    c.type === 'producto' ? c.product_slugs.includes(p.slug)
+    : (!c.line || p.line === c.line) && (!c.category_ids.length || c.category_ids.some(id => p.category_ids.includes(id))));
+
+const couponStore = {
+    read: () => store.read('ig-cupon', null),
+    set: (code) => { try { code ? store.write('ig-cupon', code) : store.remove('ig-cupon'); } catch (e) {} window.dispatchEvent(new Event('ig-cupon')); },
+};
+
+// The selected coupon object (or null), kept in sync between pages and tabs.
+const useCoupon = () => {
+    const code = useStoreEvent('ig-cupon', ['ig-cupon'], couponStore.read);
+    const [coupons, setCoupons] = useState([]);
+    useEffect(() => { if (code) loadCoupons().then(d => setCoupons(d.coupons)).catch(() => {}); }, [code]);
+    return code ? coupons.find(c => c.code === code) || null : null;
+};
+
+const checkoutUrl = (product, user, coupon = null) => {
     if (typeof product.stripe_url !== 'string' || !product.stripe_url.startsWith(STRIPE_LINK_PREFIX)) return null;
     const url = new URL(product.stripe_url);
     url.searchParams.set('client_reference_id', product.sku.replace(/[^A-Za-z0-9_-]/g, '_'));   // shows the SKU on the payment
     url.searchParams.set('locale', 'es-419');
     if (user) url.searchParams.set('prefilled_email', user.email);
+    if (couponApplies(coupon, product)) url.searchParams.set('prefilled_promo_code', coupon.code);
     return url.toString();
 };
 
 const BuyButton = ({ product, className = '', compact = false }) => {
     const user = useUser();
+    const coupon = useCoupon();
     if (product.stock <= 0) return <button className={`btn btn-light ${className}`} disabled>Agotado</button>;
-    const url = checkoutUrl(product, user);
+    const url = checkoutUrl(product, user, coupon);
     if (url) return <a href={url} className={`btn btn-dark ${className}`}>Comprar ahora</a>;
+    const withCoupon = couponApplies(coupon, product) ? ` con el cupón ${coupon.code}` : '';
     return (
-        <a href={waLink(`Hola, quiero comprar ${product.name} (${product.sku}).`)} target="_blank" rel="noopener noreferrer" className={`btn btn-light ${className}`}>
+        <a href={waLink(`Hola, quiero comprar ${product.name} (${product.sku})${withCoupon}.`)} target="_blank" rel="noopener noreferrer" className={`btn btn-light ${className}`}>
             {compact ? 'Pedir' : 'Pedir por WhatsApp'}
         </a>
+    );
+};
+
+// Shown under the buy button when the selected coupon applies to this product.
+const CouponNote = ({ product }) => {
+    const coupon = useCoupon();
+    if (!couponApplies(coupon, product)) return null;
+    return (
+        <p className="mt-4 text-sm flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-blush-100 px-4 py-3">
+            <span>Cupón <b className="font-medium tracking-wider">{coupon.code}</b> · {coupon.discount} · se aplica al pagar</span>
+            {coupon.min_purchase_mxn && <span className="text-ink-400">Compra mínima {formatMXN(coupon.min_purchase_mxn)}</span>}
+            <button className="label text-ink-400 hover:text-ink ml-auto" onClick={() => couponStore.set(null)}>Quitar</button>
+        </p>
     );
 };
 
@@ -187,6 +230,7 @@ const ProductPage = () => {
                         <span className={`label ${note.cls}`}>{note.text}</span>
                     </div>
                     <BuyButton product={product} className="w-full mt-6" />
+                    <CouponNote product={product} />
                     <ClaimsRow className="!justify-start mt-6 !text-[0.62rem]" />
                     <p className="text-xs text-ink-400 mt-4 text-center">
                         {checkoutUrl(product, null)

@@ -59,6 +59,8 @@ PAGES = {
          'Distribuidor autorizado de Individuel Genève en México: cosméticos originales personalizados para todo tipo de piel y tratamientos faciales en CDMX.', None),
     'pages/tienda/': ('Shop Individuel México | Cosméticos Individuel Genève originales',
                       'Tienda Individuel en México: cosméticos Individuel Genève Advance Pro originales, de distribuidor autorizado. Fórmulas personalizadas para todo tipo de piel.', 'Shop Individuel'),
+    'pages/promociones/': ('Promociones y cupones Individuel Genève | Advance Pro',
+                           'Cupones Individuel Genève en México: descuentos en la línea Advance Pro, en compras desde $10,000 y en productos en oferta. Producto original.', 'Promociones'),
     'pages/ingredientes/': ('Ingredientes de los cosméticos Individuel Genève',
                             'Glosario de activos de los cosméticos Individuel Genève Advance Pro: ácido hialurónico, péptidos, vitaminas, niacinamida, AHA y extractos botánicos.', 'Ingredientes'),
     'pages/tratamientos/': ('Tratamientos faciales Individuel Genève en CDMX | Menú de servicios',
