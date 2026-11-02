@@ -23,3 +23,6 @@ _site/
 .jekyll-metadata
 /vendor
 Gemfile.lock
+
+# Fotos comerciales originales (fuente): se publican convertidas a img/productos/<slug>-comercial.webp
+img/productos/commercial_*

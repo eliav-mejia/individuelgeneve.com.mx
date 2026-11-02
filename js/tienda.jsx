@@ -36,7 +36,15 @@ const useCatalog = () => {
 const primaryCategory = (catalog, p) => catalog.category[p.category_ids[0]];
 
 // --- PRODUCT IMAGE ---
-// images[0] is the packshot, images[1] the information card from the original boutique.
+// images[0] is the packshot (white background, used by every card), images[1] the information card from the original boutique.
+// commercial_image (optional) is the studio photo: the main image of the product page; the packshot stays as a white thumbnail.
+// Product page gallery: [{ src, alt, kind: 'photo' | 'packshot' | 'info' }], commercial photo first when there is one.
+const productGallery = (p) => [
+    p.commercial_image && { src: p.commercial_image, kind: 'photo', alt: `${p.name} Individuel Genève${p.size ? ` ${p.size}` : ''}, fotografía de producto` },
+    p.images[0] && { src: p.images[0], kind: 'packshot', alt: `${p.name} Individuel Genève${p.size ? ` ${p.size}` : ''}` },
+    ...p.images.slice(1).map(src => ({ src, kind: 'info', alt: `${p.name} Individuel Genève · información del producto` })),
+].filter(Boolean);
+
 const ProductImage = ({ product, index = 0, className = '' }) => (
     product.images && product.images[index]
         ? <Img src={product.images[index]} alt={`${product.name} Individuel Genève${product.size ? ` ${product.size}` : ''}${index ? ' · información del producto' : ''}`} className={`object-contain mix-blend-multiply ${className}`} />
@@ -176,6 +184,7 @@ const ProductPage = () => {
     );
 
     const cat = primaryCategory(catalog, product);
+    const gallery = productGallery(product);
     const note = stockNote(product.stock);
     const ingredients = product.ingredient_ids.map(id => catalog.ingredient[id]).filter(Boolean);
     const related = catalog.products.filter(p => p.id !== product.id && p.category_ids.some(c => product.category_ids.includes(c))).slice(0, 4);
@@ -200,15 +209,16 @@ const ProductPage = () => {
         <>
             <section className="max-w-7xl mx-auto px-4 md:px-8 pt-8 md:pt-14 pb-16 grid md:grid-cols-2 gap-10 md:gap-20 items-start">
                 <div className="md:sticky md:top-32 animate-fade-in">
-                    <div className="rounded-[2rem] bg-blush-50 aspect-square relative overflow-hidden">
-                        <ProductImage product={product} index={shown} className="absolute inset-0 w-full h-full p-6" />
+                    <div className={`rounded-[2rem] relative overflow-hidden aspect-[4/5] ${gallery[shown].kind === 'photo' ? 'bg-ink-line' : 'bg-white border border-ink-line'}`}>
+                        <Img key={gallery[shown].src} src={gallery[shown].src} alt={gallery[shown].alt} loading="eager"
+                             className={`absolute inset-0 w-full h-full animate-fade-in ${gallery[shown].kind === 'photo' ? 'object-cover' : 'object-contain p-6'}`} />
                     </div>
-                    {product.images.length > 1 && (
+                    {gallery.length > 1 && (
                         <div className="flex gap-3 mt-4">
-                            {product.images.map((src, i) => (
-                                <button key={src} onClick={() => setShown(i)} aria-pressed={shown === i} aria-label={`Imagen ${i + 1}`}
-                                    className={`w-20 h-20 rounded-2xl bg-blush-50 overflow-hidden border ${shown === i ? 'border-ink' : 'border-transparent'}`}>
-                                    <ProductImage product={product} index={i} className="w-full h-full p-1" />
+                            {gallery.map((g, i) => (
+                                <button key={g.src} onClick={() => setShown(i)} aria-pressed={shown === i} aria-label={`Imagen ${i + 1}: ${g.alt}`}
+                                    className={`w-20 h-20 rounded-2xl bg-white overflow-hidden border ${shown === i ? 'border-ink' : 'border-ink-line'}`}>
+                                    <Img src={g.src} alt="" className={`w-full h-full ${g.kind === 'photo' ? 'object-cover' : 'object-contain p-1'}`} />
                                 </button>
                             ))}
                         </div>

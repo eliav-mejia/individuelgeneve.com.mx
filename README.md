@@ -112,6 +112,9 @@ Orden: `tailwind.config.js` (en el `<head>`) → `layout.jsx` → `acceso.jsx` �
   productos y *Minimum order value*) y cada Payment Link debe tener *Allow promotion codes*; Stripe es quien valida el descuento.
 - **Horario de atención**: `OPENING_HOURS` en `js/layout.jsx` y `schedule` en `public/db/tratamientos.json`.
 - **Productos, ingredientes, servicios, blog, cápsulas**: `public/db/*.json` (ver `public/db/README.md`).
+- **Fotos comerciales**: deja el original en `img/productos/commercial_<slug>-1.jpg` (no se publica, `.gitignore`), conviértelo a
+  `img/productos/<slug>-comercial.webp` (WebP calidad 90, resolución completa) y pon esa ruta en `commercial_image`. La ficha la
+  muestra como imagen principal (4:5) y el fondo blanco como miniatura; tienda e inicio siguen con el fondo blanco.
 - **Precios**: `price_mxn` en `productos.json` / `tratamientos.json`; `null` muestra «Precio a consultar».
 - **Redirecciones** de las URL antiguas de Squarespace: `MOVED` en `404.html`.
 - **Textos legales**: `SECTIONS` en `pages/terminos/` y `pages/privacidad/`. Los `[corchetes]` se ven resaltados hasta rellenarlos.
@@ -189,6 +192,11 @@ se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
 - SEO de marca (`tools/seo.py`): títulos y descripciones con Individuel Genève / Individuel México / Shop Individuel / producto
   original / distribuidor autorizado, JSON-LD (Organization, BeautySalon, Product, BlogPosting, breadcrumbs), HTML estático
   para buscadores, `sitemap.xml` y `robots.txt`. Nueva sección «Cosméticos Individuel originales» en el inicio.
+- Fotos comerciales en las fichas (4 productos): imagen principal 4:5; el fondo blanco de la boutique queda como miniatura.
+- Carga sin texto visible: el HTML para buscadores (`.seo-static`) se oculta con JavaScript (`<html class="js">`) y en su lugar
+  hay un anillo gris (`.page-loader`) hasta que React pinta. Logo de la cabecera más pequeño.
+- Cuentas desactivadas (`ACCOUNTS_ENABLED = false` en `js/layout.jsx`): sin registro, sin inicio de sesión ni ícono de perfil;
+  `/pages/cuenta/` muestra «próximamente». Las citas se agendan con un formulario que abre WhatsApp (`js/reservas.jsx` sin cambios).
 - Promociones: el botón rosa de la cabecera pasa de «Reservar cita» a «Promociones» → `/pages/promociones/`, índice de 13
   cupones (línea Advance Pro, compra mínima de $10,000, productos en oferta) que se aplican en el pago de Stripe.
 - Logo real del cliente en la cabecera, el menú móvil y el pie (antes, texto en Pinyon Script).

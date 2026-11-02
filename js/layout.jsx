@@ -57,6 +57,12 @@ const ClaimsRow = ({ dark = false, className = '' }) => (
     </ul>
 );
 
+// --- ACCOUNTS SWITCH ---
+// false (2026-11-01): no login, no registration, no profile icon. The account code below (auth, AuthModal, AccessGate,
+// /pages/cuenta/) stays in place for v1.2 (Supabase Auth); set to true to show it again. With false: openAuth() does
+// nothing, auth.signup/login refuse, /pages/cuenta/ shows «próximamente» and bookings go through WhatsApp.
+const ACCOUNTS_ENABLED = false;
+
 // Opening hours by day (the same values drive the booking agenda in public/db/tratamientos.json).
 const OPENING_HOURS = [
     ['Lunes', '8:00 – 20:00'], ['Martes', '8:00 – 20:00'], ['Miércoles', '8:00 – 20:00'], ['Jueves', '8:00 – 20:00'],
@@ -115,7 +121,7 @@ const TXT = {
     working: 'Un momento...',
     staging: 'Versión de prueba: tu cuenta se guarda solo en este navegador.',
     cookiesTitle: 'Cookies',
-    cookiesText: 'Usamos cookies necesarias para tu sesión. Con tu permiso, también para medir y mejorar el sitio.',
+    cookiesText: 'Usamos cookies necesarias para que el sitio funcione. Con tu permiso, también para medir y mejorarlo.',
     cookiesAccept: 'Aceptar todas', cookiesReject: 'Solo necesarias', cookiesMore: 'Aviso de privacidad',
 };
 
@@ -139,6 +145,7 @@ const auth = {
         return user ? { name: user.name, email } : null;
     },
     signup: async ({ name, email, password }) => {
+        if (!ACCOUNTS_ENABLED) throw new Error('Las cuentas aún no están disponibles.');
         email = email.trim().toLowerCase();
         if (password.length < 8) throw new Error(TXT.errShort);
         const users = store.read('ig-users', {});
@@ -150,6 +157,7 @@ const auth = {
         return { name, email };
     },
     login: async ({ email, password }) => {
+        if (!ACCOUNTS_ENABLED) throw new Error('Las cuentas aún no están disponibles.');
         email = email.trim().toLowerCase();
         const user = store.read('ig-users', {})[email];
         if (!user || user.hash !== await hashPassword(password, user.salt)) throw new Error(TXT.errWrong);
@@ -163,7 +171,7 @@ const auth = {
 const useUser = () => useStoreEvent('ig-auth', ['ig-session', 'ig-users'], auth.current);
 
 // Any page can ask for the login pop-up: openAuth('login' | 'signup').
-const openAuth = (mode = 'login') => window.dispatchEvent(new CustomEvent('ig-open-auth', { detail: mode }));
+const openAuth = (mode = 'login') => { if (ACCOUNTS_ENABLED) window.dispatchEvent(new CustomEvent('ig-open-auth', { detail: mode })); };
 
 // --- ICONS (1.4px line, matches the light type) ---
 const Icon = ({ d, className = 'w-5 h-5' }) => (
@@ -325,7 +333,7 @@ const Layout = ({ children }) => {
                 <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 md:h-24 flex items-center justify-between gap-6">
                     <button className="xl:hidden" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
 
-                    <div className="xl:order-first"><Logo className="h-14 md:h-[4.5rem]" /></div>
+                    <div className="xl:order-first"><Logo className="h-12 md:h-[3.75rem]" /></div>
 
                     <nav className="hidden xl:flex items-center gap-7" aria-label="Principal">
                         {NAV_LINKS.map(l => (
@@ -336,7 +344,7 @@ const Layout = ({ children }) => {
 
                     <div className="flex items-center gap-5 md:gap-7">
                         <a href="/pages/promociones/" aria-current={isActive('/pages/promociones/') ? 'page' : undefined} className="hidden lg:inline-flex btn btn-blush !py-3 !px-5">Promociones</a>
-                        {accountButton}
+                        {ACCOUNTS_ENABLED && accountButton}
                     </div>
                 </div>
             </header>
@@ -344,15 +352,15 @@ const Layout = ({ children }) => {
             {menuOpen && (
                 <div className="fixed inset-0 z-[70] bg-white animate-fade-in flex flex-col" role="dialog" aria-modal="true" aria-label="Menú">
                     <div className="h-20 px-4 flex items-center justify-between">
-                        <Logo className="h-14" />
+                        <Logo className="h-12" />
                         <button onClick={() => setMenuOpen(false)} aria-label={TXT.close}><IconClose className="w-6 h-6" /></button>
                     </div>
                     <nav className="flex-1 flex flex-col items-center justify-center gap-7 overflow-y-auto py-8">
                         {NAV_LINKS.map(l => <a key={l.href} href={l.href} className="font-serif text-4xl">{l.label}</a>)}
                         <a href="/pages/promociones/" className="btn btn-blush mt-4">Promociones</a>
-                        {user
+                        {ACCOUNTS_ENABLED && (user
                             ? <a href="/pages/cuenta/" className="label text-ink-400">{TXT.account}</a>
-                            : <button onClick={() => { setMenuOpen(false); setAuthMode('login'); }} className="label text-ink-400">{TXT.login}</button>}
+                            : <button onClick={() => { setMenuOpen(false); setAuthMode('login'); }} className="label text-ink-400">{TXT.login}</button>)}
                     </nav>
                 </div>
             )}
@@ -361,8 +369,8 @@ const Layout = ({ children }) => {
 
             <Footer />
 
-            {authMode && <AuthModal mode={authMode} setMode={setAuthMode} onClose={() => setAuthMode(null)} />}
-            {typeof AccessGate !== 'undefined' && <AccessGate />}
+            {ACCOUNTS_ENABLED && authMode && <AuthModal mode={authMode} setMode={setAuthMode} onClose={() => setAuthMode(null)} />}
+            {ACCOUNTS_ENABLED && typeof AccessGate !== 'undefined' && <AccessGate />}
             <CookieConsent />
         </div>
     );

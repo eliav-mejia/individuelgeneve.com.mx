@@ -35,7 +35,8 @@ el resto desde las páginas de individuelgeneve.com.mx. Las imágenes se descarg
 | `category_ids` | uno o varios `categories.id`; el primero es la categoría principal |
 | `description`, `actives` | textos de la ficha (`actives` = los activos entre paréntesis del texto original) |
 | `ingredient_ids` | ids de `ingredientes.json` |
-| `images` | `[foto de producto, ficha informativa]` en `/img/productos/` |
+| `images` | `[foto de producto, ficha informativa]` en `/img/productos/`. `images[0]` (fondo blanco) es la imagen de todas las tarjetas |
+| `commercial_image` | foto comercial de estudio (`/img/productos/<slug>-comercial.webp`): imagen principal de la ficha; el fondo blanco queda como miniatura. `null` = la ficha abre con `images[0]` |
 | `old_url` | URL en Squarespace; redirigida en `404.html` |
 
 ## schedule (tratamientos.json)

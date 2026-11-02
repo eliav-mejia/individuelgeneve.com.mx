@@ -96,6 +96,17 @@ h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; fon
 .animate-fade-in { animation: fade-in .35s ease both; }
 .animate-rise-in { animation: rise-in .45s ease both; }
 
+/* Static HTML for crawlers inside #root (tools/seo.py, class seo-static): hidden whenever JavaScript runs, because React
+   renders the real page there. Crawlers without JavaScript read it from the HTML source. <html class="js"> is set by the
+   first script of the <head>. */
+.js .seo-static { display: none; }
+
+/* Loading screen: a thin grey ring, only with JavaScript and only until React renders (it replaces everything in #root). */
+.page-loader { display: none; }
+.js .page-loader { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: var(--white); }
+.page-loader span { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid var(--line); border-top-color: #9a9aa0; animation: loader-spin .8s linear infinite; }
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+
 /* Hide scrollbar on horizontal chip rows */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
