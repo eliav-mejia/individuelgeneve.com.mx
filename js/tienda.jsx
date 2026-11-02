@@ -105,7 +105,7 @@ const BuyButton = ({ product, className = '', compact = false }) => {
     if (url) return <a href={url} className={`btn btn-dark ${className}`}>Comprar ahora</a>;
     const withCoupon = couponApplies(coupon, product) ? ` con el cupón ${coupon.code}` : '';
     return (
-        <a href={waLink(`Hola, quiero comprar ${product.name} (${product.sku})${withCoupon}.`)} target="_blank" rel="noopener noreferrer" className={`btn btn-light ${className}`}>
+        <a href={waLink(`Hola, quiero comprar ${product.name}${product.size ? ` ${product.size}` : ''} (${product.sku})${product.price_mxn != null ? `, ${formatMXN(product.price_mxn)}` : ''}${withCoupon}.`)} target="_blank" rel="noopener noreferrer" className={`btn btn-light ${className}`}>
             {compact ? 'Pedir' : 'Pedir por WhatsApp'}
         </a>
     );
@@ -245,7 +245,7 @@ const ProductPage = () => {
                     <p className="text-xs text-ink-400 mt-4 text-center">
                         {checkoutUrl(product, null)
                             ? 'Pago seguro con Stripe. Recibirás tu recibo por correo electrónico.'
-                            : 'Te confirmamos precio, envío y forma de pago por WhatsApp.'}{' '}
+                            : product.price_mxn != null ? 'Te confirmamos envío y forma de pago por WhatsApp.' : 'Te confirmamos precio, envío y forma de pago por WhatsApp.'}{' '}
                         <a href={waLink(`Hola, quiero información de ${product.name} (${product.sku}).`)} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">¿Dudas? Escríbenos</a>
                     </p>
 

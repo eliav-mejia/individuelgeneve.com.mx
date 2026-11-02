@@ -9,8 +9,8 @@ igual que `lameyer.net`. Pensado para crecer a un repositorio React + Tailwind c
 Supabase, fuera de GitHub.
 
 **Estado: 1.1.0 · staging.** Contenido y catálogo reales. **Sin carrito: compra de un solo producto** con «Comprar ahora» →
-Stripe Payment Link (`stripe_url` en `productos.json`). Mientras un producto no tenga link ni precio (el export de Squarespace
-trae los precios en 0) el botón es «Pedir por WhatsApp». Las cuentas y citas se guardan solo en el navegador. Pendientes en «Versiones → 1.1.0». Revisar todos los `[verificar]` antes de publicar.
+Stripe Payment Link (`stripe_url` en `productos.json`). Precios en MXN de la lista del cliente (2026-11-01); mientras un producto
+no tenga Payment Link el botón es «Pedir por WhatsApp» (el mensaje incluye tamaño, SKU y precio). Las cuentas y citas se guardan solo en el navegador. Pendientes en «Versiones → 1.1.0». Revisar todos los `[verificar]` antes de publicar.
 
 ## Probar en local
 
@@ -206,8 +206,9 @@ se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
 - Logo real del cliente en la cabecera, el menú móvil y el pie (antes, texto en Pinyon Script).
 - Rutas compatibles con la subruta de GitHub Pages (`BASE` en `js/layout.jsx`, `<head>` con rutas relativas): arregla la página
   en blanco en `eliav-mejia.github.io/individuelgeneve.com.mx/`.
-- **Pendiente del cliente:** precios (el export los trae en 0; una captura de 2024 en el inicio original mostraba
-  $3,711–$4,574) y un Payment Link de Stripe por producto, costo de envío (se configura en cada Payment Link), duración de cada servicio (60 min supuesto), número de cabinas, correo de atención
+- **Precios cargados** (lista del cliente, 2026-11-01): $2,600 – $5,200 MXN; tamaños de Calmin (50 ml), Eye Contour (30 ml) y
+  Tinted (50 ml) corregidos según la lista. Con precio, las fichas publican `Offer` en el JSON-LD.
+- **Pendiente del cliente:** un Payment Link de Stripe por producto (con el mismo precio), costo de envío (se configura en cada Payment Link), duración de cada servicio (60 min supuesto), número de cabinas, correo de atención
   (la web escribe «atención@»), texto en inglés de Tinted Moisturizer, segunda condición incompleta de «Apelación» en términos,
   y si devoluciones sigue usando contacto@bellezapro.mx. Confirmar que BELLEZA PRO MX puede anunciarse como «distribuidor
   autorizado» de Individuel Genève (se muestra en títulos, inicio, tienda y fichas). Confirmar códigos y descuentos de
