@@ -59,7 +59,7 @@ PAGES = {
     '': ('Individuel Genève México | Cosméticos originales y faciales',
          'Distribuidor autorizado de Individuel Genève en México: cosméticos originales personalizados para todo tipo de piel y tratamientos faciales en CDMX.', None),
     'pages/tienda/': ('Shop Individuel México | Cosméticos Individuel Genève originales',
-                      'Tienda Individuel en México: cosméticos Individuel Genève Advance Pro originales, de distribuidor autorizado. Fórmulas personalizadas para todo tipo de piel.', 'Shop Individuel'),
+                      'Línea Advance Pro en su envase sellado de grado médico. Un producto de Individuel Genéve. Edición limitada en México. Consulta precios y disponibilidad.', 'Shop Individuel'),
     'pages/promociones/': ('Promociones y cupones Individuel Genève | Advance Pro',
                            'Cupones Individuel Genève en México: descuentos en la línea Advance Pro, en compras desde $10,000 y en productos en oferta. Producto original.', 'Promociones'),
     'pages/ingredientes/': ('Ingredientes de los cosméticos Individuel Genève',
@@ -204,8 +204,8 @@ def main():
             graph.append({'@type': 'ItemList', 'name': 'Cosméticos Individuel Genève Advance Pro', 'numberOfItems': len(products),
                           'itemListElement': [{'@type': 'ListItem', 'position': i, 'url': f'{SITE}/pages/tienda/{p["slug"]}/', 'name': p['name']}
                                               for i, p in enumerate(products, 1)]})
-            root = static_root(path, f'''<h1>Shop Individuel México: cosméticos Individuel Genève originales</h1>
-            <p>Productos originales Individuel Genève de distribuidor autorizado en México. Línea Advance Pro: cosméticos personalizados para todo tipo de piel.</p>
+            root = static_root(path, f'''<h1>Shop Mexico · Individuel Genève: línea de grado médico</h1>
+            <p>Línea Advance Pro en su envase sellado de grado médico. Un producto de Individuel Genéve. Edición limitada en México. Consulta precios y disponibilidad.</p>
             <p>{claims}</p>{product_list(products)}''')
         if path == 'pages/contacto/':
             graph.append(BUSINESS)
