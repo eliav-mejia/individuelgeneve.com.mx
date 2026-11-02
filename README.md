@@ -28,7 +28,7 @@ antepone la subruta a todo `href`/`src`/`fetch` que empiece por `/`. En el códi
 | Token | Color | Uso |
 |---|---|---|
 | `white` | `#ffffff` | fondo, tarjetas |
-| `blush-200` | `#f4dfe2` | rosa claro: secciones suaves, chips, botón «Reservar» |
+| `blush-200` | `#f4dfe2` | rosa claro: secciones suaves, chips, botón «Promociones» |
 | `blush-500` | `#c4848e` | acentos pequeños: palabras en cursiva, avisos |
 | `ink` | `#2f2f33` | gris oscuro: texto, botones, pie |
 | `ink-400` | `#6e6e74` | texto secundario |
@@ -192,6 +192,10 @@ se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
 - SEO de marca (`tools/seo.py`): títulos y descripciones con Individuel Genève / Individuel México / Shop Individuel / producto
   original / distribuidor autorizado, JSON-LD (Organization, BeautySalon, Product, BlogPosting, breadcrumbs), HTML estático
   para buscadores, `sitemap.xml` y `robots.txt`. Nueva sección «Cosméticos Individuel originales» en el inicio.
+- Móvil: barra superior en una línea, sellos de marca apilados, tarjetas de la tienda con botón a lo ancho, cupones con la franja
+  del descuento arriba, botones táctiles de 44 px, campos de 16 px (sin zoom en iOS), pie a dos columnas y menos espacio vertical.
+  Misma paleta blanca que en escritorio: `theme-color` blanco, `color-scheme: only light` (sin oscurecimiento automático del
+  navegador) y degradado rosa de cabecera más ligero en pantallas pequeñas.
 - Fotos comerciales en las fichas (4 productos): imagen principal 4:5; el fondo blanco de la boutique queda como miniatura.
 - Carga sin texto visible: el HTML para buscadores (`.seo-static`) se oculta con JavaScript (`<html class="js">`) y en su lugar
   hay un anillo gris (`.page-loader`) hasta que React pinta. Logo de la cabecera más pequeño.

@@ -15,7 +15,7 @@
     --ink: #2f2f33;
     --ink-soft: #6e6e74;
     --line: #ebe5e6;
-    color-scheme: light;
+    color-scheme: only light;   /* never auto-darkened (Samsung Internet, Chrome auto dark mode); also <meta name="color-scheme"> */
 }
 
 html { background-color: var(--white); scroll-behavior: smooth; }
@@ -74,6 +74,9 @@ h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; fon
 }
 .field:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(196, 132, 142, .18); }
 
+/* Mobile: 16px in form fields so iOS Safari does not zoom in when one is tapped. */
+@media (max-width: 767px) { .field { font-size: 16px; } }
+
 /* Thin hairline divider with a centred dot */
 .ornament { display: flex; align-items: center; gap: 1rem; color: var(--rose); }
 .ornament::before, .ornament::after { content: ''; flex: 1; height: 1px; background: var(--line); }
@@ -84,6 +87,16 @@ h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; fon
         radial-gradient(60% 70% at 85% 20%, rgba(244, 223, 226, .9) 0%, transparent 70%),
         radial-gradient(50% 60% at 10% 90%, rgba(250, 238, 240, .9) 0%, transparent 70%),
         var(--white);
+}
+
+/* Mobile: the same white page as desktop. The wash is sized relative to the hero, so on a narrow screen it covered almost
+   all of it; here it is a light corner over white, as it reads on desktop. */
+@media (max-width: 767px) {
+    .wash {
+        background:
+            radial-gradient(70% 38% at 100% 0%, rgba(244, 223, 226, .55) 0%, transparent 70%),
+            var(--white);
+    }
 }
 
 /* Reveal on scroll (js/layout.jsx adds .is-in) */

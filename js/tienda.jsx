@@ -142,12 +142,12 @@ const ProductCard = ({ product, category }) => {
                 {soldOut && <span className="absolute top-5 right-5 label bg-white px-3 py-1.5 rounded-full">Agotado</span>}
             </a>
             <div className="pt-5 flex-1 flex flex-col">
-                <p className="label text-ink-400">{product.line}{category ? ` · ${category.label}` : ''}</p>
-                <h3 className="text-2xl mt-2"><a href={`/pages/tienda/${product.slug}/`} className="hover:text-blush-500">{product.name}</a></h3>
+                <p className="label text-ink-400"><span className="hidden sm:inline">{product.line}{category ? ' · ' : ''}</span>{category ? category.label : product.line}</p>
+                <h3 className="text-xl sm:text-2xl mt-2 leading-snug"><a href={`/pages/tienda/${product.slug}/`} className="hover:text-blush-500">{product.name}</a></h3>
                 <p className="text-sm text-ink-500 mt-1 flex-1 line-clamp-2">{product.description}</p>
-                <div className="flex items-center justify-between gap-3 mt-5">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-5">
                     <span className={product.price_mxn == null ? 'text-sm text-ink-400' : 'font-serif text-xl'}>{formatPrice(product.price_mxn)}</span>
-                    <BuyButton product={product} compact className="!py-2.5 !px-4 shrink-0" />
+                    <BuyButton product={product} compact className="!py-3 sm:!py-2.5 !px-4 shrink-0 w-full sm:w-auto" />
                 </div>
             </div>
         </article>
@@ -241,7 +241,7 @@ const ProductPage = () => {
                     </div>
                     <BuyButton product={product} className="w-full mt-6" />
                     <CouponNote product={product} />
-                    <ClaimsRow className="!justify-start mt-6 !text-[0.62rem]" />
+                    <ClaimsRow align="start" className="mt-6 sm:!text-[0.62rem]" />
                     <p className="text-xs text-ink-400 mt-4 text-center">
                         {checkoutUrl(product, null)
                             ? 'Pago seguro con Stripe. Recibirás tu recibo por correo electrónico.'
@@ -253,7 +253,7 @@ const ProductPage = () => {
                         <div className="flex gap-6 border-b border-ink-line" role="tablist">
                             {tabs.map(t => (
                                 <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)}
-                                    className={`label pb-3 -mb-px border-b ${tab === t.id ? 'border-ink text-ink' : 'border-transparent text-ink-400'}`}>{t.label}</button>
+                                    className={`label py-3 -mb-px border-b ${tab === t.id ? 'border-ink text-ink' : 'border-transparent text-ink-400'}`}>{t.label}</button>
                             ))}
                         </div>
                         <div className="pt-6 text-ink-500 leading-relaxed" role="tabpanel">{tabs.find(t => t.id === tab).body}</div>

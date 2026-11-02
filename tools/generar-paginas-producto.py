@@ -33,7 +33,8 @@ TEMPLATE = """<!DOCTYPE html>
     <meta property="og:type" content="product">
     <meta property="og:image" content="{image}">
     <link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#f4dfe2">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="only light">
     <script type="application/ld+json">{jsonld}</script>
 
     <script src="https://cdn.tailwindcss.com"></script>

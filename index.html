@@ -23,7 +23,8 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://individuelgeneve.com.mx/#webpage","url":"https://individuelgeneve.com.mx/","name":"Individuel Genève México | Cosméticos originales y faciales","description":"Distribuidor autorizado de Individuel Genève en México: cosméticos originales personalizados para todo tipo de piel y tratamientos faciales en CDMX.","inLanguage":"es-MX","isPartOf":{"@id":"https://individuelgeneve.com.mx/#website"}},{"@type":"Organization","@id":"https://individuelgeneve.com.mx/#organization","name":"Individuel Genève México","alternateName":["Individuel Geneve","Individuel México","Individuel Cosméticos"],"legalName":"BELLEZA PRO MX S.A. de C.V.","url":"https://individuelgeneve.com.mx/","logo":"https://individuelgeneve.com.mx/img/logo.webp","description":"Distribuidor autorizado de Individuel Genève en México: cosméticos originales personalizados para todo tipo de piel.","sameAs":["https://www.instagram.com/individuelgeneve.mx"],"contactPoint":{"@type":"ContactPoint","telephone":"+52-55-2307-6185","contactType":"customer service","areaServed":"MX","availableLanguage":"es"}},{"@type":"WebSite","@id":"https://individuelgeneve.com.mx/#website","name":"Individuel Genève","alternateName":["Individuel Geneve","Shop Individuel","Individuel México"],"url":"https://individuelgeneve.com.mx/","inLanguage":"es-MX","publisher":{"@id":"https://individuelgeneve.com.mx/#organization"}},{"@type":"BeautySalon","@id":"https://individuelgeneve.com.mx/#salon","name":"Individuel Genève Condesa","url":"https://individuelgeneve.com.mx/","image":"https://individuelgeneve.com.mx/img/inicio/01.webp","logo":"https://individuelgeneve.com.mx/img/logo.webp","telephone":"+52-55-2307-6185","parentOrganization":{"@id":"https://individuelgeneve.com.mx/#organization"},"address":{"@type":"PostalAddress","streetAddress":"Av. Tamaulipas 150, piso 15, torre B","addressLocality":"Ciudad de México","addressRegion":"CDMX","postalCode":"06140","addressCountry":"MX"},"geo":{"@type":"GeoCoordinates","latitude":19.4090682,"longitude":-99.1759227},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"10:00","closes":"16:00"}]}]}</script>
     <!-- /seo -->
     <link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#f4dfe2">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="only light">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./js/tailwind.config.js"></script>
@@ -72,7 +73,7 @@
 
         // Brand section (SEO): Individuel Genève / Individuel México, original products, authorised distributor, all skin types.
         const BrandIntro = () => (
-            <section className="max-w-5xl mx-auto px-4 md:px-8 py-20 md:py-28 text-center">
+            <section className="max-w-5xl mx-auto px-4 md:px-8 py-14 md:py-28 text-center">
                 <p className="label text-ink-400 mb-5 reveal">Individuel Genève en México · Distribuidor autorizado</p>
                 <h2 className="text-4xl md:text-6xl leading-tight reveal">Cosméticos Individuel <span className="font-script text-blush-500">originales</span></h2>
                 <p className="text-lg text-ink-500 mt-6 max-w-3xl mx-auto leading-relaxed reveal">
@@ -89,7 +90,7 @@
 
         const Split = ({ img, alt, kicker, title, script, text, children, flip = false, dark = false }) => (
             <section className={dark ? 'bg-ink text-white' : ''}>
-                <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 py-14 md:py-28 grid md:grid-cols-2 gap-12 items-center">
                     <Img src={img} alt={alt} className={`w-full rounded-3xl reveal ${flip ? 'md:order-2' : ''}`} />
                     <div className="reveal">
                         <p className={`label mb-5 ${dark ? 'text-blush-300' : 'text-ink-400'}`}>{kicker}</p>
@@ -106,7 +107,7 @@
             if (status !== 'ready') return null;
             const groups = data.groups.filter(g => g.id !== 'valoracion');
             return (
-                <section className="bg-blush-50 py-24 md:py-32">
+                <section className="bg-blush-50 py-16 md:py-32">
                     <div className="max-w-7xl mx-auto px-4 md:px-8">
                         <SectionTitle kicker="Menú de servicios" script="integral">Un tratamiento</SectionTitle>
                         <div className="grid md:grid-cols-3 gap-6">
@@ -130,7 +131,7 @@
         };
 
         const Process = () => (
-            <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
+            <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-32">
                 <SectionTitle kicker="Seguimiento clínico" script="resultados">Registra tus</SectionTitle>
                 <div className="grid md:grid-cols-2 gap-6">
                     <Img src="/img/inicio/04.webp" alt="Estudio fotográfico de registro: empieza con tu registro" className="w-full rounded-3xl reveal" />
@@ -146,7 +147,7 @@
         const Boutique = () => {
             const catalog = useCatalog();
             return (
-                <section className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
+                <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-32">
                     <SectionTitle kicker="Shop Individuel · Producto original" script="Advance Pro">Fórmulas</SectionTitle>
                     {catalog.status === 'loading' && <ProductGridSkeleton />}
                     {catalog.status === 'error' && <LoadError />}
@@ -165,7 +166,7 @@
         ];
 
         const Technologies = () => (
-            <section className="bg-ink text-white py-24 md:py-32">
+            <section className="bg-ink text-white py-16 md:py-32">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
                     <div className="text-center mb-14 reveal">
                         <p className="label text-blush-300 mb-4">FDA-Approved · ISO 9001 · Patent exclusive</p>

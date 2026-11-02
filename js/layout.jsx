@@ -51,9 +51,10 @@ const BRAND = {
 // «Distribuidor autorizado» comes from the original site (Individuel en México, operado por BELLEZA PRO MX). [verificar con el cliente]
 const BRAND_CLAIMS = ['Producto original', 'Distribuidor autorizado en México', 'Personalizado para todo tipo de piel'];
 
-const ClaimsRow = ({ dark = false, className = '' }) => (
-    <ul className={`flex flex-wrap justify-center gap-x-6 gap-y-2 label ${dark ? 'text-white/80' : 'text-ink-400'} ${className}`}>
-        {BRAND_CLAIMS.map(c => <li key={c} className="flex items-center gap-2"><IconCheck className={`w-4 h-4 ${dark ? 'text-blush-300' : 'text-blush-500'}`} />{c}</li>)}
+// Stacked one per line on mobile, in a row from sm. align="start" left-aligns it (product page).
+const ClaimsRow = ({ dark = false, align = 'center', className = '' }) => (
+    <ul className={`flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2 label !tracking-[0.18em] sm:!tracking-[0.28em] ${align === 'start' ? 'items-start sm:justify-start' : 'items-center sm:justify-center'} ${dark ? 'text-white/80' : 'text-ink-400'} ${className}`}>
+        {BRAND_CLAIMS.map(c => <li key={c} className="flex items-center gap-2 text-left"><IconCheck className={`w-4 h-4 shrink-0 ${dark ? 'text-blush-300' : 'text-blush-500'}`} />{c}</li>)}
     </ul>
 );
 
@@ -326,12 +327,12 @@ const Layout = ({ children }) => {
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] bg-white px-4 py-2 rounded">Saltar al contenido</a>
 
             <div className="bg-ink text-white text-center py-2.5 px-4">
-                <p className="label !text-[0.62rem]">{BRAND.tagline} · <a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-blush-300">Agenda por WhatsApp</a></p>
+                <p className="label !text-[0.68rem] sm:!text-[0.62rem]"><span className="hidden sm:inline">{BRAND.tagline} · </span><a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-blush-300">Agenda por WhatsApp</a></p>
             </div>
 
             <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-shadow ${scrolled ? 'shadow-[0_1px_0_#ebe5e6]' : ''}`}>
                 <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 md:h-24 flex items-center justify-between gap-6">
-                    <button className="xl:hidden" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
+                    <button className="xl:hidden p-2.5 -ml-2.5" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
 
                     <div className="xl:order-first"><Logo className="h-12 md:h-[3.75rem]" /></div>
 
@@ -405,8 +406,8 @@ const FOOTER_COLUMNS = [
 
 const Footer = () => (
     <footer className="bg-ink text-white/80 mt-24">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 grid gap-12 sm:grid-cols-2 lg:grid-cols-6">
-            <div className="sm:col-span-2">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-14 md:py-20 grid grid-cols-2 gap-x-6 gap-y-10 md:gap-12 lg:grid-cols-6">
+            <div className="col-span-2">
                 <Logo light className="h-24" />
                 <p className="mt-6 text-sm max-w-xs leading-relaxed">Distribuidor autorizado de Individuel Genève en México. Cosméticos originales personalizados para todo tipo de piel y tratamientos faciales no invasivos.</p>
                 <div className="flex gap-6 mt-6">
@@ -435,7 +436,7 @@ const Footer = () => (
 // --- SHARED SECTIONS ---
 const PageHero = ({ eyebrow, title, script, intro, children }) => (
     <section className="wash">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 pt-20 pb-16 md:pt-28 md:pb-24 text-center animate-rise-in">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 pt-14 pb-12 md:pt-28 md:pb-24 text-center animate-rise-in">
             {eyebrow && <p className="label text-ink-400 mb-6">{eyebrow}</p>}
             <h1 className="text-5xl md:text-7xl leading-[1.05]">
                 {title} {script && <span className="font-script text-blush-500 text-[1.15em] block md:inline">{script}</span>}
@@ -447,7 +448,7 @@ const PageHero = ({ eyebrow, title, script, intro, children }) => (
 );
 
 const SectionTitle = ({ kicker, script, children, align = 'center' }) => (
-    <div className={`mb-14 ${align === 'center' ? 'text-center' : ''} reveal`}>
+    <div className={`mb-10 md:mb-14 ${align === 'center' ? 'text-center' : ''} reveal`}>
         {kicker && <p className="label text-ink-400 mb-4">{kicker}</p>}
         <h2 className="text-4xl md:text-5xl leading-tight">{children} {script && <span className="font-script text-blush-500">{script}</span>}</h2>
     </div>
@@ -498,7 +499,7 @@ const Blocks = ({ blocks, className = '' }) => {
 
 // Call to action used at the end of most pages.
 const WhatsAppCTA = ({ title = '¿Necesitas ayuda?', text = 'Agenda una valoración para platicar opciones de tratamiento.', message }) => (
-    <section className="max-w-4xl mx-auto px-4 md:px-8 py-20 text-center reveal">
+    <section className="max-w-4xl mx-auto px-4 md:px-8 py-14 md:py-20 text-center reveal">
         <p className="font-script text-5xl text-blush-500">{title}</p>
         <p className="text-ink-500 mt-4 max-w-xl mx-auto">{text}</p>
         <div className="flex flex-wrap justify-center gap-3 mt-8">
