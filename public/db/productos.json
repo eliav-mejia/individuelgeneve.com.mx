@@ -150,7 +150,7 @@
     "/img/productos/calmin-soothing-cream-gel-1.webp",
     "/img/productos/calmin-soothing-cream-gel-2.webp"
    ],
-   "commercial_image": null,
+   "commercial_image": "/img/productos/calmin-soothing-cream-gel-comercial.webp",
    "old_url": "/boutiqueonline/advance-pro/p/calmante"
   },
   {
@@ -381,7 +381,7 @@
     "/img/productos/relax-soothing-emulsion-1.webp",
     "/img/productos/relax-soothing-emulsion-2.webp"
    ],
-   "commercial_image": null,
+   "commercial_image": "/img/productos/relax-soothing-emulsion-comercial.webp",
    "old_url": "/boutiqueonline/advance-pro/p/relajante"
   },
   {
@@ -490,7 +490,7 @@
     "/img/productos/tinted-moisturizer-with-spf30-1.webp",
     "/img/productos/tinted-moisturizer-with-spf30-2.webp"
    ],
-   "commercial_image": null,
+   "commercial_image": "/img/productos/tinted-moisturizer-with-spf30-comercial.webp",
    "old_url": "/boutiqueonline/advance-pro/p/tinted-moisturer"
   },
   {
