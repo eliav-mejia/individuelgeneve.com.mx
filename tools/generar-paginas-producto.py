@@ -32,7 +32,9 @@ TEMPLATE = """<!DOCTYPE html>
     <meta property="og:url" content="{url}">
     <meta property="og:type" content="product">
     <meta property="og:image" content="{image}">
-    <link rel="icon" href="../../../img/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../../../img/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../img/favicon-32.png">
+    <link rel="apple-touch-icon" href="../../../img/apple-touch-icon.png">
     <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="only light">
     <script type="application/ld+json">{jsonld}</script>

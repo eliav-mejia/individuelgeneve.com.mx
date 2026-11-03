@@ -26,3 +26,6 @@ Gemfile.lock
 
 # Fotos comerciales originales (fuente): se publican convertidas a img/productos/<slug>-comercial.webp
 img/productos/commercial_*
+
+# Fuente del favicon (se publica convertido: img/favicon.ico, favicon-32.png, apple-touch-icon.png, icon-192/512.png y /favicon.ico)
+img/I for favicon.jpg

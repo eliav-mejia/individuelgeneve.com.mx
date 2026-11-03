@@ -35,6 +35,8 @@ antepone la subruta a todo `href`/`src`/`fetch` que empiece por `/`. En el códi
 
 Logo: el original del cliente (`IndividuelOperadoPorBELLEZAPROMX.png` de Squarespace) recortado a 900 px: `img/logo.webp` (tinta
 `#2f2f33`) y `img/logo-blanco.webp` (fondos oscuros), en `Logo` de `js/layout.jsx`.
+Favicon: la «I» cursiva del logo (`img/I for favicon.jpg`, fuente fuera de git) en tinta sobre blanco: `img/favicon.ico` (16/32/48),
+`img/favicon-32.png`, `img/apple-touch-icon.png` (180), `img/icon-192.png`, `img/icon-512.png` y copia en `/favicon.ico`.
 Tipografías: **Pinyon Script** (cursiva: palabras de acento) · **Cormorant Garamond** (títulos) · **Jost** (texto).
 Tokens en `js/tailwind.config.js` (clases `bg-blush-200`, `text-ink`, `font-script`…) y en `:root` de `css/site.css`.
 Componentes: `.btn .btn-dark / .btn-light / .btn-blush`, `.field`, `.label`, `.wash`, `.reveal`.
