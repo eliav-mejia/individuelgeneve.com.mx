@@ -328,7 +328,9 @@ const Layout = ({ children }) => {
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] bg-white px-4 py-2 rounded">Saltar al contenido</a>
 
             <div className="bg-ink text-white text-center py-2.5 px-4">
-                <p className="label !text-[0.68rem] sm:!text-[0.62rem]"><span className="hidden sm:inline">{BRAND.tagline} · </span><a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-blush-300">Agenda por WhatsApp</a></p>
+                <p className="label !text-[0.68rem] sm:!text-[0.62rem]"><span className="hidden sm:inline">{BRAND.tagline} · </span>{PATH === '/'
+                    ? <a href="/pages/tienda/" className="underline underline-offset-4 hover:text-blush-300">Shop Individuel</a>   /* home = shop only: no booking link */
+                    : <a href={waLink()} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-blush-300">Agenda por WhatsApp</a>}</p>
             </div>
 
             <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-shadow ${scrolled ? 'shadow-[0_1px_0_#ebe5e6]' : ''}`}>

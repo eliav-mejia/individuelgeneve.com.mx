@@ -56,8 +56,8 @@ WEBSITE = {'@type': 'WebSite', '@id': f'{SITE}/#website', 'name': BRAND, 'altern
 
 # path → (title, description, breadcrumb label). Titles ≤ ~65 characters, descriptions ≤ ~160.
 PAGES = {
-    '': ('Individuel Genève México | Cosméticos originales y faciales',
-         'Distribuidor autorizado de Individuel Genève en México: cosméticos originales personalizados para todo tipo de piel y tratamientos faciales en CDMX.', None),
+    '': ('Shop Individuel Genève México | Cosméticos originales',
+         'Shop Individuel Genève México: fórmulas Advance Pro originales de distribuidor autorizado, personalizadas para todo tipo de piel.', None),
     'pages/tienda/': ('Shop Individuel México | Cosméticos Individuel Genève originales',
                       'Línea Advance Pro en su envase sellado de grado médico. Un producto de Individuel Genéve. Edición limitada en México. Consulta precios y disponibilidad.', 'Shop Individuel'),
     'pages/promociones/': ('Promociones y cupones Individuel Genève | Advance Pro',
@@ -192,11 +192,12 @@ def main():
         root = None
         if path == '':
             graph += [ORG, WEBSITE, BUSINESS]
-            root = static_root(path, f'''<h1>{BRAND} México: cosméticos originales y tratamientos faciales</h1>
-            <p>Distribuidor autorizado de Individuel Genève (Individuel Geneve) en México. Cosméticos Individuel personalizados para todo tipo de piel, producto original, y tratamientos faciales y corporales no invasivos en la Condesa, Ciudad de México.</p>
+            root = static_root(path, f'''<h1>Shop {BRAND} México: cosméticos originales Advance Pro</h1>
+            <p>Distribuidor autorizado de Individuel Genève (Individuel Geneve) en México. Cosméticos Individuel personalizados para todo tipo de piel: fórmulas Advance Pro de grado médico, producto original.</p>
             <p>{claims}</p>
             <h2><a href="/pages/tienda/">Shop Individuel: cosméticos Individuel Genève</a></h2>{product_list(products)}
-            <p><a href="/pages/tratamientos/">Menú de servicios</a> · <a href="/pages/tecnologias/">Tecnologías</a> · <a href="/pages/blog/">Blog</a> · <a href="/pages/contacto/">Contacto</a></p>''')
+            <h2>Fórmulas por tipo de piel</h2><ul>{''.join(f'<li><a href="/pages/tienda/?cat={c}">{e(l)}</a></li>' for c, l in cats.items() if any(c in p['category_ids'] for p in products))}</ul>
+            <p><a href="/pages/tienda/">Boutique</a> · <a href="/pages/ingredientes/">Ingredientes activos</a> · <a href="/pages/blog/">Blog</a> · <a href="/pages/contacto/">Contacto</a></p>''')
         else:
             graph.append(breadcrumb(crumbs_for(path)))
         if path == 'pages/tienda/':
