@@ -49,7 +49,10 @@ Cada página es una carpeta con su `index.html` (URLs limpias, como en lameyer.n
 individuelgeneve.com.mx/
 ├── CNAME · .nojekyll · .gitignore · .env.example
 ├── README.md                     este archivo
-├── index.html                    inicio: Facial glow up, servicios, Advance Pro, tecnologías, registro, cápsulas
+├── index.html                    inicio (solo shop): Skin glow up, marca, Fórmulas Advance Pro, fórmulas por tipo de piel,
+│                                 ingredientes activos, resultados. Sin citas, servicios ni tecnologías
+├── index-clinica.html            respaldo del inicio anterior (servicios, valoración, tecnologías, cápsulas); noindex,
+│                                 fuera del sitemap y sin enlaces; tools/seo.py no lo toca
 ├── 404.html                      página no encontrada + redirecciones (MOVED)
 │
 ├── css/site.css                  UNA hoja de estilos: tokens, botones, campos, animaciones
@@ -177,10 +180,26 @@ Detalle, orden de los pasos, reversión e impacto SEO: `_interno/migracion/` (do
 | 1.2 | Pago en línea: Edge Function `crear-pedido` + Stripe / Mercado Pago, webhook, descuento de stock; recordatorios de cita |
 | 2.0 | Repositorio con build: Vite + React + Tailwind (o Next.js con `output: 'export'`), mismos componentes y rutas; panel de administración (pedidos, agenda, stock) |
 
+Asesor por WhatsApp con n8n (propuesta, no desplegado): etiqueta de origen en cada botón de WhatsApp → agente que pregunta
+por la rutina y comparte las promociones vigentes. Detalle interno en `_interno/propuestas/` y `_interno/guias/`.
+
 Al pasar a 2.0, cada `.jsx` se convierte en módulos (`layout.jsx` → `components/Layout.jsx`, etc.) y los JSON de `public/db/`
 se retiran. Las URLs se mantienen, así que no hacen falta redirecciones.
 
 ## Versiones
+
+### Sin número · 2026-11-07 · Inicio solo shop (main `c8455c2`)
+- `index.html` pasa a ser solo boutique: héroe «Skin glow up» (Shop Individuel · Fórmulas por tipo de piel), «Cosméticos
+  Individuel originales», 4 productos destacados, una tarjeta por categoría (→ `/pages/tienda/?cat=`), ingredientes activos
+  (→ `/pages/ingredientes/`) y resultados (antes y después). Fuera del inicio: «Agenda por WhatsApp», menú de servicios,
+  dermo-análisis / valoración, tratamientos, tecnologías (SonNext, Ballancer, MIT) y cápsulas.
+- El inicio anterior queda en `index-clinica.html` (`noindex`). Las páginas de servicios no cambian y siguen enlazadas desde
+  el menú (Tecnologías) y el pie.
+- Barra superior: en el inicio muestra «Shop Individuel»; en el resto de páginas sigue «Agenda por WhatsApp» (`PATH` en
+  `js/layout.jsx`).
+- `tools/seo.py`: título «Shop Individuel Genève México | Cosméticos originales», descripción sin tratamientos y HTML para
+  buscadores con productos y categorías. Sitemap sin cambios.
+- **Pendiente de decidir:** quitar Tecnologías y WhatsApp del menú y del pie solo en el inicio o en todo el sitio.
 
 ### 1.1.0 — 2026-11-01 · Contenido real (staging)
 - Catálogo real desde `products_Nov-01_10-41-27AM.csv` (export de Squarespace): 18 productos Advance Pro (17 visibles; Sonica
